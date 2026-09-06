@@ -28,6 +28,16 @@ dependencies:
       - igraph
       - seaborn
 
+      # imported directly by notebooks, so pinned here rather than relied on
+      # arriving through scanpy / spatialdata
+      - numpy
+      - pandas
+      - matplotlib
+      - scipy
+      - scikit-learn
+      - geopandas
+      - shapely
+
       # day 1
       - scrublet
       - decoupler
