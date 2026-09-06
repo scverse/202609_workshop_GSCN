@@ -27,7 +27,9 @@ parts:
         - file: day_2/nb1_ligand_recepter_interactions.ipynb
           title: "1. Ligand-Receptor Interactions"
         - file: day_2/nb2_differential_cellular_abundance.ipynb
-          title: "2. Differential Cellular Abundance"
+          title: "2. Differential Cellular Abundance (miloR via rpy2)"
+        - file: day_2/nb2_differential_cellular_abundance_pertpy_implementation.ipynb
+          title: "2b. Differential Cellular Abundance (pertpy)"
         - file: day_2/spatialdata/README.md
           title: Spatial Analysis
           sections:
