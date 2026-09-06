@@ -20,3 +20,9 @@ Thumbs.db
 *.zip
 # session scratch
 .remember/
+
+# staged workshop data (downloaded, not tracked)
+notebooks/day_1/data/*
+!notebooks/day_1/data/README.md
+notebooks/day_2/spatialdata/data/*
+!notebooks/day_2/spatialdata/data/README.md
