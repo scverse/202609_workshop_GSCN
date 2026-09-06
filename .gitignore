@@ -20,6 +20,3 @@ Thumbs.db
 *.zip
 # session scratch
 .remember/
-
-# jupyter-book output
-notebooks/_build/
