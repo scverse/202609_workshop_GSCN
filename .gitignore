@@ -26,3 +26,9 @@ notebooks/day_1/data/*
 !notebooks/day_1/data/README.md
 notebooks/day_2/spatialdata/data/*
 !notebooks/day_2/spatialdata/data/README.md
+
+# artefacts written by running the notebooks
+notebooks/**/datasets/
+notebooks/**/*.h5ad
+notebooks/**/*.zarr/
+notebooks/**/.pybiomart.sqlite

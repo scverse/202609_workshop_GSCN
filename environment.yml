@@ -49,7 +49,10 @@ dependencies:
       - palantir
       - "cellrank>=2.3"   # 2.0.x is what the solver falls back to, and it is far older
       - scanorama
-      - harmonypy
+      # scanpy 1.12.4's harmony_integrate does harmony_out.Z_corr.T, which is only
+      # correct for harmonypy 0.0.x. 2.x already returns cells-by-PCs and the
+      # transpose makes the shape invalid.
+      - "harmonypy==0.0.10"
       - scib-metrics
 
       # day 2 morning
