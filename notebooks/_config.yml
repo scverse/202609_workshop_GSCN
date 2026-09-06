@@ -1,7 +1,7 @@
 # Book settings
-title: scverse x GSCN Workshop 2025
+title: scverse x GSCN Workshop
 author: scverse community & outreach team
-copyright: "2025, scverse"
+copyright: "scverse"
 logo: "../misc/ressources/scverse_logo.png"
 
 # Force re-execution of notebooks on each build.
@@ -20,7 +20,7 @@ bibtex_bibfiles:
 
 # Information about where the book exists on the web
 repository:
-  url: https://github.com/scverse/202504_workshop_GSCN
+  url: https://github.com/scverse/202609_workshop_GSCN
   branch: main
   path_to_book: notebooks
 
@@ -33,4 +33,4 @@ html:
   extra_navbar: ""
   extra_footer: ""
   home_page_in_navbar: true
-  baseurl: "/202504_workshop_GSCN" 
+  baseurl: "/202609_workshop_GSCN" 

@@ -1,0 +1,57 @@
+# One environment for the whole workshop - both days, every notebook.
+#
+#   conda env create -f environment.yml
+#   conda activate scverse-workshop
+#   python -m ipykernel install --user --name scverse-workshop
+#
+# Deliberately unpinned: we want the current scverse stack every time this is
+# reused. If a release breaks a notebook, pin that one package here and say why.
+name: scverse-workshop
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.12
+  - pip
+  - pip:
+      # notebook interface
+      - jupyterlab
+      - notebook
+      - ipykernel
+
+      # core
+      - scanpy
+      - anndata
+      - scikit-misc
+      - leidenalg
+      - igraph
+      - seaborn
+
+      # day 1
+      - scrublet
+      - decoupler
+      - pydeseq2
+      - pybiomart
+      - adjustText
+      - palantir
+      - cellrank
+      - scanorama
+      - harmonypy
+      - scib-metrics
+
+      # day 2 morning
+      - liana
+      - pertpy
+      - lamindb
+      - filelock            # pertpy imports it but does not declare it
+      - "statsmodels<0.15"  # pertpy 1.0.3 needs statsmodels.sandbox.stats.multicomp
+
+      # day 2 afternoon - spatial
+      - spatialdata
+      - spatialdata-io
+      - spatialdata-plot
+      - squidpy
+      - cellcharter
+      - scvi-tools
+      - pyproj

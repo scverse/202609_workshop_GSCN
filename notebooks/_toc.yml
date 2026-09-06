@@ -10,22 +10,24 @@ parts:
       title: Day 1
       sections:
         - file: day_1/nb1_qc_normalization.ipynb
-          title: "QC and Normalization"
+          title: "1. QC and Normalization"
         - file: day_1/nb2_preprocessing.ipynb
-          title: "Preprocessing"
-        - file: day_1/nb3_batch_correction.ipynb
-          title: "Batch Correction"
-        - file: day_1/nb4_downstream_analysis.ipynb
-          title: "Downstream Analysis"
+          title: "2. Preprocessing"
+        - file: day_1/nb3_downstream_analysis.ipynb
+          title: "3. Downstream Analysis"
+        - file: day_1/nb4_batch_correction.ipynb
+          title: "4. Batch Correction"
         - file: day_1/nb5_trajectory_inference.ipynb
-          title: "Trajectory Inference"
+          title: "5. Trajectory Inference"
+        - file: day_1/nb6_cell_rank.ipynb
+          title: "6. Fate Probabilities with CellRank"
     - file: day_2/README.md
       title: Day 2
       sections:
         - file: day_2/nb1_ligand_recepter_interactions.ipynb
-          title: "Ligand-Receptor Interactions"
+          title: "1. Ligand-Receptor Interactions"
         - file: day_2/nb2_differential_cellular_abundance.ipynb
-          title: "Differential Cellular Abundance"
+          title: "2. Differential Cellular Abundance"
         - file: day_2/spatialdata/README.md
           title: Spatial Analysis
           sections:
@@ -33,13 +35,13 @@ parts:
               title: "1. SpatialData Objects"
             - file: day_2/spatialdata/beginner/nb2_static_plotting.ipynb
               title: "2. Static Plotting"
-            - file: day_2/spatialdata/beginner/nb3_interactive_plotting_with_napari.ipynb
-              title: "3. Interactive Plotting with Napari"
+            - file: day_2/spatialdata/beginner/nb3_region_annotation.ipynb
+              title: "3. Region Annotation"
             - file: day_2/spatialdata/beginner/nb4_simple_analysis_using_scverse_tools.ipynb
               title: "4. Simple Analysis using scverse Tools"
             - file: day_2/spatialdata/advanced/transformations.ipynb
               title: "5. Transformations (advanced)"
             - file: day_2/spatialdata/advanced/tutorial_niche_calculation.ipynb
-              title: "6. Niche Calculation Tutorial (advanced)"
-    - file: day_3/README.md
-      title: Day 3 
+              title: "6. Niche Calculation (advanced)"
+        - file: day_2/spatial_domain_and_niche.ipynb
+          title: "3. Spatial Domains and Niches"

@@ -1,84 +1,53 @@
-# Overview
+# scverse x GSCN workshop
 
-## Before the event
+Notebooks for **"Computational single-cell genomics for stem cell biologists"**.
 
-### Tech setup
+Schedule, venue and full setup instructions live on the workshop site:
+**https://scverse.org/gscn2026/**
 
-A detailed software instructions setup can be found [here](https://docs.google.com/document/d/1WwkN9VOOcfZH7e9VdQLLQWHkbjnKbpkS947qNHSn-Uc/edit?usp=drive_link). If you have any other questions, please direct them to the [2025-10: Workshop GSCN > tech-support](https://scverse.zulipchat.com/#narrow/channel/535548-2025-10.3A-Workshop-GSCN/topic/tech-support/with/544427240) Zulip channel.
+## Setup, in short
 
+Full step-by-step instructions, including how to install Anaconda on your operating
+system, are at **https://scverse.org/gscn2026/setup/**. If you already have a working
+conda, this is all of it:
 
+```
+conda env create -f environment.yml
+conda activate scverse-workshop
+python -m ipykernel install --user --name scverse-workshop
+```
 
-## Workshop Schedule
+One environment covers both days and every notebook in this repository. Start work with:
 
-*Note: Schedule subject to minor adjustments.*
+```
+conda activate scverse-workshop
+jupyter lab
+```
 
-### 🗓️ Day 1, October 13
+and make sure the kernel shown in the top right of each notebook is
+**scverse-workshop**.
 
-**13:00 – 13:15**  
-🔹 *Introduction*
+## Data
 
-**13:15 – 14:00**  
-🧠 *Common Lecture on:*  
-- Basic pre-processing of single-cell RNA-seq data [F]  
-- Interpretive analysis using **PyDESeq2** [F]
+Day 2 needs three files, downloaded before the workshop and unzipped into
+`notebooks/day_2/spatialdata/data/`:
 
-**14:00 – 15:00**  
-💻 *Coding Practice & Troubleshooting Session*  
-- **Group A (Advanced)** – Room: *TBD*  
-- **Group B (Beginners)** – Room: *TBD*
+- [Visium](https://s3.embl.de/spatialdata/raw_data/workshop/visium_2.1.0_2_io_subset.zip) (67 MB)
+- [Visium HD](https://s3.embl.de/spatialdata/raw_data/workshop/visium_hd_3.0.0_io_subset.zip) (228 MB)
+- [Xenium](https://s3.embl.de/spatialdata/raw_data/workshop/xenium_2.0.0_io_subset.zip) (786 MB)
 
-**15:00 – 15:30**  
-☕ *Coffee Break*
+Day 1 data: see [notebooks/day_1/README.md](notebooks/day_1/README.md).
 
-**15:30 – 16:15**  
-🧠 *Common Lecture on:*  
-- Batch correction [S]  
-- Trajectory analysis [S]
+## Contents
 
-**16:15 – 18:00**  
-💻 *Coding Practice & Troubleshooting Session*  
-- **Group A (Advanced)** – Room: *TBD*  
-- **Group B (Beginners)** – Room: *TBD*
+- [Day 1](notebooks/day_1/README.md) — QC, preprocessing, downstream analysis, batch
+  correction, trajectory inference, fate probabilities
+- [Day 2](notebooks/day_2/README.md) — ligand-receptor interactions, differential
+  abundance, spatial data, spatial domains and niches
+- [misc/pre-workshop](misc/pre-workshop/pre_workshop_session.ipynb) — Python refresher
 
----
+## Reusing this for the next edition
 
-### 🗓️ Day 2, October 14
-
-**09:00 – 10:00**  
-🧠 *Common Lecture on:*  
-- Ligand-receptor interactions [S]  
-- Differential cellular abundance [S]
-
-**10:00 – 10:30**  
-☕ *Coffee Break*
-
-**10:30 – 12:00**  
-💻 *Coding Practice & Troubleshooting Session*  
-- **Group A (Advanced)** – Room: *TBD*  
-- **Group B (Beginners)** – Room: *TBD*
-
-**12:00 – 13:00**  
-🍽️ *Lunch Break*
-
-**13:00 – 14:00**  
-🧠 *Common Lecture on:*  
-- Introduction to spatial transcriptomics [S]  
-- Spatial data [S]
-
-**14:00 – 15:00**  
-💻 *Coding Practice & Troubleshooting Session*  
-- **Group A (Advanced)** – Room: *TBD*  
-- **Group B (Beginners)** – Room: *TBD*
-
-**15:00 – 15:30**  
-☕ *Coffee Break*
-
-**15:30 – 16:30**  
-🧠 *Common Lecture on:*  
-- Spatially aware clustering [F]  
-- Niche detection [F]
-
-**16:30 – 18:00**  
-💻 *Coding Practice & Troubleshooting Session*  
-- **Group A (Advanced)** – Room: *TBD*  
-- **Group B (Beginners)** – Room: *TBD*
+Nothing here is dated: the environment is called `scverse-workshop`, the kernel matches,
+and `environment.yml` is unpinned so a fresh `conda env create` picks up the current
+scverse stack. Fork, update the data links, run the notebooks through once.

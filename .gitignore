@@ -18,3 +18,5 @@ Thumbs.db
 # Don't include any data files
 *.zarr
 *.zip
+# session scratch
+.remember/

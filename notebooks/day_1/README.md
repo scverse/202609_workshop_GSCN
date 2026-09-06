@@ -1,20 +1,12 @@
 # Day 1: Introduction to Single-cell RNA-seq Analysis
 
-## Environment setup
-
-```
-conda create -y --name workshop_2025 python=3.10
-conda activate workshop_2025
-pip install jupyterlab notebook 
-conda install -y ipykernel conda-forge::python-annoy
-pip install scikit-misc PhenoGraph celltypist palantir scrublet cellrank pydeseq2 liana gseapy rpy2 anndata2ri scanpy python-igraph pyscipopt decoupler pybiomart adjustText
-python -m ipykernel install --user --name workshop_2025
-```
+All notebooks use the single `scverse-workshop` environment - see the
+[setup instructions](https://scverse.org/gscn2026/setup/).
 
 ## Data
 
-We will work with publicly available data throughout the workshop:
-- Please download this folder in your workstation: https://drive.google.com/drive/folders/1XJmaeTTap4Li9RwHt8k7GuhEz74qZXAv?usp=sharing
+Notebooks 3 and 6 download their data themselves. The others read from a local
+`data_day1/` folder; the download link is announced on Zulip before the workshop.
 
 ## Notebooks
 
