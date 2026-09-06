@@ -1,0 +1,1392 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Basic analysis methods within the spatialdata ecosystem &#8212; scverse x GSCN Workshop</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'day_2/spatialdata/beginner/nb4_simple_analysis_using_scverse_tools';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="/202609_workshop_GSCN/day_2/spatialdata/beginner/nb4_simple_analysis_using_scverse_tools.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Transformations and coordinate systems" href="../advanced/transformations.html" />
+    <link rel="prev" title="Annotating regions in SpatialData objects" href="nb3_region_annotation.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../../_static/searchtools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../README.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/scverse_logo.png" class="logo__image only-light" alt="scverse x GSCN Workshop - Home"/>
+    <img src="../../../_static/scverse_logo.png" class="logo__image only-dark pst-js-only" alt="scverse x GSCN Workshop - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../README.html">
+                    scverse x GSCN workshop
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Notebooks</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../day_1/README.html">Day 1</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../day_1/nb1_qc_normalization.html">QC and Normalisation</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../../../day_1/nb2_preprocessing.html">Dimensionality reduction, clustering and annotation</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../../../day_1/nb3_downstream_analysis.html">3. Downstream Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../day_1/nb4_batch_correction.html">Batch Correction</a></li>
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../../../day_1/nb5_trajectory_inference.html">Introduction</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../../../day_1/nb6_cell_rank.html">6. Fate Probabilities with CellRank</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../README.html">Day 2</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../nb1_ligand_recepter_interactions.html">1. Ligand-Receptor Interactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nb2_differential_cellular_abundance.html">Introduction</a></li>
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../../nb2_differential_cellular_abundance_pertpy_implementation.html">Introduction</a></li>
+
+
+
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../README.html">Spatial Analysis</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="nb1_spatialdata_objects.html">1. SpatialData Objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nb2_static_plotting.html">2. Static Plotting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nb3_region_annotation.html">3. Region Annotation</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">4. Simple Analysis using scverse Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../advanced/transformations.html">5. Transformations (advanced)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../advanced/tutorial_niche_calculation.html">6. Niche Calculation (advanced)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../spatial_domain_and_niche.html">3. Spatial Domains and Niches</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/scverse/202609_workshop_GSCN" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/day_2/spatialdata/beginner/nb4_simple_analysis_using_scverse_tools.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Basic analysis methods within the spatialdata ecosystem</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subset-the-xenium-data-for-the-scope-of-this-workshop">Subset the Xenium data for the scope of this workshop</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#investigate-the-proposed-leiden-clusters">Investigate the proposed Leiden clusters</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rename-clusters">Rename clusters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#studying-the-cell-type-fingerprint-for-regions-of-interest">Studying the cell-type fingerprint for regions of interest</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="basic-analysis-methods-within-the-spatialdata-ecosystem">
+<h1>Basic analysis methods within the <code class="docutils literal notranslate"><span class="pre">spatialdata</span></code> ecosystem<a class="headerlink" href="#basic-analysis-methods-within-the-spatialdata-ecosystem" title="Link to this heading">#</a></h1>
+<p>In this notebook, we will show how <code class="docutils literal notranslate"><span class="pre">scanpy</span></code> can be used to perform dimensionality reduction and clustering on Xenium data.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">SpatialData</span></code> object is interoperable with external methods thanks to its modular design that builds upon established data structures.</p>
+<p>For instance, in this notebook the decoupling of the geometries and the gene expression annotations for cells allows us to operate on the <code class="docutils literal notranslate"><span class="pre">AnnData</span></code> table using <code class="docutils literal notranslate"><span class="pre">scanpy</span></code>, store back the results in the <code class="docutils literal notranslate"><span class="pre">SpatialData</span></code> object and plot the processed data using <code class="docutils literal notranslate"><span class="pre">spatialdata-plot</span></code>.</p>
+<p>⚠️ Adjust the variable below to the data path on your specific workstation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_path</span> <span class="o">=</span> <span class="s2">"../data/"</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">spatialdata</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">spatialdata_plot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sdp</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>  <span class="c1"># for multi-panel plots later</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scanpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sc</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">squidpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sq</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">[</span><span class="n">sd</span><span class="p">,</span> <span class="n">sdp</span><span class="p">,</span> <span class="n">sc</span><span class="p">,</span> <span class="n">sq</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+
+<span class="n">sdata_xenium</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">read_zarr</span><span class="p">(</span><span class="n">data_path</span> <span class="o">+</span> <span class="s2">"xenium.zarr"</span><span class="p">)</span>
+<span class="n">sdata_xenium</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>spatialdata: 0.3.0
+spatialdata_plot: 0.2.9
+scanpy: 1.11.0
+squidpy: 1.6.6.dev9+g78ed95c.d20250331
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/tim.treis/anaconda3/envs/spatialdata-workshop/lib/python3.11/site-packages/anndata/_core/aligned_df.py:68: ImplicitModificationWarning: Transforming to str index.
+  warnings.warn("Transforming to str index.", ImplicitModificationWarning)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SpatialData object, with associated Zarr store: /Users/tim.treis/Documents/GitHub/202504_workshop_GSCN/notebooks/day_2/spatialdata/data/xenium.zarr
+├── Images
+│     ├── 'he_image': DataTree[cyx] (3, 5636, 1448), (3, 2818, 724), (3, 1409, 362), (3, 704, 181), (3, 352, 90)
+│     └── 'morphology_focus': DataTree[cyx] (1, 17098, 51187), (1, 8549, 25593), (1, 4274, 12796), (1, 2137, 6398), (1, 1068, 3199)
+├── Labels
+│     ├── 'cell_labels': DataTree[yx] (17098, 51187), (8549, 25593), (4274, 12796), (2137, 6398), (1068, 3199)
+│     └── 'nucleus_labels': DataTree[yx] (17098, 51187), (8549, 25593), (4274, 12796), (2137, 6398), (1068, 3199)
+├── Points
+│     └── 'transcripts': DataFrame with shape: (&lt;Delayed&gt;, 11) (3D points)
+├── Shapes
+│     ├── 'cell_boundaries': GeoDataFrame shape: (162254, 1) (2D shapes)
+│     ├── 'cell_circles': GeoDataFrame shape: (162254, 2) (2D shapes)
+│     └── 'nucleus_boundaries': GeoDataFrame shape: (156628, 1) (2D shapes)
+└── Tables
+      └── 'table': AnnData (162254, 377)
+with coordinate systems:
+    ▸ 'global', with elements:
+        he_image (Images), morphology_focus (Images), cell_labels (Labels), nucleus_labels (Labels), transcripts (Points), cell_boundaries (Shapes), cell_circles (Shapes), nucleus_boundaries (Shapes)
+</pre></div>
+</div>
+</div>
+</div>
+<section id="subset-the-xenium-data-for-the-scope-of-this-workshop">
+<h2>Subset the Xenium data for the scope of this workshop<a class="headerlink" href="#subset-the-xenium-data-for-the-scope-of-this-workshop" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">"Data has </span><span class="si">{</span><span class="n">sdata_xenium</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="s1">'transcripts'</span><span class="p">]</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> transcript locations."</span>
+<span class="p">)</span>
+<span class="n">sdata_xenium</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">render_images</span><span class="p">(</span><span class="s2">"he_image"</span><span class="p">)</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers). Got range [-0.18137255..1.0].
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data has 12165021 transcript locations.
+</pre></div>
+</div>
+<img alt="../../../_images/d2a8dbe10b2959c7e6bf7873bbe24c7487aed15276f9603ea367fc6a969dcac2.png" src="../../../_images/d2a8dbe10b2959c7e6bf7873bbe24c7487aed15276f9603ea367fc6a969dcac2.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sdata_crop</span> <span class="o">=</span> <span class="n">sdata_xenium</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">bounding_box</span><span class="p">(</span>
+    <span class="n">axes</span><span class="o">=</span><span class="p">[</span><span class="s2">"x"</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">],</span>
+    <span class="n">min_coordinate</span><span class="o">=</span><span class="p">[</span><span class="mi">25000</span><span class="p">,</span> <span class="mi">5000</span><span class="p">],</span>
+    <span class="n">max_coordinate</span><span class="o">=</span><span class="p">[</span><span class="mi">35000</span><span class="p">,</span> <span class="mi">15000</span><span class="p">],</span>
+    <span class="n">target_coordinate_system</span><span class="o">=</span><span class="s2">"global"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">"Crop has </span><span class="si">{</span><span class="n">sdata_crop</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="s1">'transcripts'</span><span class="p">]</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> transcript locations."</span>
+<span class="p">)</span>
+<span class="n">sdata_crop</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">render_images</span><span class="p">(</span><span class="s2">"he_image"</span><span class="p">)</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/tim.treis/anaconda3/envs/spatialdata-workshop/lib/python3.11/functools.py:909: UserWarning: The object has `points` element. Depending on the number of points, querying MAY suffer from performance issues. Please consider filtering the object before calling this function by calling the `subset()` method of `SpatialData`.
+  return dispatch(args[0].__class__)(*args, **kw)
+Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers). Got range [-0.094420604..1.0].
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Crop has 2683201 transcript locations.
+</pre></div>
+</div>
+<img alt="../../../_images/4b86bfd60d62ac18db3ee7f8933ac471f877e5bc51e27632a49fd89cf8811064.png" src="../../../_images/4b86bfd60d62ac18db3ee7f8933ac471f877e5bc51e27632a49fd89cf8811064.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sdata_crop</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s2">"table"</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AnnData object with n_obs × n_vars = 33727 × 377
+    obs: 'cell_id', 'transcript_counts', 'control_probe_counts', 'control_codeword_counts', 'unassigned_codeword_counts', 'deprecated_codeword_counts', 'total_counts', 'cell_area', 'nucleus_area', 'region', 'z_level', 'nucleus_count', 'cell_labels'
+    var: 'gene_ids', 'feature_types', 'genome'
+    uns: 'spatialdata_attrs'
+    obsm: 'spatial'
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">normalize_total</span><span class="p">(</span><span class="n">sdata_crop</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s2">"table"</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">sdata_crop</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s2">"table"</span><span class="p">])</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">sdata_crop</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s2">"table"</span><span class="p">])</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">sdata_crop</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s2">"table"</span><span class="p">])</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">sdata_crop</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s2">"table"</span><span class="p">])</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">leiden</span><span class="p">(</span><span class="n">sdata_crop</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s2">"table"</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/tim.treis/anaconda3/envs/spatialdata-workshop/lib/python3.11/site-packages/scanpy/preprocessing/_normalization.py:235: UserWarning: Some cells have zero counts
+  warn(UserWarning("Some cells have zero counts"))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span>
+    <span class="n">sdata_crop</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s2">"table"</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">"total_counts"</span><span class="p">,</span>
+        <span class="s2">"leiden"</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="n">wspace</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/44a935f59a56352ddac9b784d065fd9ff48005d468a4c9404070dbdd3733793c.png" src="../../../_images/44a935f59a56352ddac9b784d065fd9ff48005d468a4c9404070dbdd3733793c.png" />
+</div>
+</div>
+</section>
+<section id="investigate-the-proposed-leiden-clusters">
+<h2>Investigate the proposed Leiden clusters<a class="headerlink" href="#investigate-the-proposed-leiden-clusters" title="Link to this heading">#</a></h2>
+<p>The Leiden clustering essentially clusters the data into an arbitrary amount of clusters based on similarity of the contained <code class="docutils literal notranslate"><span class="pre">AnnData</span></code> table. At this stage, it is recommended to directly use prior bio knowledge to annotate these clusters. We will do this in a fairly basic manner here, using marker genes for lung tissue from <a class="reference external" href="https://cellxgene.cziscience.com/gene-expression">https://cellxgene.cziscience.com/gene-expression</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># fmt: off</span>
+<span class="n">HLCA_cell_type_signatures</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"alveolar_type1_fibroblasts"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"ADH1B"</span><span class="p">,</span> <span class="s2">"DCN"</span><span class="p">,</span> <span class="s2">"LUM"</span><span class="p">,</span> <span class="s2">"FBLN1"</span><span class="p">,</span> <span class="s2">"A2M"</span><span class="p">,</span> <span class="s2">"C1S"</span><span class="p">,</span> <span class="s2">"SCN7A"</span><span class="p">,</span> <span class="s2">"C7_ENSG00000112936"</span><span class="p">,</span> <span class="s2">"GPC3"</span><span class="p">,</span> <span class="s2">"CFD"</span><span class="p">,</span> <span class="s2">"FMO2"</span><span class="p">,</span> <span class="s2">"GPX3"</span><span class="p">,</span> <span class="s2">"RARRES2"</span><span class="p">,</span> <span class="s2">"C1R"</span><span class="p">,</span> <span class="s2">"PLEKHH2"</span><span class="p">,</span> <span class="s2">"FBLN5"</span><span class="p">,</span> <span class="s2">"FN1"</span><span class="p">,</span> <span class="s2">"PRELP"</span><span class="p">,</span> <span class="s2">"SELENOP"</span><span class="p">,</span> <span class="s2">"SERPING1"</span><span class="p">,</span> <span class="s2">"FHL1"</span><span class="p">,</span> <span class="s2">"NBL1"</span><span class="p">,</span> <span class="s2">"SLIT2"</span><span class="p">,</span> <span class="s2">"MFAP4"</span><span class="p">,</span> <span class="s2">"COL6A2"</span><span class="p">,],</span>
+    <span class="s2">"alveolar_type2_fibroblast"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"DCN"</span><span class="p">,</span> <span class="s2">"FBLN1"</span><span class="p">,</span> <span class="s2">"C1S"</span><span class="p">,</span> <span class="s2">"IGFBP6"</span><span class="p">,</span> <span class="s2">"ADH1B"</span><span class="p">,</span> <span class="s2">"CFD"</span><span class="p">,</span> <span class="s2">"LUM"</span><span class="p">,</span> <span class="s2">"C1R"</span><span class="p">,</span> <span class="s2">"CCDC80"</span><span class="p">,</span> <span class="s2">"C3_ENSG00000125730"</span><span class="p">,</span> <span class="s2">"SFRP2"</span><span class="p">,</span> <span class="s2">"COL6A2"</span><span class="p">,</span> <span class="s2">"NNMT"</span><span class="p">,</span> <span class="s2">"MGP"</span><span class="p">,</span> <span class="s2">"EFEMP1"</span><span class="p">,</span> <span class="s2">"FBN1"</span><span class="p">,</span> <span class="s2">"GSN"</span><span class="p">,</span> <span class="s2">"FSTL1"</span><span class="p">,</span> <span class="s2">"PLAC9"</span><span class="p">,</span> <span class="s2">"C7_ENSG00000112936"</span><span class="p">,</span> <span class="s2">"ABI3BP"</span><span class="p">,</span> <span class="s2">"SERPING1"</span><span class="p">,</span> <span class="s2">"COL1A2"</span><span class="p">,</span> <span class="s2">"MFAP5"</span><span class="p">,</span> <span class="s2">"RARRES1"</span><span class="p">,],</span>
+    <span class="s2">"endothelial_cell"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"CLDN5"</span><span class="p">,</span> <span class="s2">"PECAM1"</span><span class="p">,</span> <span class="s2">"EPAS1"</span><span class="p">,</span> <span class="s2">"EGFL7"</span><span class="p">,</span> <span class="s2">"RAMP2"</span><span class="p">,</span> <span class="s2">"CALCRL"</span><span class="p">,</span> <span class="s2">"GNG11"</span><span class="p">,</span> <span class="s2">"VWF"</span><span class="p">,</span> <span class="s2">"AQP1"</span><span class="p">,</span> <span class="s2">"HYAL2"</span><span class="p">,</span> <span class="s2">"TM4SF1"</span><span class="p">,</span> <span class="s2">"ENG"</span><span class="p">,</span> <span class="s2">"CLEC14A"</span><span class="p">,</span> <span class="s2">"CAVIN2"</span><span class="p">,</span> <span class="s2">"CDH5"</span><span class="p">,</span> <span class="s2">"PTPRB"</span><span class="p">,</span> <span class="s2">"RAMP3"</span><span class="p">,</span> <span class="s2">"TFPI"</span><span class="p">,</span> <span class="s2">"ARHGAP29"</span><span class="p">,</span> <span class="s2">"CD93"</span><span class="p">,</span> <span class="s2">"SLCO2A1"</span><span class="p">,</span> <span class="s2">"SPARCL1"</span><span class="p">,</span> <span class="s2">"LDB2"</span><span class="p">,</span> <span class="s2">"CAV1"</span><span class="p">,</span> <span class="s2">"PCAT19"</span><span class="p">,],</span>
+    <span class="s2">"alveolar_macrophage"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"C1QA"</span><span class="p">,</span> <span class="s2">"APOC1"</span><span class="p">,</span> <span class="s2">"C1QB"</span><span class="p">,</span> <span class="s2">"ACP5"</span><span class="p">,</span> <span class="s2">"MARCO"</span><span class="p">,</span> <span class="s2">"C1QC"</span><span class="p">,</span> <span class="s2">"GRN"</span><span class="p">,</span> <span class="s2">"CTSS"</span><span class="p">,</span> <span class="s2">"FABP4"</span><span class="p">,</span> <span class="s2">"FBP1"</span><span class="p">,</span> <span class="s2">"PSAP"</span><span class="p">,</span> <span class="s2">"FTL"</span><span class="p">,</span> <span class="s2">"MS4A7"</span><span class="p">,</span> <span class="s2">"MRC1"</span><span class="p">,</span> <span class="s2">"MCEMP1"</span><span class="p">,</span> <span class="s2">"CD68"</span><span class="p">,</span> <span class="s2">"VSIG4"</span><span class="p">,</span> <span class="s2">"MSR1"</span><span class="p">,</span> <span class="s2">"OLR1"</span><span class="p">,</span> <span class="s2">"APOE"</span><span class="p">,</span> <span class="s2">"CTSD"</span><span class="p">,</span> <span class="s2">"ALOX5AP"</span><span class="p">,</span> <span class="s2">"CTSC"</span><span class="p">,</span> <span class="s2">"GPNMB"</span><span class="p">,</span> <span class="s2">"CAPG"</span><span class="p">,],</span>
+    <span class="s2">"lung_interstitial_macrophage"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"C1QB"</span><span class="p">,</span> <span class="s2">"C1QA"</span><span class="p">,</span> <span class="s2">"C1QC"</span><span class="p">,</span> <span class="s2">"CTSS"</span><span class="p">,</span> <span class="s2">"CD68"</span><span class="p">,</span> <span class="s2">"CD14"</span><span class="p">,</span> <span class="s2">"CTSZ"</span><span class="p">,</span> <span class="s2">"MS4A7"</span><span class="p">,</span> <span class="s2">"CTSD"</span><span class="p">,</span> <span class="s2">"PSAP"</span><span class="p">,</span> <span class="s2">"IFI30"</span><span class="p">,</span> <span class="s2">"CD163"</span><span class="p">,</span> <span class="s2">"MS4A6A"</span><span class="p">,</span> <span class="s2">"GRN"</span><span class="p">,</span> <span class="s2">"MRC1"</span><span class="p">,</span> <span class="s2">"APOE"</span><span class="p">,</span> <span class="s2">"CYBB"</span><span class="p">,</span> <span class="s2">"MS4A4A"</span><span class="p">,</span> <span class="s2">"NPC2"</span><span class="p">,</span> <span class="s2">"VSIG4"</span><span class="p">,</span> <span class="s2">"FCGR3A"</span><span class="p">,</span> <span class="s2">"FTL"</span><span class="p">,</span> <span class="s2">"CTSC"</span><span class="p">,</span> <span class="s2">"TYMP"</span><span class="p">,</span> <span class="s2">"GPNMB"</span><span class="p">,],</span>
+    <span class="s2">"fibroblast"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"DCN"</span><span class="p">,</span> <span class="s2">"LUM"</span><span class="p">,</span> <span class="s2">"FBLN1"</span><span class="p">,</span> <span class="s2">"COL6A2"</span><span class="p">,</span> <span class="s2">"COL1A2"</span><span class="p">,</span> <span class="s2">"ADH1B"</span><span class="p">,</span> <span class="s2">"COL6A3"</span><span class="p">,</span> <span class="s2">"C1S"</span><span class="p">,</span> <span class="s2">"C7_ENSG00000112936"</span><span class="p">,</span> <span class="s2">"COL6A1"</span><span class="p">,</span> <span class="s2">"C1R"</span><span class="p">,</span> <span class="s2">"FN1"</span><span class="p">,</span> <span class="s2">"MFAP4"</span><span class="p">,</span> <span class="s2">"GPC3"</span><span class="p">,</span> <span class="s2">"COL3A1"</span><span class="p">,</span> <span class="s2">"CDH11"</span><span class="p">,</span> <span class="s2">"RARRES2"</span><span class="p">,</span> <span class="s2">"PCOLCE"</span><span class="p">,</span> <span class="s2">"COL1A1"</span><span class="p">,</span> <span class="s2">"NBL1"</span><span class="p">,</span> <span class="s2">"TCF21"</span><span class="p">,</span> <span class="s2">"OLFML3"</span><span class="p">,</span> <span class="s2">"CALD1"</span><span class="p">,</span> <span class="s2">"CFD"</span><span class="p">,</span> <span class="s2">"COL5A2"</span><span class="p">,],</span>
+    <span class="s2">"smooth_muscle_cell"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"ACTA2"</span><span class="p">,</span> <span class="s2">"TAGLN"</span><span class="p">,</span> <span class="s2">"TPM2"</span><span class="p">,</span> <span class="s2">"MYL9"</span><span class="p">,</span> <span class="s2">"CALD1"</span><span class="p">,</span> <span class="s2">"MYH11"</span><span class="p">,</span> <span class="s2">"IGFBP7"</span><span class="p">,</span> <span class="s2">"TPM1"</span><span class="p">,</span> <span class="s2">"SPARCL1"</span><span class="p">,</span> <span class="s2">"C11orf96"</span><span class="p">,</span> <span class="s2">"PPP1R14A"</span><span class="p">,</span> <span class="s2">"SELENOM"</span><span class="p">,</span> <span class="s2">"DSTN"</span><span class="p">,</span> <span class="s2">"MYLK"</span><span class="p">,</span> <span class="s2">"ACTG2"</span><span class="p">,</span> <span class="s2">"ADIRF"</span><span class="p">,</span> <span class="s2">"BGN"</span><span class="p">,</span> <span class="s2">"SOD3"</span><span class="p">,</span> <span class="s2">"MFGE8"</span><span class="p">,</span> <span class="s2">"COL6A2"</span><span class="p">,</span> <span class="s2">"LMOD1"</span><span class="p">,</span> <span class="s2">"TINAGL1"</span><span class="p">,</span> <span class="s2">"CAVIN3"</span><span class="p">,</span> <span class="s2">"DES"</span><span class="p">,</span> <span class="s2">"CNN1"</span><span class="p">,],</span>
+    <span class="s2">"mast_cell"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"CPA3"</span><span class="p">,</span> <span class="s2">"TPSAB1"</span><span class="p">,</span> <span class="s2">"TPSB2"</span><span class="p">,</span> <span class="s2">"HPGDS"</span><span class="p">,</span> <span class="s2">"MS4A2"</span><span class="p">,</span> <span class="s2">"KIT"</span><span class="p">,</span> <span class="s2">"GATA2"</span><span class="p">,</span> <span class="s2">"VWA5A"</span><span class="p">,</span> <span class="s2">"SLC18A2"</span><span class="p">,</span> <span class="s2">"IL1RL1"</span><span class="p">,</span> <span class="s2">"HPGD"</span><span class="p">,</span> <span class="s2">"RGS13"</span><span class="p">,</span> <span class="s2">"SAMSN1"</span><span class="p">,</span> <span class="s2">"RHEX"</span><span class="p">,</span> <span class="s2">"RGS1"</span><span class="p">,</span> <span class="s2">"HDC"</span><span class="p">,</span> <span class="s2">"AREG"</span><span class="p">,</span> <span class="s2">"LTC4S"</span><span class="p">,</span> <span class="s2">"FOSB"</span><span class="p">,</span> <span class="s2">"PTGS1"</span><span class="p">,</span> <span class="s2">"CAPG"</span><span class="p">,</span> <span class="s2">"CD69"</span><span class="p">,</span> <span class="s2">"ARHGEF6"</span><span class="p">,</span> <span class="s2">"PTGS2"</span><span class="p">,</span> <span class="s2">"CD44"</span><span class="p">,],</span>
+    <span class="s2">"dendritic_cell"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"HLA-DQB1"</span><span class="p">,</span> <span class="s2">"CD74"</span><span class="p">,</span> <span class="s2">"GPR183"</span><span class="p">,</span> <span class="s2">"MS4A6A"</span><span class="p">,</span> <span class="s2">"HLA-DPB1"</span><span class="p">,</span> <span class="s2">"HLA-DRB5"</span><span class="p">,</span> <span class="s2">"HLA-DQA1"</span><span class="p">,</span> <span class="s2">"HLA-DPA1"</span><span class="p">,</span> <span class="s2">"CLEC10A"</span><span class="p">,</span> <span class="s2">"CD83"</span><span class="p">,</span> <span class="s2">"CST3"</span><span class="p">,</span> <span class="s2">"CPVL"</span><span class="p">,</span> <span class="s2">"HLA-DMA"</span><span class="p">,</span> <span class="s2">"FGL2"</span><span class="p">,</span> <span class="s2">"CD1C"</span><span class="p">,</span> <span class="s2">"CD86"</span><span class="p">,</span> <span class="s2">"RNASE6"</span><span class="p">,</span> <span class="s2">"FCER1A"</span><span class="p">,</span> <span class="s2">"CSF2RA"</span><span class="p">,</span> <span class="s2">"TYMP"</span><span class="p">,</span> <span class="s2">"RGS1"</span><span class="p">,</span> <span class="s2">"RGS10"</span><span class="p">,</span> <span class="s2">"C1orf162"</span><span class="p">,</span> <span class="s2">"GRN"</span><span class="p">,</span> <span class="s2">"AREG"</span><span class="p">,],</span>
+<span class="p">}</span>
+<span class="c1"># fmt: on</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>It is expected that we find only a subset of these genes since Xenium itself only profiles a small portion of the entire transcriptome.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">find_signature_markers</span><span class="p">(</span><span class="n">signatures</span><span class="p">,</span> <span class="n">data_columns</span><span class="p">):</span>
+    <span class="n">found_markers</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">cell_type</span><span class="p">,</span> <span class="n">genes</span> <span class="ow">in</span> <span class="n">signatures</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">found_markers</span><span class="p">[</span><span class="n">cell_type</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">gene</span> <span class="k">for</span> <span class="n">gene</span> <span class="ow">in</span> <span class="n">genes</span> <span class="k">if</span> <span class="n">gene</span> <span class="ow">in</span> <span class="n">data_columns</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">found_markers</span><span class="p">[</span><span class="n">cell_type</span><span class="p">])</span><span class="si">}</span><span class="s2"> genes of the </span><span class="si">{</span><span class="n">cell_type</span><span class="si">}</span><span class="s2"> signature: </span><span class="si">{</span><span class="n">found_markers</span><span class="p">[</span><span class="n">cell_type</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">found_markers</span>
+
+
+<span class="n">found_markers</span> <span class="o">=</span> <span class="n">find_signature_markers</span><span class="p">(</span>
+    <span class="n">HLCA_cell_type_signatures</span><span class="p">,</span> <span class="n">sdata_crop</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s2">"table"</span><span class="p">]</span><span class="o">.</span><span class="n">to_df</span><span class="p">()</span><span class="o">.</span><span class="n">columns</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found 2 genes of the alveolar_type1_fibroblasts signature: ['FBLN1', 'GPC3']
+Found 5 genes of the alveolar_type2_fibroblast signature: ['FBLN1', 'SFRP2', 'FBN1', 'PLAC9', 'MFAP5']
+Found 10 genes of the endothelial_cell signature: ['PECAM1', 'EGFL7', 'RAMP2', 'GNG11', 'VWF', 'CLEC14A', 'CAVIN2', 'TFPI', 'CD93', 'CAV1']
+Found 5 genes of the alveolar_macrophage signature: ['MARCO', 'MRC1', 'MCEMP1', 'CD68', 'VSIG4']
+Found 8 genes of the lung_interstitial_macrophage signature: ['CD68', 'CD14', 'CD163', 'MS4A6A', 'MRC1', 'MS4A4A', 'VSIG4', 'FCGR3A']
+Found 4 genes of the fibroblast signature: ['FBLN1', 'GPC3', 'PCOLCE', 'COL5A2']
+Found 6 genes of the smooth_muscle_cell signature: ['ACTA2', 'MYH11', 'MYLK', 'ACTG2', 'DES', 'CNN1']
+Found 9 genes of the mast_cell signature: ['CPA3', 'HPGDS', 'MS4A2', 'KIT', 'GATA2', 'VWA5A', 'SLC18A2', 'IL1RL1', 'CD69']
+Found 10 genes of the dendritic_cell signature: ['GPR183', 'MS4A6A', 'CLEC10A', 'CD83', 'FGL2', 'CD1C', 'CD86', 'FCER1A', 'CSF2RA', 'C1orf162']
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">rank_and_normalize_gexp</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
+    <span class="n">ranked</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">"min"</span><span class="p">)</span>
+    <span class="n">min_rank</span> <span class="o">=</span> <span class="n">ranked</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="n">max_rank</span> <span class="o">=</span> <span class="n">ranked</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">ranked</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">min_rank</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">max_rank</span> <span class="o">-</span> <span class="n">min_rank</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">make_score_from_signature</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">signature</span><span class="p">,</span> <span class="n">zero_as_none</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">adata</span><span class="o">.</span><span class="n">to_df</span><span class="p">()[</span><span class="n">signature</span><span class="p">]</span>
+        <span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">"min"</span><span class="p">)</span>  <span class="c1"># Sort genes by rank, ties = equal rank</span>
+        <span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">col</span><span class="p">:</span> <span class="n">rank_and_normalize_gexp</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+        <span class="p">)</span>  <span class="c1"># Normalize the ranks to [0, 1]</span>
+        <span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Sum the normalized ranks</span>
+        <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">zero_as_none</span> <span class="ow">and</span> <span class="n">row</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">row</span><span class="p">)</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_signature_scores</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">found_markers</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">cell_type</span><span class="p">,</span> <span class="n">markers</span> <span class="ow">in</span> <span class="n">found_markers</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">cell_type</span> <span class="o">+</span> <span class="s2">"_score"</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_score_from_signature</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">markers</span><span class="p">)</span>
+    <span class="n">score_colnames</span> <span class="o">=</span> <span class="p">[</span><span class="n">cell_type</span> <span class="o">+</span> <span class="s2">"_score"</span> <span class="k">for</span> <span class="n">cell_type</span> <span class="ow">in</span> <span class="n">found_markers</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+    <span class="k">return</span> <span class="n">score_colnames</span>
+
+
+<span class="n">score_colnames</span> <span class="o">=</span> <span class="n">compute_signature_scores</span><span class="p">(</span><span class="n">sdata_crop</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s2">"table"</span><span class="p">],</span> <span class="n">found_markers</span><span class="p">)</span>
+
+<span class="n">sdata_crop</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s2">"table"</span><span class="p">]</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">score_colnames</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>alveolar_type1_fibroblasts_score</th>
+      <th>alveolar_type2_fibroblast_score</th>
+      <th>endothelial_cell_score</th>
+      <th>alveolar_macrophage_score</th>
+      <th>lung_interstitial_macrophage_score</th>
+      <th>fibroblast_score</th>
+      <th>smooth_muscle_cell_score</th>
+      <th>mast_cell_score</th>
+      <th>dendritic_cell_score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>22691</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.951225</td>
+    </tr>
+    <tr>
+      <th>22692</th>
+      <td>0.929370</td>
+      <td>1.851537</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.930111</td>
+      <td>0.929370</td>
+      <td>NaN</td>
+      <td>0.987280</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>22693</th>
+      <td>0.935953</td>
+      <td>0.935953</td>
+      <td>0.877780</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.935953</td>
+      <td>0.922844</td>
+      <td>0.970498</td>
+      <td>1.909476</td>
+    </tr>
+    <tr>
+      <th>22694</th>
+      <td>0.929370</td>
+      <td>0.929370</td>
+      <td>0.954664</td>
+      <td>NaN</td>
+      <td>0.867665</td>
+      <td>0.929370</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.867665</td>
+    </tr>
+    <tr>
+      <th>22695</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.950543</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.969193</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>162118</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.988318</td>
+      <td>NaN</td>
+      <td>1.995463</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.999318</td>
+    </tr>
+    <tr>
+      <th>162119</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.960209</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.991905</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>162120</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.772520</td>
+      <td>0.956918</td>
+      <td>1.878133</td>
+      <td>NaN</td>
+      <td>0.965633</td>
+      <td>NaN</td>
+      <td>0.921216</td>
+    </tr>
+    <tr>
+      <th>162121</th>
+      <td>NaN</td>
+      <td>0.999970</td>
+      <td>NaN</td>
+      <td>0.999644</td>
+      <td>0.999644</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>162122</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.996709</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>33727 rows × 9 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span>
+    <span class="n">sdata_crop</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s2">"table"</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s2">"leiden"</span><span class="p">]</span> <span class="o">+</span> <span class="n">score_colnames</span><span class="p">,</span>
+    <span class="n">wspace</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/f4a756207fbe31716ed78f1e01fabe077a8ba3f6385bea482c9586f3aed79b57.png" src="../../../_images/f4a756207fbe31716ed78f1e01fabe077a8ba3f6385bea482c9586f3aed79b57.png" />
+</div>
+</div>
+<p>While we were able to identify some of the celltypes represented by the clusters, in particular fibroblasts, endothelial cells, muscle cells and mast cells, some clusters were either not amongst these cell types or were grouped into the same cluster, for example the dendritic cells and macrophages which form leiden cluster #3. We can already appreciate the following mapping:</p>
+<ul class="simple">
+<li><p>Cluster 0: ???</p></li>
+<li><p>Cluster 1: Smooth muscle cells</p></li>
+<li><p>Cluster 2: ???</p></li>
+<li><p>Cluster 3: Macrophages &amp; Dendritic cells</p></li>
+<li><p>Cluster 4: Fibroblasts</p></li>
+<li><p>Cluster 5: ???</p></li>
+<li><p>Cluster 6: Endothelial cells</p></li>
+<li><p>Cluster 7: ???</p></li>
+<li><p>Cluster 8: ???</p></li>
+<li><p>Cluster 9: ???</p></li>
+<li><p>Cluster 10: ???</p></li>
+<li><p>Cluster 11: Mast cells</p></li>
+</ul>
+<p>Since the clusters 0, 2, and 5, represent a large portion of our cells, we’ll try to identify these cells by more closely looking into their expression values.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata_025</span> <span class="o">=</span> <span class="n">sdata_crop</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s2">"table"</span><span class="p">][</span>
+    <span class="n">sdata_crop</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s2">"table"</span><span class="p">]</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"leiden"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">"0"</span><span class="p">,</span> <span class="s2">"2"</span><span class="p">,</span> <span class="s2">"5"</span><span class="p">])</span>
+<span class="p">]</span>
+<span class="n">adata_025</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>View of AnnData object with n_obs × n_vars = 15650 × 377
+    obs: 'cell_id', 'transcript_counts', 'control_probe_counts', 'control_codeword_counts', 'unassigned_codeword_counts', 'deprecated_codeword_counts', 'total_counts', 'cell_area', 'nucleus_area', 'region', 'z_level', 'nucleus_count', 'cell_labels', 'leiden', 'alveolar_type1_fibroblasts_score', 'alveolar_type2_fibroblast_score', 'endothelial_cell_score', 'alveolar_macrophage_score', 'lung_interstitial_macrophage_score', 'fibroblast_score', 'smooth_muscle_cell_score', 'mast_cell_score', 'dendritic_cell_score'
+    var: 'gene_ids', 'feature_types', 'genome'
+    uns: 'spatialdata_attrs', 'log1p', 'pca', 'neighbors', 'umap', 'leiden', 'leiden_colors'
+    obsm: 'spatial', 'X_pca', 'X_umap'
+    varm: 'PCs'
+    obsp: 'distances', 'connectivities'
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">highest_expr_genes</span><span class="p">(</span><span class="n">adata_025</span><span class="p">,</span> <span class="n">n_top</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/tim.treis/anaconda3/envs/spatialdata-workshop/lib/python3.11/site-packages/scanpy/preprocessing/_normalization.py:208: UserWarning: Received a view of an AnnData. Making a copy.
+  view_to_actual(adata)
+</pre></div>
+</div>
+<img alt="../../../_images/4f57c9b93dd4c367ff5efa3abe2f78dcdba4e77dfdde82f26a78f3525dacba0d.png" src="../../../_images/4f57c9b93dd4c367ff5efa3abe2f78dcdba4e77dfdde82f26a78f3525dacba0d.png" />
+</div>
+</div>
+<p>We can extract these genes and then use the HLCA explorer by CELLxGENE to try to find out which cells the clusters could be. For this, we’ll paste the “signature” into their GUI.</p>
+<blockquote>
+<div><p>MALL, CYP2B6, TCIM, CAPN8, TFPI, EPCAM, GPRC5A, CYP4B1, TMC5, DST, KRT7, CFTR, EHF, NTN4, CFB, STEAP4, MDM2, BASP1, SFTA2, MLPH</p>
+</div></blockquote>
+<p>From there we can extract several cell types which highly express these genes:</p>
+<p><img alt="image.png" src="../../../_images/nb4_cellxgene.png" /></p>
+<p>We hand-picked a few of the signatures and will repeat the above steps:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># fmt: off</span>
+<span class="n">proposed_celltype_signatures</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"pneumocyte"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">"SFTPB"</span><span class="p">,</span> <span class="s2">"NAPSA"</span><span class="p">,</span> <span class="s2">"SFTPA1"</span><span class="p">,</span> <span class="s2">"SLC34A2"</span><span class="p">,</span> <span class="s2">"SFTPA2"</span><span class="p">,</span> <span class="s2">"SFTPC"</span><span class="p">,</span> <span class="s2">"SFTPD"</span><span class="p">,</span> <span class="s2">"PEBP4"</span><span class="p">,</span> <span class="s2">"CTSH"</span><span class="p">,</span> <span class="s2">"HOPX"</span><span class="p">,</span> <span class="s2">"SFTA3_ENSG00000229415"</span><span class="p">,</span> <span class="s2">"LAMP3"</span><span class="p">,</span> <span class="s2">"ABCA3"</span><span class="p">,</span> <span class="s2">"PGC"</span><span class="p">,</span> <span class="s2">"SLC39A8"</span><span class="p">,</span> <span class="s2">"CLDN18"</span><span class="p">,</span> <span class="s2">"MUC1"</span><span class="p">,</span> <span class="s2">"C4BPA"</span><span class="p">,</span> <span class="s2">"DHCR24"</span><span class="p">,</span> <span class="s2">"SDR16C5"</span><span class="p">,</span> <span class="s2">"WIF1"</span><span class="p">,</span> <span class="s2">"C16orf89"</span><span class="p">,</span> <span class="s2">"SDC4"</span><span class="p">,</span> <span class="s2">"SFTA2"</span><span class="p">,</span> <span class="s2">"ATP11A"</span><span class="p">,],</span>
+    <span class="s2">"club_cell"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">"PIGR"</span><span class="p">,</span> <span class="s2">"CXCL17"</span><span class="p">,</span> <span class="s2">"SCGB3A1"</span><span class="p">,</span> <span class="s2">"SCGB1A1"</span><span class="p">,</span> <span class="s2">"SFTPB"</span><span class="p">,</span> <span class="s2">"SLPI"</span><span class="p">,</span> <span class="s2">"WFDC2"</span><span class="p">,</span> <span class="s2">"BPIFB1"</span><span class="p">,</span> <span class="s2">"CP"</span><span class="p">,</span> <span class="s2">"CEACAM6"</span><span class="p">,</span> <span class="s2">"C16orf89"</span><span class="p">,</span> <span class="s2">"KLK11"</span><span class="p">,</span> <span class="s2">"SCGB3A2"</span><span class="p">,</span> <span class="s2">"CYP4B1"</span><span class="p">,</span> <span class="s2">"CYP2F1"</span><span class="p">,</span> <span class="s2">"LCN2"</span><span class="p">,</span> <span class="s2">"AGR3"</span><span class="p">,</span> <span class="s2">"STEAP4"</span><span class="p">,</span> <span class="s2">"NEDD4L"</span><span class="p">,],</span>
+    <span class="s2">"basal_cell"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">"S100A2"</span><span class="p">,</span> <span class="s2">"KRT17"</span><span class="p">,</span> <span class="s2">"AQP3"</span><span class="p">,</span> <span class="s2">"KRT5"</span><span class="p">,</span> <span class="s2">"KRT15"</span><span class="p">,</span> <span class="s2">"TACSTD2"</span><span class="p">,</span> <span class="s2">"KRT19"</span><span class="p">,</span> <span class="s2">"F3_ENSG00000117525"</span><span class="p">,</span> <span class="s2">"SERPINB3"</span><span class="p">,</span> <span class="s2">"ALDH3A1"</span><span class="p">,</span> <span class="s2">"CLDN1"</span><span class="p">,</span> <span class="s2">"CXCL1"</span><span class="p">,</span> <span class="s2">"MIR205HG"</span><span class="p">,],</span>
+<span class="p">}</span>
+<span class="c1"># fmt: on</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">found_markers_in_unknown_cluster</span> <span class="o">=</span> <span class="n">find_signature_markers</span><span class="p">(</span>
+    <span class="n">proposed_celltype_signatures</span><span class="p">,</span> <span class="n">sdata_crop</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s2">"table"</span><span class="p">]</span><span class="o">.</span><span class="n">to_df</span><span class="p">()</span><span class="o">.</span><span class="n">columns</span>
+<span class="p">)</span>
+
+<span class="n">additional_score_colnames</span> <span class="o">=</span> <span class="n">compute_signature_scores</span><span class="p">(</span>
+    <span class="n">sdata_crop</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s2">"table"</span><span class="p">],</span> <span class="n">found_markers_in_unknown_cluster</span>
+<span class="p">)</span>
+
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span>
+    <span class="n">sdata_crop</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s2">"table"</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s2">"leiden"</span><span class="p">]</span> <span class="o">+</span> <span class="n">additional_score_colnames</span><span class="p">,</span>
+    <span class="n">wspace</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found 3 genes of the pneumocyte signature: ['PEBP4', 'LAMP3', 'SFTA2']
+Found 5 genes of the club_cell signature: ['KLK11', 'CYP4B1', 'CYP2F1', 'AGR3', 'STEAP4']
+Found 2 genes of the basal_cell signature: ['AQP3', 'SERPINB3']
+</pre></div>
+</div>
+<img alt="../../../_images/812e5ce2f7cdcea3078a2199330d97113b1974ebcc5410f9918a543a0798fdc9.png" src="../../../_images/812e5ce2f7cdcea3078a2199330d97113b1974ebcc5410f9918a543a0798fdc9.png" />
+</div>
+</div>
+<p>While these plots might suggest that the 3 proposed cell-types are somewhere in there, we can also see that only very few genes of those signatures are used for every annotation. This can be attributed to the limited size of the Xenium panel. One possible step to better analse these cells is to subcluster and reanalyse them. Within the scope of this tutorial, we will however not proceed with this due to time limitations. Instead, we will assume that Leiden cluster 7 represents the Club cells and label clusters 0, 2, and 5 as “Pneumocytes / Basal Cells”</p>
+<section id="rename-clusters">
+<h3>Rename clusters<a class="headerlink" href="#rename-clusters" title="Link to this heading">#</a></h3>
+<p>Based on our bio-investigation of our Leiden clusters, we can now use this information to localise them in the tissue.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">celltype_mapping</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"0"</span><span class="p">:</span> <span class="s2">"Pneumocytes / Basal Cells"</span><span class="p">,</span>
+    <span class="s2">"1"</span><span class="p">:</span> <span class="s2">"Smooth muscle cells"</span><span class="p">,</span>
+    <span class="s2">"2"</span><span class="p">:</span> <span class="s2">"Pneumocytes / Basal Cells"</span><span class="p">,</span>
+    <span class="s2">"3"</span><span class="p">:</span> <span class="s2">"Macrophages &amp; Dendritic cells"</span><span class="p">,</span>
+    <span class="s2">"4"</span><span class="p">:</span> <span class="s2">"Fibroblasts"</span><span class="p">,</span>
+    <span class="s2">"5"</span><span class="p">:</span> <span class="s2">"Pneumocytes / Basal Cells"</span><span class="p">,</span>
+    <span class="s2">"6"</span><span class="p">:</span> <span class="s2">"Endothelial cells"</span><span class="p">,</span>
+    <span class="s2">"7"</span><span class="p">:</span> <span class="s2">"Club cells"</span><span class="p">,</span>
+    <span class="s2">"11"</span><span class="p">:</span> <span class="s2">"Mast cells"</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<span class="n">sdata_crop</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s2">"table"</span><span class="p">]</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"celltype"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">sdata_crop</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s2">"table"</span><span class="p">]</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"leiden"</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">celltype_mapping</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">sdata_crop</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s2">"table"</span><span class="p">]</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"celltype"</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">"Unknown"</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">sdata_crop</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s2">"table"</span><span class="p">]</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"celltype"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span>
+    <span class="n">sdata_crop</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s2">"table"</span><span class="p">]</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"celltype"</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/qg/qgc908995g3fc8qtss2fsbhhxyxxj4/T/ipykernel_63128/1239269867.py:17: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+  sdata_crop.tables["table"].obs["celltype"].fillna("Unknown", inplace=True)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="n">sdata_crop</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">render_images</span><span class="p">(</span><span class="s2">"he_image"</span><span class="p">)</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="s2">"H&amp;E"</span><span class="p">)</span>
+
+<span class="n">sdata_crop</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">render_shapes</span><span class="p">(</span>
+    <span class="s2">"cell_circles"</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">"celltype"</span><span class="p">,</span>
+    <span class="n">method</span><span class="o">=</span><span class="s2">"matplotlib"</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Leiden"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers). Got range [-0.053719006..1.0].
+/Users/tim.treis/anaconda3/envs/spatialdata-workshop/lib/python3.11/site-packages/spatialdata/_core/_elements.py:105: UserWarning: Key `cell_circles` already exists. Overwriting it in-memory.
+  self._check_key(key, self.keys(), self._shared_keys)
+/Users/tim.treis/anaconda3/envs/spatialdata-workshop/lib/python3.11/site-packages/spatialdata/_core/_elements.py:125: UserWarning: Key `table` already exists. Overwriting it in-memory.
+  self._check_key(key, self.keys(), self._shared_keys)
+/Users/tim.treis/anaconda3/envs/spatialdata-workshop/lib/python3.11/site-packages/spatialdata_plot/pl/utils.py:771: FutureWarning: The default value of 'ignore' for the `na_action` parameter in pandas.Categorical.map is deprecated and will be changed to 'None' in a future version. Please set na_action to the desired value to avoid seeing this warning
+  color_vector = color_source_vector.map(color_mapping)
+</pre></div>
+</div>
+<img alt="../../../_images/b144e774d230a65700f9793eb20dadb198f9a276a28baf30b1ced9afc6492049.png" src="../../../_images/b144e774d230a65700f9793eb20dadb198f9a276a28baf30b1ced9afc6492049.png" />
+</div>
+</div>
+<p>We can also try to overlay these plots.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="n">sdata_crop</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">render_images</span><span class="p">(</span>
+    <span class="s2">"he_image"</span><span class="p">,</span>
+    <span class="c1"># cmap="Greys",  # since the cmap argument currently has a bug with multiscale images, we'll use a simple grey colorscale</span>
+    <span class="n">channel</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">palette</span><span class="o">=</span><span class="s2">"lightgrey"</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">render_shapes</span><span class="p">(</span>
+    <span class="s2">"cell_circles"</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">"celltype"</span><span class="p">,</span>
+    <span class="n">fill_alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">method</span><span class="o">=</span><span class="s2">"matplotlib"</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">show</span><span class="p">(</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Celltypes"</span><span class="p">,</span> <span class="n">colorbar</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/tim.treis/anaconda3/envs/spatialdata-workshop/lib/python3.11/site-packages/spatialdata/_core/_elements.py:105: UserWarning: Key `cell_circles` already exists. Overwriting it in-memory.
+  self._check_key(key, self.keys(), self._shared_keys)
+/Users/tim.treis/anaconda3/envs/spatialdata-workshop/lib/python3.11/site-packages/spatialdata/_core/_elements.py:125: UserWarning: Key `table` already exists. Overwriting it in-memory.
+  self._check_key(key, self.keys(), self._shared_keys)
+/Users/tim.treis/anaconda3/envs/spatialdata-workshop/lib/python3.11/site-packages/spatialdata_plot/pl/utils.py:771: FutureWarning: The default value of 'ignore' for the `na_action` parameter in pandas.Categorical.map is deprecated and will be changed to 'None' in a future version. Please set na_action to the desired value to avoid seeing this warning
+  color_vector = color_source_vector.map(color_mapping)
+</pre></div>
+</div>
+<img alt="../../../_images/073d3bbc3f518f3225bf259970d74e532e56857514bbbd75eac5db084431ba21.png" src="../../../_images/073d3bbc3f518f3225bf259970d74e532e56857514bbbd75eac5db084431ba21.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="studying-the-cell-type-fingerprint-for-regions-of-interest">
+<h2>Studying the cell-type fingerprint for regions of interest<a class="headerlink" href="#studying-the-cell-type-fingerprint-for-regions-of-interest" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">shapely</span><span class="w"> </span><span class="kn">import</span> <span class="n">Polygon</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+
+<span class="n">coords0</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">31892</span><span class="p">,</span> <span class="mi">6628</span><span class="p">),</span> <span class="p">(</span><span class="mi">33814</span><span class="p">,</span> <span class="mi">6628</span><span class="p">),</span> <span class="p">(</span><span class="mi">33814</span><span class="p">,</span> <span class="mi">8484</span><span class="p">),</span> <span class="p">(</span><span class="mi">31892</span><span class="p">,</span> <span class="mi">8484</span><span class="p">),</span> <span class="p">(</span><span class="mi">31892</span><span class="p">,</span> <span class="mi">6628</span><span class="p">)]</span>
+<span class="n">coords1</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">30336</span><span class="p">,</span> <span class="mi">9126</span><span class="p">),</span> <span class="p">(</span><span class="mi">32258</span><span class="p">,</span> <span class="mi">9126</span><span class="p">),</span> <span class="p">(</span><span class="mi">32258</span><span class="p">,</span> <span class="mi">10982</span><span class="p">),</span> <span class="p">(</span><span class="mi">30336</span><span class="p">,</span> <span class="mi">10982</span><span class="p">),</span> <span class="p">(</span><span class="mi">30336</span><span class="p">,</span> <span class="mi">9126</span><span class="p">)]</span>
+<span class="n">coords2</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">26948</span><span class="p">,</span> <span class="mi">6706</span><span class="p">),</span> <span class="p">(</span><span class="mi">28870</span><span class="p">,</span> <span class="mi">6706</span><span class="p">),</span> <span class="p">(</span><span class="mi">28870</span><span class="p">,</span> <span class="mi">8562</span><span class="p">),</span> <span class="p">(</span><span class="mi">26948</span><span class="p">,</span> <span class="mi">8562</span><span class="p">),</span> <span class="p">(</span><span class="mi">26948</span><span class="p">,</span> <span class="mi">6706</span><span class="p">)]</span>
+
+<span class="n">poly0</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">coords0</span><span class="p">)</span>
+<span class="n">poly1</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">coords1</span><span class="p">)</span>
+<span class="n">poly2</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">coords2</span><span class="p">)</span>
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">ShapesModel</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span>
+    <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">({</span><span class="s2">"geometry"</span><span class="p">:</span> <span class="p">[</span><span class="n">poly0</span><span class="p">,</span> <span class="n">poly1</span><span class="p">,</span> <span class="n">poly2</span><span class="p">]}),</span>
+    <span class="n">transformations</span><span class="o">=</span><span class="p">{</span><span class="s2">"global"</span><span class="p">:</span> <span class="n">sd</span><span class="o">.</span><span class="n">transformations</span><span class="o">.</span><span class="n">Identity</span><span class="p">()},</span>
+<span class="p">)</span>
+
+<span class="n">sdata_crop</span><span class="p">[</span><span class="s2">"tiles"</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdf</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sdata_crop</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SpatialData object
+├── Images
+│     ├── 'he_image': DataTree[cyx] (3, 973, 973), (3, 487, 487), (3, 243, 243), (3, 122, 122), (3, 60, 61)
+│     └── 'morphology_focus': DataTree[cyx] (1, 10000, 10000), (1, 5000, 5000), (1, 2500, 2499), (1, 1250, 1250), (1, 625, 625)
+├── Labels
+│     ├── 'cell_labels': DataTree[yx] (10000, 10000), (5000, 5000), (2500, 2499), (1250, 1250), (625, 625)
+│     └── 'nucleus_labels': DataTree[yx] (10000, 10000), (5000, 5000), (2500, 2499), (1250, 1250), (625, 625)
+├── Points
+│     └── 'transcripts': DataFrame with shape: (&lt;Delayed&gt;, 11) (3D points)
+├── Shapes
+│     ├── 'cell_boundaries': GeoDataFrame shape: (33886, 1) (2D shapes)
+│     ├── 'cell_circles': GeoDataFrame shape: (33727, 2) (2D shapes)
+│     ├── 'nucleus_boundaries': GeoDataFrame shape: (32342, 1) (2D shapes)
+│     └── 'tiles': GeoDataFrame shape: (3, 1) (2D shapes)
+└── Tables
+      └── 'table': AnnData (33727, 377)
+with coordinate systems:
+    ▸ 'global', with elements:
+        he_image (Images), morphology_focus (Images), cell_labels (Labels), nucleus_labels (Labels), transcripts (Points), cell_boundaries (Shapes), cell_circles (Shapes), nucleus_boundaries (Shapes), tiles (Shapes)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cell_types_fractions</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span>
+    <span class="n">values_sdata</span><span class="o">=</span><span class="n">sdata_crop</span><span class="p">,</span>
+    <span class="n">values</span><span class="o">=</span><span class="s2">"cell_circles"</span><span class="p">,</span>
+    <span class="n">by_sdata</span><span class="o">=</span><span class="n">sdata_crop</span><span class="p">,</span>
+    <span class="n">by</span><span class="o">=</span><span class="s2">"tiles"</span><span class="p">,</span>
+    <span class="n">value_key</span><span class="o">=</span><span class="s2">"celltype"</span><span class="p">,</span>
+    <span class="n">target_coordinate_system</span><span class="o">=</span><span class="s2">"global"</span><span class="p">,</span>
+    <span class="n">fractions</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">cell_types_fractions</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/tim.treis/anaconda3/envs/spatialdata-workshop/lib/python3.11/site-packages/spatialdata/_core/operations/aggregate.py:453: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
+  aggregated = joined.groupby([INDEX, vk])[ONES_COLUMN].agg(agg_func).reset_index()
+/Users/tim.treis/anaconda3/envs/spatialdata-workshop/lib/python3.11/site-packages/anndata/_core/anndata.py:381: FutureWarning: The dtype argument is deprecated and will be removed in late 2024.
+  warnings.warn(
+/Users/tim.treis/anaconda3/envs/spatialdata-workshop/lib/python3.11/site-packages/anndata/_core/aligned_df.py:68: ImplicitModificationWarning: Transforming to str index.
+  warnings.warn("Transforming to str index.", ImplicitModificationWarning)
+/Users/tim.treis/anaconda3/envs/spatialdata-workshop/lib/python3.11/site-packages/spatialdata/models/models.py:1053: UserWarning: Converting `region_key: region` to categorical dtype.
+  return convert_region_column_to_categorical(adata)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SpatialData object
+├── Shapes
+│     └── 'tiles': GeoDataFrame shape: (3, 1) (2D shapes)
+└── Tables
+      └── 'table': AnnData (3, 8)
+with coordinate systems:
+    ▸ 'global', with elements:
+        tiles (Shapes)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sdata_crop</span><span class="p">[</span><span class="s2">"tiles"</span><span class="p">][</span><span class="s2">"name"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"tile_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sdata_crop</span><span class="p">[</span><span class="s2">"tiles"</span><span class="p">]))]</span>
+<span class="n">sdata_crop</span><span class="p">[</span><span class="s2">"tiles"</span><span class="p">][</span><span class="s2">"name"</span><span class="p">]</span> <span class="o">=</span> <span class="n">sdata_crop</span><span class="p">[</span><span class="s2">"tiles"</span><span class="p">][</span><span class="s2">"name"</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">"category"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># plot the tiles</span>
+<span class="p">(</span>
+    <span class="n">sdata_crop</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">render_images</span><span class="p">(</span><span class="s2">"he_image"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">render_shapes</span><span class="p">(</span><span class="s2">"tiles"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"name"</span><span class="p">,</span> <span class="n">fill_alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">outline_alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">)</span>
+
+<span class="c1"># plot the cell type fractions</span>
+<span class="n">roi_names</span> <span class="o">=</span> <span class="n">sdata_crop</span><span class="p">[</span><span class="s2">"tiles"</span><span class="p">][</span><span class="s2">"name"</span><span class="p">]</span>
+<span class="n">celltype_names</span> <span class="o">=</span> <span class="n">cell_types_fractions</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">var_names</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">cell_types_fractions</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">todense</span><span class="p">()</span><span class="o">.</span><span class="n">A</span>
+<span class="n">data_normalized</span> <span class="o">=</span> <span class="n">data</span> <span class="o">/</span> <span class="n">data</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">tab10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="n">left</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">celltype_names</span><span class="p">):</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span>
+            <span class="n">i</span><span class="p">,</span>
+            <span class="n">data_normalized</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span>
+            <span class="n">left</span><span class="o">=</span><span class="n">left</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">j</span><span class="p">],</span>
+            <span class="n">label</span><span class="o">=</span><span class="n">name</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">left</span> <span class="o">+=</span> <span class="n">data_normalized</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([</span><span class="n">roi_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+
+<span class="n">handles</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span>
+<span class="n">by_label</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">handles</span><span class="p">))</span>  <span class="c1"># This removes duplicate labels/handles</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span>
+    <span class="n">by_label</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">by_label</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"upper left"</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Xenium cell-type fractions for ROIs"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers). Got range [-0.053719006..1.0].
+/Users/tim.treis/anaconda3/envs/spatialdata-workshop/lib/python3.11/site-packages/spatialdata_plot/pl/utils.py:771: FutureWarning: The default value of 'ignore' for the `na_action` parameter in pandas.Categorical.map is deprecated and will be changed to 'None' in a future version. Please set na_action to the desired value to avoid seeing this warning
+  color_vector = color_source_vector.map(color_mapping)
+/var/folders/qg/qgc908995g3fc8qtss2fsbhhxyxxj4/T/ipykernel_63128/2377721173.py:14: DeprecationWarning: Table accessor will be deprecated with SpatialData version 0.1, use sdata.tables instead.
+  celltype_names = cell_types_fractions.table.var_names
+/var/folders/qg/qgc908995g3fc8qtss2fsbhhxyxxj4/T/ipykernel_63128/2377721173.py:16: DeprecationWarning: Table accessor will be deprecated with SpatialData version 0.1, use sdata.tables instead.
+  data = cell_types_fractions.table.X.todense().A
+</pre></div>
+</div>
+<img alt="../../../_images/4420e489a399de61ac98193ec66815ebfb43d7ad38f2e8bceae020aa40a56003.png" src="../../../_images/4420e489a399de61ac98193ec66815ebfb43d7ad38f2e8bceae020aa40a56003.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "scverse-workshop"
+        },
+        kernelOptions: {
+            name: "scverse-workshop",
+            path: "./day_2/spatialdata/beginner"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'scverse-workshop'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="nb3_region_annotation.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Annotating regions in <code class="docutils literal notranslate"><span class="pre">SpatialData</span></code> objects</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../advanced/transformations.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Transformations and coordinate systems</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subset-the-xenium-data-for-the-scope-of-this-workshop">Subset the Xenium data for the scope of this workshop</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#investigate-the-proposed-leiden-clusters">Investigate the proposed Leiden clusters</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rename-clusters">Rename clusters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#studying-the-cell-type-fingerprint-for-regions-of-interest">Studying the cell-type fingerprint for regions of interest</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By scverse community & outreach team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright scverse.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

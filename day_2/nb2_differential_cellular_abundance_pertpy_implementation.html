@@ -1,0 +1,1180 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Introduction &#8212; scverse x GSCN Workshop</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'day_2/nb2_differential_cellular_abundance_pertpy_implementation';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="/202609_workshop_GSCN/day_2/nb2_differential_cellular_abundance_pertpy_implementation.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Spatial Analysis Tutorials" href="spatialdata/README.html" />
+    <link rel="prev" title="Introduction" href="nb2_differential_cellular_abundance.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../README.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/scverse_logo.png" class="logo__image only-light" alt="scverse x GSCN Workshop - Home"/>
+    <img src="../_static/scverse_logo.png" class="logo__image only-dark pst-js-only" alt="scverse x GSCN Workshop - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../README.html">
+                    scverse x GSCN workshop
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Notebooks</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../day_1/README.html">Day 1</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../day_1/nb1_qc_normalization.html">QC and Normalisation</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../day_1/nb2_preprocessing.html">Dimensionality reduction, clustering and annotation</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../day_1/nb3_downstream_analysis.html">3. Downstream Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../day_1/nb4_batch_correction.html">Batch Correction</a></li>
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../day_1/nb5_trajectory_inference.html">Introduction</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../day_1/nb6_cell_rank.html">6. Fate Probabilities with CellRank</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="README.html">Day 2</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="nb1_ligand_recepter_interactions.html">1. Ligand-Receptor Interactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nb2_differential_cellular_abundance.html">Introduction</a></li>
+
+
+
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Introduction</a></li>
+
+
+
+<li class="toctree-l2 has-children"><a class="reference internal" href="spatialdata/README.html">Spatial Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="spatialdata/beginner/nb1_spatialdata_objects.html">1. SpatialData Objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spatialdata/beginner/nb2_static_plotting.html">2. Static Plotting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spatialdata/beginner/nb3_region_annotation.html">3. Region Annotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spatialdata/beginner/nb4_simple_analysis_using_scverse_tools.html">4. Simple Analysis using scverse Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spatialdata/advanced/transformations.html">5. Transformations (advanced)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spatialdata/advanced/tutorial_niche_calculation.html">6. Niche Calculation (advanced)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="spatial_domain_and_niche.html">3. Spatial Domains and Niches</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/scverse/202609_workshop_GSCN" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/day_2/nb2_differential_cellular_abundance_pertpy_implementation.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introduction</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Introduction</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#load-packages">Load packages</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#load-example-data">Load example data</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alternate-visual">Alternate visual</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#milor">MiloR</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-and-setup-pertpy">Import and setup pertpy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-fold-change-on-umap-tsne">Visualize fold change on UMAP/tSNE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-results-as-a-beeswarm-plot">Visualize results as a beeswarm plot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alternate-beeswarm-visual">Alternate beeswarm visual</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h1>
+<p>In this notebook we will look at some techniques for differential cell abundance analysis when you have multiple samples.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="load-packages">
+<h1>Load packages<a class="headerlink" href="#load-packages" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scanpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sc</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="load-example-data">
+<h1>Load example data<a class="headerlink" href="#load-example-data" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">input_path</span> <span class="o">=</span> <span class="s2">"/Users/francesca.drummer/Documents/1_Projects/GSCN workshop/data/"</span>
+<span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read_h5ad</span><span class="p">(</span><span class="n">input_path</span> <span class="o">+</span> <span class="s2">"clean_myeloid.h5ad"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AnnData object with n_obs × n_vars = 4718 × 12786
+    obs: 'Clusters', 'Celltype', 'SampleID', 'name', 'background', 'condition', 'replicate', 'experiment', 'ncells', 'libsize', 'mito_fraction', 'ribo_fraction', 'mhc_fraction', 'actin_fraction', 'cytoskeleton_fraction', 'malat1_fraction', 'scrublet_predict', 'scrublet_score', 'lowlibsize', 'Clusters_myeloid', 'Celltype_myeloid'
+    obsm: 'X_pca', 'X_tsne', 'imputed_data'
+    layers: 'norm_count', 'norm_log'
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">tsne</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s2">"Celltype_myeloid"</span><span class="p">,</span> <span class="s2">"condition"</span><span class="p">],</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/7a9f9c15d62d3731a869b328f4333a1c47fb5b871d6380d51560a86d4f3908f6.png" src="../_images/7a9f9c15d62d3731a869b328f4333a1c47fb5b871d6380d51560a86d4f3908f6.png" />
+</div>
+</div>
+<section id="alternate-visual">
+<h2>Alternate visual<a class="headerlink" href="#alternate-visual" title="Link to this heading">#</a></h2>
+<p>Let’s visualize density differences based on distribution of cells on the tSNE space. This gives was a visual perspective of what the density differences look like:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_temp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">"tsne_x"</span><span class="p">:</span> <span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s2">"X_tsne"</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="s2">"tsne_y"</span><span class="p">:</span> <span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s2">"X_tsne"</span><span class="p">][:,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="s2">"condition"</span><span class="p">:</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"condition"</span><span class="p">],</span>
+    <span class="p">},</span>
+    <span class="n">index</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_temp</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">"tsne_x"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">"tsne_y"</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">df_temp</span><span class="p">[</span><span class="n">df_temp</span><span class="p">[</span><span class="s2">"condition"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"CTRL"</span><span class="p">],</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">"tsne_x"</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="s2">"tsne_y"</span><span class="p">,</span>
+    <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">thresh</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">levels</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">"Purples"</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+    <span class="n">cut</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Control"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"tSNE-1"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"tSNE-2"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">"right"</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">"top"</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_temp</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">"tsne_x"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">"tsne_y"</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">df_temp</span><span class="p">[</span><span class="n">df_temp</span><span class="p">[</span><span class="s2">"condition"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"DT"</span><span class="p">],</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">"tsne_x"</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="s2">"tsne_y"</span><span class="p">,</span>
+    <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">thresh</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">levels</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">"Purples"</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+    <span class="n">cut</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"DT"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"tSNE-1"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"tSNE-2"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">"right"</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">"top"</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># fig.savefig(outbase + 'Ctrl_DT_kdeplot_endo.png', dpi = 150, bbox_inches = 'tight')</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/d0286e046d9bcacedbb36c6fe593fe9891814ef373e0f2e78dd20a14a05a5fd9.png" src="../_images/d0286e046d9bcacedbb36c6fe593fe9891814ef373e0f2e78dd20a14a05a5fd9.png" />
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="milor">
+<h1>MiloR<a class="headerlink" href="#milor" title="Link to this heading">#</a></h1>
+<p>Milo is a statistical method to quantify changes in cellular abundancies in neighborhoods of cells in high-dimensional space. Given a data with cells from two conditions, Milo partitions the cell phenotype space in a set of (possibly overlapping) neighborhoods and allows quantification of differential abundances of cells from one condition compared to another in each neighborhood. It outputs associated logfoldchange between the two conditions, p-values and multiple comparisons adjusted p-values for each neighborhood. Furthermore, Milo allows one to annotate each neighborhood as a distinct celltype based on the proportion of cells from each celltype in the neighborhood. All of this is discussed in the code below.</p>
+<p>Milo’s strength lies in detecting subtle <code class="docutils literal notranslate"><span class="pre">local</span></code> changes in cellular abundances. This is possible by the use of graphs and looking for changes in occupancy locally along the graph.</p>
+<p>For more details, please see the original publication: <a class="reference external" href="https://www.nature.com/articles/s41587-021-01033-z">https://www.nature.com/articles/s41587-021-01033-z</a>.</p>
+<p>We will use the pertpy implementation of miloR from Python.</p>
+<p>MiloR has been included in the more general perturbation analysis package called Pertpy: <a class="github reference external" href="https://github.com/scverse/pertpy">scverse/pertpy</a></p>
+<section id="import-and-setup-pertpy">
+<h2>Import and setup pertpy<a class="headerlink" href="#import-and-setup-pertpy" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>pertpy
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting pertpy
+  Downloading pertpy-1.0.3-py3-none-any.whl.metadata (9.4 kB)
+Requirement already satisfied: adjusttext in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from pertpy) (1.3.0)
+Collecting arviz (from pertpy)
+  Downloading arviz-0.22.0-py3-none-any.whl.metadata (8.9 kB)
+Collecting blitzgsea (from pertpy)
+  Downloading blitzgsea-1.3.54.tar.gz (626 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">627.0/627.0 kB</span> <span class=" -Color -Color-Red">16.2 MB/s</span>  <span class=" -Color -Color-Yellow">0:00:00</span>
+?25h  Preparing metadata (setup.py) ... ?25ldone
+?25hCollecting fast-array-utils[accel,sparse] (from pertpy)
+  Downloading fast_array_utils-1.2.3-py3-none-any.whl.metadata (3.7 kB)
+Collecting flax (from pertpy)
+  Downloading flax-0.12.0-py3-none-any.whl.metadata (11 kB)
+Collecting funsor (from pertpy)
+  Downloading funsor-0.4.5-py3-none-any.whl.metadata (7.8 kB)
+Collecting lamin-utils (from pertpy)
+  Downloading lamin_utils-0.15.0-py2.py3-none-any.whl.metadata (961 bytes)
+Requirement already satisfied: mudata in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from pertpy) (0.3.2)
+Collecting numpyro (from pertpy)
+  Using cached numpyro-0.19.0-py3-none-any.whl.metadata (37 kB)
+Requirement already satisfied: openpyxl in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from pertpy) (3.1.5)
+Collecting ott-jax (from pertpy)
+  Downloading ott_jax-0.5.2-py3-none-any.whl.metadata (20 kB)
+Collecting pubchempy (from pertpy)
+  Downloading pubchempy-1.0.5-py3-none-any.whl.metadata (4.3 kB)
+Requirement already satisfied: pyarrow in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from pertpy) (21.0.0)
+Requirement already satisfied: requests in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from pertpy) (2.32.5)
+Requirement already satisfied: rich in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from pertpy) (14.1.0)
+Requirement already satisfied: scanpy in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from pertpy) (1.11.4)
+Requirement already satisfied: scikit-learn&gt;=1.4 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from pertpy) (1.7.2)
+Requirement already satisfied: scikit-misc in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from pertpy) (0.5.1)
+Collecting sparsecca (from pertpy)
+  Downloading sparsecca-0.3.1-py3-none-any.whl.metadata (1.9 kB)
+Requirement already satisfied: numpy&gt;=1.22.0 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from scikit-learn&gt;=1.4-&gt;pertpy) (2.3.3)
+Requirement already satisfied: scipy&gt;=1.8.0 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from scikit-learn&gt;=1.4-&gt;pertpy) (1.15.3)
+Requirement already satisfied: joblib&gt;=1.2.0 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from scikit-learn&gt;=1.4-&gt;pertpy) (1.5.2)
+Requirement already satisfied: threadpoolctl&gt;=3.1.0 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from scikit-learn&gt;=1.4-&gt;pertpy) (3.6.0)
+Requirement already satisfied: matplotlib in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from adjusttext-&gt;pertpy) (3.10.6)
+Requirement already satisfied: setuptools&gt;=60.0.0 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from arviz-&gt;pertpy) (78.1.1)
+Requirement already satisfied: packaging in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from arviz-&gt;pertpy) (25.0)
+Requirement already satisfied: pandas&gt;=2.1.0 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from arviz-&gt;pertpy) (2.3.3)
+Requirement already satisfied: xarray&gt;=2023.7.0 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from arviz-&gt;pertpy) (2025.10.1)
+Collecting h5netcdf&gt;=1.0.2 (from arviz-&gt;pertpy)
+  Downloading h5netcdf-1.6.4-py3-none-any.whl.metadata (13 kB)
+Requirement already satisfied: typing-extensions&gt;=4.1.0 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from arviz-&gt;pertpy) (4.15.0)
+Collecting xarray-einstats&gt;=0.3 (from arviz-&gt;pertpy)
+  Downloading xarray_einstats-0.9.1-py3-none-any.whl.metadata (5.9 kB)
+Requirement already satisfied: h5py in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from h5netcdf&gt;=1.0.2-&gt;arviz-&gt;pertpy) (3.14.0)
+Requirement already satisfied: contourpy&gt;=1.0.1 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from matplotlib-&gt;adjusttext-&gt;pertpy) (1.3.3)
+Requirement already satisfied: cycler&gt;=0.10 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from matplotlib-&gt;adjusttext-&gt;pertpy) (0.12.1)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from matplotlib-&gt;adjusttext-&gt;pertpy) (4.60.1)
+Requirement already satisfied: kiwisolver&gt;=1.3.1 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from matplotlib-&gt;adjusttext-&gt;pertpy) (1.4.9)
+Requirement already satisfied: pillow&gt;=8 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from matplotlib-&gt;adjusttext-&gt;pertpy) (11.3.0)
+Requirement already satisfied: pyparsing&gt;=2.3.1 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from matplotlib-&gt;adjusttext-&gt;pertpy) (3.2.5)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from matplotlib-&gt;adjusttext-&gt;pertpy) (2.9.0.post0)
+Requirement already satisfied: pytz&gt;=2020.1 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from pandas&gt;=2.1.0-&gt;arviz-&gt;pertpy) (2025.2)
+Requirement already satisfied: tzdata&gt;=2022.7 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from pandas&gt;=2.1.0-&gt;arviz-&gt;pertpy) (2025.2)
+Requirement already satisfied: six&gt;=1.5 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib-&gt;adjusttext-&gt;pertpy) (1.17.0)
+Requirement already satisfied: tqdm in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from blitzgsea-&gt;pertpy) (4.67.1)
+Requirement already satisfied: statsmodels in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from blitzgsea-&gt;pertpy) (0.14.5)
+Requirement already satisfied: mpmath in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from blitzgsea-&gt;pertpy) (1.3.0)
+Requirement already satisfied: numba&gt;=0.57 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from fast-array-utils[accel,sparse]-&gt;pertpy) (0.62.1)
+Requirement already satisfied: llvmlite&lt;0.46,&gt;=0.45.0dev0 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from numba&gt;=0.57-&gt;fast-array-utils[accel,sparse]-&gt;pertpy) (0.45.1)
+Requirement already satisfied: jax&gt;=0.7.1 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from flax-&gt;pertpy) (0.7.2)
+Collecting msgpack (from flax-&gt;pertpy)
+  Downloading msgpack-1.1.2-cp312-cp312-macosx_11_0_arm64.whl.metadata (8.1 kB)
+Collecting optax (from flax-&gt;pertpy)
+  Downloading optax-0.2.6-py3-none-any.whl.metadata (7.6 kB)
+Collecting orbax-checkpoint (from flax-&gt;pertpy)
+  Downloading orbax_checkpoint-0.11.25-py3-none-any.whl.metadata (2.3 kB)
+Collecting tensorstore (from flax-&gt;pertpy)
+  Downloading tensorstore-0.1.78-cp312-cp312-macosx_11_0_arm64.whl.metadata (21 kB)
+Requirement already satisfied: PyYAML&gt;=5.4.1 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from flax-&gt;pertpy) (6.0.3)
+Collecting treescope&gt;=0.1.7 (from flax-&gt;pertpy)
+  Using cached treescope-0.1.10-py3-none-any.whl.metadata (6.6 kB)
+Requirement already satisfied: jaxlib&lt;=0.7.2,&gt;=0.7.2 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from jax&gt;=0.7.1-&gt;flax-&gt;pertpy) (0.7.2)
+Requirement already satisfied: ml_dtypes&gt;=0.5.0 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from jax&gt;=0.7.1-&gt;flax-&gt;pertpy) (0.5.3)
+Requirement already satisfied: opt_einsum in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from jax&gt;=0.7.1-&gt;flax-&gt;pertpy) (3.4.0)
+Requirement already satisfied: markdown-it-py&gt;=2.2.0 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from rich-&gt;pertpy) (4.0.0)
+Requirement already satisfied: pygments&lt;3.0.0,&gt;=2.13.0 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from rich-&gt;pertpy) (2.19.1)
+Requirement already satisfied: mdurl~=0.1 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from markdown-it-py&gt;=2.2.0-&gt;rich-&gt;pertpy) (0.1.2)
+Collecting makefun (from funsor-&gt;pertpy)
+  Downloading makefun-1.16.0-py2.py3-none-any.whl.metadata (2.9 kB)
+Requirement already satisfied: multipledispatch in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from funsor-&gt;pertpy) (1.0.0)
+Requirement already satisfied: anndata&gt;=0.10.8 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from mudata-&gt;pertpy) (0.12.2)
+Requirement already satisfied: array-api-compat&gt;=1.7.1 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from anndata&gt;=0.10.8-&gt;mudata-&gt;pertpy) (1.12.0)
+Requirement already satisfied: legacy-api-wrap in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from anndata&gt;=0.10.8-&gt;mudata-&gt;pertpy) (1.4.1)
+Requirement already satisfied: natsort in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from anndata&gt;=0.10.8-&gt;mudata-&gt;pertpy) (8.4.0)
+Requirement already satisfied: zarr!=3.0.*,&gt;=2.18.7 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from anndata&gt;=0.10.8-&gt;mudata-&gt;pertpy) (2.18.7)
+Requirement already satisfied: asciitree in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from zarr!=3.0.*,&gt;=2.18.7-&gt;anndata&gt;=0.10.8-&gt;mudata-&gt;pertpy) (0.3.3)
+Requirement already satisfied: fasteners in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from zarr!=3.0.*,&gt;=2.18.7-&gt;anndata&gt;=0.10.8-&gt;mudata-&gt;pertpy) (0.20)
+Requirement already satisfied: numcodecs!=0.14.0,!=0.14.1,&lt;0.16,&gt;=0.10.0 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from zarr!=3.0.*,&gt;=2.18.7-&gt;anndata&gt;=0.10.8-&gt;mudata-&gt;pertpy) (0.15.1)
+Requirement already satisfied: deprecated in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from numcodecs!=0.14.0,!=0.14.1,&lt;0.16,&gt;=0.10.0-&gt;zarr!=3.0.*,&gt;=2.18.7-&gt;anndata&gt;=0.10.8-&gt;mudata-&gt;pertpy) (1.2.18)
+Requirement already satisfied: wrapt&lt;2,&gt;=1.10 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from deprecated-&gt;numcodecs!=0.14.0,!=0.14.1,&lt;0.16,&gt;=0.10.0-&gt;zarr!=3.0.*,&gt;=2.18.7-&gt;anndata&gt;=0.10.8-&gt;mudata-&gt;pertpy) (1.17.3)
+Requirement already satisfied: et-xmlfile in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from openpyxl-&gt;pertpy) (2.0.0)
+Requirement already satisfied: absl-py&gt;=0.7.1 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from optax-&gt;flax-&gt;pertpy) (2.3.1)
+Collecting chex&gt;=0.1.87 (from optax-&gt;flax-&gt;pertpy)
+  Downloading chex-0.1.91-py3-none-any.whl.metadata (18 kB)
+Requirement already satisfied: toolz&gt;=1.0.0 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from chex&gt;=0.1.87-&gt;optax-&gt;flax-&gt;pertpy) (1.0.0)
+Collecting etils[epath,epy] (from orbax-checkpoint-&gt;flax-&gt;pertpy)
+  Using cached etils-1.13.0-py3-none-any.whl.metadata (6.5 kB)
+Requirement already satisfied: nest_asyncio in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from orbax-checkpoint-&gt;flax-&gt;pertpy) (1.6.0)
+Collecting aiofiles (from orbax-checkpoint-&gt;flax-&gt;pertpy)
+  Downloading aiofiles-25.1.0-py3-none-any.whl.metadata (6.3 kB)
+Requirement already satisfied: protobuf in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from orbax-checkpoint-&gt;flax-&gt;pertpy) (6.32.1)
+Collecting humanize (from orbax-checkpoint-&gt;flax-&gt;pertpy)
+  Using cached humanize-4.13.0-py3-none-any.whl.metadata (7.8 kB)
+Collecting simplejson&gt;=3.16.0 (from orbax-checkpoint-&gt;flax-&gt;pertpy)
+  Downloading simplejson-3.20.2-cp312-cp312-macosx_11_0_arm64.whl.metadata (3.4 kB)
+Requirement already satisfied: fsspec in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from etils[epath,epy]-&gt;orbax-checkpoint-&gt;flax-&gt;pertpy) (2025.9.0)
+Collecting importlib_resources (from etils[epath,epy]-&gt;orbax-checkpoint-&gt;flax-&gt;pertpy)
+  Using cached importlib_resources-6.5.2-py3-none-any.whl.metadata (3.9 kB)
+Collecting zipp (from etils[epath,epy]-&gt;orbax-checkpoint-&gt;flax-&gt;pertpy)
+  Using cached zipp-3.23.0-py3-none-any.whl.metadata (3.6 kB)
+Requirement already satisfied: jaxopt&gt;=0.8 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from ott-jax-&gt;pertpy) (0.8.5)
+Collecting lineax&gt;=0.0.7 (from ott-jax-&gt;pertpy)
+  Downloading lineax-0.0.8-py3-none-any.whl.metadata (18 kB)
+Collecting equinox&gt;=0.11.10 (from lineax&gt;=0.0.7-&gt;ott-jax-&gt;pertpy)
+  Downloading equinox-0.13.2-py3-none-any.whl.metadata (19 kB)
+Collecting jaxtyping&gt;=0.2.24 (from lineax&gt;=0.0.7-&gt;ott-jax-&gt;pertpy)
+  Downloading jaxtyping-0.3.3-py3-none-any.whl.metadata (7.8 kB)
+Collecting wadler-lindig&gt;=0.1.0 (from equinox&gt;=0.11.10-&gt;lineax&gt;=0.0.7-&gt;ott-jax-&gt;pertpy)
+  Downloading wadler_lindig-0.1.7-py3-none-any.whl.metadata (17 kB)
+Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from requests-&gt;pertpy) (3.4.3)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from requests-&gt;pertpy) (3.10)
+Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from requests-&gt;pertpy) (2.5.0)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from requests-&gt;pertpy) (2025.10.5)
+Requirement already satisfied: networkx&gt;=2.7.1 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from scanpy-&gt;pertpy) (3.5)
+Requirement already satisfied: patsy!=1.0.0 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from scanpy-&gt;pertpy) (1.0.1)
+Requirement already satisfied: pynndescent&gt;=0.5.13 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from scanpy-&gt;pertpy) (0.5.13)
+Requirement already satisfied: seaborn&gt;=0.13.2 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from scanpy-&gt;pertpy) (0.13.2)
+Requirement already satisfied: session-info2 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from scanpy-&gt;pertpy) (0.2.2)
+Requirement already satisfied: umap-learn&gt;=0.5.6 in /Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages (from scanpy-&gt;pertpy) (0.5.9.post2)
+Collecting pyomo (from sparsecca-&gt;pertpy)
+  Downloading pyomo-6.9.4-cp312-cp312-macosx_11_0_arm64.whl.metadata (11 kB)
+Collecting ply (from pyomo-&gt;sparsecca-&gt;pertpy)
+  Downloading ply-3.11-py2.py3-none-any.whl.metadata (844 bytes)
+Downloading pertpy-1.0.3-py3-none-any.whl (216 kB)
+Downloading arviz-0.22.0-py3-none-any.whl (1.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">1.7/1.7 MB</span> <span class=" -Color -Color-Red">25.7 MB/s</span>  <span class=" -Color -Color-Yellow">0:00:00</span>
+?25hDownloading h5netcdf-1.6.4-py3-none-any.whl (50 kB)
+Downloading xarray_einstats-0.9.1-py3-none-any.whl (39 kB)
+Downloading fast_array_utils-1.2.3-py3-none-any.whl (34 kB)
+Downloading flax-0.12.0-py3-none-any.whl (466 kB)
+Using cached treescope-0.1.10-py3-none-any.whl (182 kB)
+Downloading funsor-0.4.5-py3-none-any.whl (174 kB)
+Downloading lamin_utils-0.15.0-py2.py3-none-any.whl (25 kB)
+Downloading makefun-1.16.0-py2.py3-none-any.whl (22 kB)
+Downloading msgpack-1.1.2-cp312-cp312-macosx_11_0_arm64.whl (85 kB)
+Using cached numpyro-0.19.0-py3-none-any.whl (370 kB)
+Downloading optax-0.2.6-py3-none-any.whl (367 kB)
+Downloading chex-0.1.91-py3-none-any.whl (100 kB)
+Downloading orbax_checkpoint-0.11.25-py3-none-any.whl (563 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">563.1/563.1 kB</span> <span class=" -Color -Color-Red">14.8 MB/s</span>  <span class=" -Color -Color-Yellow">0:00:00</span>
+?25hDownloading simplejson-3.20.2-cp312-cp312-macosx_11_0_arm64.whl (75 kB)
+Downloading tensorstore-0.1.78-cp312-cp312-macosx_11_0_arm64.whl (13.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">13.8/13.8 MB</span> <span class=" -Color -Color-Red">20.9 MB/s</span>  <span class=" -Color -Color-Yellow">0:00:00</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+?25hDownloading aiofiles-25.1.0-py3-none-any.whl (14 kB)
+Using cached etils-1.13.0-py3-none-any.whl (170 kB)
+Using cached humanize-4.13.0-py3-none-any.whl (128 kB)
+Using cached importlib_resources-6.5.2-py3-none-any.whl (37 kB)
+Downloading ott_jax-0.5.2-py3-none-any.whl (298 kB)
+Downloading lineax-0.0.8-py3-none-any.whl (68 kB)
+Downloading equinox-0.13.2-py3-none-any.whl (179 kB)
+Downloading jaxtyping-0.3.3-py3-none-any.whl (55 kB)
+Downloading wadler_lindig-0.1.7-py3-none-any.whl (20 kB)
+Downloading pubchempy-1.0.5-py3-none-any.whl (21 kB)
+Downloading sparsecca-0.3.1-py3-none-any.whl (12 kB)
+Downloading pyomo-6.9.4-cp312-cp312-macosx_11_0_arm64.whl (4.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">4.3/4.3 MB</span> <span class=" -Color -Color-Red">26.2 MB/s</span>  <span class=" -Color -Color-Yellow">0:00:00</span>
+?25hDownloading ply-3.11-py2.py3-none-any.whl (49 kB)
+Using cached zipp-3.23.0-py3-none-any.whl (10 kB)
+Building wheels for collected packages: blitzgsea
+<span class=" -Color -Color-Yellow">  DEPRECATION: Building 'blitzgsea' using the legacy setup.py bdist_wheel mechanism, which will be removed in a future version. pip 25.3 will enforce this behaviour change. A possible replacement is to use the standardized build interface by setting the `--use-pep517` option, (possibly combined with `--no-build-isolation`), or adding a `pyproject.toml` file to the source tree of 'blitzgsea'. Discussion can be found at https://github.com/pypa/pip/issues/6334</span>
+  Building wheel for blitzgsea (setup.py) ... ?25ldone
+?25h  Created wheel for blitzgsea: filename=blitzgsea-1.3.54-py3-none-any.whl size=625754 sha256=6001b76a0baab12482167edbc672c9f9447555108fc66e984db0cd9721a3dffb
+  Stored in directory: /Users/francesca.drummer/Library/Caches/pip/wheels/e3/00/84/15131449d6f397371baa95614491906dbd4ca2a932194b9494
+Successfully built blitzgsea
+Installing collected packages: ply, makefun, lamin-utils, zipp, wadler-lindig, treescope, simplejson, pyomo, pubchempy, msgpack, importlib_resources, humanize, funsor, fast-array-utils, etils, aiofiles, tensorstore, jaxtyping, h5netcdf, xarray-einstats, sparsecca, orbax-checkpoint, numpyro, equinox, chex, blitzgsea, optax, lineax, arviz, ott-jax, flax, pertpy
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">32/32</span> [pertpy]30/32 [flax]ax]eckpoint]
+Successfully installed aiofiles-25.1.0 arviz-0.22.0 blitzgsea-1.3.54 chex-0.1.91 equinox-0.13.2 etils-1.13.0 fast-array-utils-1.2.3 flax-0.12.0 funsor-0.4.5 h5netcdf-1.6.4 humanize-4.13.0 importlib_resources-6.5.2 jaxtyping-0.3.3 lamin-utils-0.15.0 lineax-0.0.8 makefun-1.16.0 msgpack-1.1.2 numpyro-0.19.0 optax-0.2.6 orbax-checkpoint-0.11.25 ott-jax-0.5.2 pertpy-1.0.3 ply-3.11 pubchempy-1.0.5 pyomo-6.9.4 simplejson-3.20.2 sparsecca-0.3.1 tensorstore-0.1.78 treescope-0.1.10 wadler-lindig-0.1.7 xarray-einstats-0.9.1 zipp-3.23.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pertpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pt</span>
+
+<span class="n">milo</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">Milo</span><span class="p">()</span>
+<span class="c1"># Create a milo object - note: milor requires mudata as input</span>
+<span class="n">mdata</span> <span class="o">=</span> <span class="n">milo</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># compute neighbor graph</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">mdata</span><span class="p">[</span><span class="s2">"rna"</span><span class="p">],</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">use_rep</span><span class="o">=</span><span class="s2">"X_pca"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make overlapping neighborhoods</span>
+<span class="n">milo</span><span class="o">.</span><span class="n">make_nhoods</span><span class="p">(</span>
+    <span class="n">mdata</span><span class="p">[</span><span class="s2">"rna"</span><span class="p">],</span> <span class="n">neighbors_key</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">feature_key</span><span class="o">=</span><span class="s2">"rna"</span><span class="p">,</span> <span class="n">prop</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># count cells in each neighborhood</span>
+<span class="n">mdata</span> <span class="o">=</span> <span class="n">milo</span><span class="o">.</span><span class="n">count_nhoods</span><span class="p">(</span><span class="n">mdata</span><span class="p">,</span> <span class="n">sample_col</span><span class="o">=</span><span class="s2">"SampleID"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Do differential abundance analysis using milo</span>
+<span class="n">milo</span><span class="o">.</span><span class="n">da_nhoods</span><span class="p">(</span><span class="n">mdata</span><span class="p">,</span> <span class="n">design</span><span class="o">=</span><span class="s2">"~condition"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mdata</span><span class="p">[</span><span class="s2">"rna"</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AnnData object with n_obs × n_vars = 4718 × 12786
+    obs: 'Clusters', 'Celltype', 'SampleID', 'name', 'background', 'condition', 'replicate', 'experiment', 'ncells', 'libsize', 'mito_fraction', 'ribo_fraction', 'mhc_fraction', 'actin_fraction', 'cytoskeleton_fraction', 'malat1_fraction', 'scrublet_predict', 'scrublet_score', 'lowlibsize', 'Clusters_myeloid', 'Celltype_myeloid', 'nhood_ixs_random', 'nhood_ixs_refined', 'nhood_kth_distance'
+    uns: 'Celltype_myeloid_colors', 'condition_colors', 'neighbors', 'nhood_neighbors_key'
+    obsm: 'X_pca', 'X_tsne', 'imputed_data', 'nhoods'
+    layers: 'norm_count', 'norm_log'
+    obsp: 'distances', 'connectivities'
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="visualize-fold-change-on-umap-tsne">
+<h2>Visualize fold change on UMAP/tSNE<a class="headerlink" href="#visualize-fold-change-on-umap-tsne" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build graph and visualize it</span>
+<span class="n">milo</span><span class="o">.</span><span class="n">build_nhood_graph</span><span class="p">(</span><span class="n">mdata</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s2">"X_tsne"</span><span class="p">)</span>
+<span class="n">milo</span><span class="o">.</span><span class="n">plot_nhood_graph</span><span class="p">(</span><span class="n">mdata</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages/anndata/_core/anndata.py:1175: ImplicitModificationWarning: Trying to modify attribute `.obs` of view, initializing view as actual.
+  df[key] = c
+/Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages/anndata/_core/anndata.py:1175: ImplicitModificationWarning: Trying to modify attribute `.obs` of view, initializing view as actual.
+  df[key] = c
+/Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages/anndata/_core/anndata.py:1175: ImplicitModificationWarning: Trying to modify attribute `.obs` of view, initializing view as actual.
+  df[key] = c
+</pre></div>
+</div>
+<img alt="../_images/4e078aa2bd67c4db9ef2519c696da17fcf2918dbf60e14256fa953577769d051.png" src="../_images/4e078aa2bd67c4db9ef2519c696da17fcf2918dbf60e14256fa953577769d051.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mdata</span><span class="p">[</span><span class="s2">"rna"</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AnnData object with n_obs × n_vars = 4718 × 12786
+    obs: 'Clusters', 'Celltype', 'SampleID', 'name', 'background', 'condition', 'replicate', 'experiment', 'ncells', 'libsize', 'mito_fraction', 'ribo_fraction', 'mhc_fraction', 'actin_fraction', 'cytoskeleton_fraction', 'malat1_fraction', 'scrublet_predict', 'scrublet_score', 'lowlibsize', 'Clusters_myeloid', 'Celltype_myeloid', 'nhood_ixs_random', 'nhood_ixs_refined', 'nhood_kth_distance'
+    uns: 'Celltype_myeloid_colors', 'condition_colors', 'neighbors', 'nhood_neighbors_key'
+    obsm: 'X_pca', 'X_tsne', 'imputed_data', 'nhoods'
+    layers: 'norm_count', 'norm_log'
+    obsp: 'distances', 'connectivities'
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Highlight a specific neighborhood</span>
+<span class="n">milo</span><span class="o">.</span><span class="n">plot_nhood</span><span class="p">(</span><span class="n">mdata</span><span class="p">,</span> <span class="n">ix</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s2">"X_tsne"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/d0ed800a42a82f13b58df555cd2f62c8e4ec4026df437f9ddf3aacb9c4930ac6.png" src="../_images/d0ed800a42a82f13b58df555cd2f62c8e4ec4026df437f9ddf3aacb9c4930ac6.png" />
+</div>
+</div>
+</section>
+<section id="visualize-results-as-a-beeswarm-plot">
+<h2>Visualize results as a beeswarm plot<a class="headerlink" href="#visualize-results-as-a-beeswarm-plot" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">milo</span><span class="o">.</span><span class="n">annotate_nhoods</span><span class="p">(</span><span class="n">mdata</span><span class="p">,</span> <span class="n">anno_col</span><span class="o">=</span><span class="s2">"Celltype_myeloid"</span><span class="p">)</span>
+<span class="n">milo</span><span class="o">.</span><span class="n">plot_da_beeswarm</span><span class="p">(</span><span class="n">mdata</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages/pertpy/tools/_milo.py:1012: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
+  nhood_adata.obs[[anno_col, "logFC"]].groupby(anno_col).median().sort_values("logFC", ascending=True).index
+/Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages/pertpy/tools/_milo.py:1029: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `y` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.violinplot(
+/Users/francesca.drummer/miniconda3/envs/workshop_2025/lib/python3.12/site-packages/pertpy/tools/_milo.py:1029: FutureWarning: 
+
+The `scale` parameter has been renamed and will be removed in v0.15.0. Pass `density_norm='width'` for the same effect.
+  sns.violinplot(
+</pre></div>
+</div>
+<img alt="../_images/422ef2b0fa9e55594601f330b88a1bff1ecb2e804f06c3f110d9b5ae644ddb12.png" src="../_images/422ef2b0fa9e55594601f330b88a1bff1ecb2e804f06c3f110d9b5ae644ddb12.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mdata</span><span class="p">[</span><span class="s2">"rna"</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AnnData object with n_obs × n_vars = 4718 × 12786
+    obs: 'Clusters', 'Celltype', 'SampleID', 'name', 'background', 'condition', 'replicate', 'experiment', 'ncells', 'libsize', 'mito_fraction', 'ribo_fraction', 'mhc_fraction', 'actin_fraction', 'cytoskeleton_fraction', 'malat1_fraction', 'scrublet_predict', 'scrublet_score', 'lowlibsize', 'Clusters_myeloid', 'Celltype_myeloid', 'nhood_ixs_random', 'nhood_ixs_refined', 'nhood_kth_distance', 'Nhood'
+    uns: 'Celltype_myeloid_colors', 'condition_colors', 'neighbors', 'nhood_neighbors_key'
+    obsm: 'X_pca', 'X_tsne', 'imputed_data', 'nhoods'
+    layers: 'norm_count', 'norm_log'
+    obsp: 'distances', 'connectivities'
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="alternate-beeswarm-visual">
+<h2>Alternate beeswarm visual<a class="headerlink" href="#alternate-beeswarm-visual" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mdata</span><span class="p">[</span><span class="s2">"milo"</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AnnData object with n_obs × n_vars = 11 × 324
+    obs: 'condition', 'SampleID'
+    var: 'index_cell', 'kth_distance', 'logFC', 'logCPM', 'F', 'PValue', 'FDR', 'adjust.method', 'comparison', 'test', 'SpatialFDR', 'Nhood_size', 'nhood_annotation', 'nhood_annotation_frac'
+    uns: 'sample_col', 'nhood', 'annotation_labels', 'annotation_obs'
+    varm: 'X_milo_graph', 'frac_annotation'
+    varp: 'nhood_connectivities'
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mcolors</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.cm</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+<span class="n">outbase</span> <span class="o">=</span> <span class="s2">"/Users/sharmar1/Dropbox/msk_workshop/GSCN_2025/"</span>
+
+<span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s2">"FDR"</span><span class="p">,</span> <span class="s2">"SpatialFDR"</span><span class="p">,</span> <span class="s2">"PValue"</span><span class="p">]):</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+    <span class="n">mdata</span><span class="p">[</span><span class="s2">"milo"</span><span class="p">]</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">"log_"</span> <span class="o">+</span> <span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">mdata</span><span class="p">[</span><span class="s2">"milo"</span><span class="p">]</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="n">item</span><span class="p">])</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">plot</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">stripplot</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="s2">"logFC"</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="s2">"nhood_annotation"</span><span class="p">,</span>
+        <span class="n">hue</span><span class="o">=</span><span class="s2">"log_"</span> <span class="o">+</span> <span class="n">item</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">mdata</span><span class="p">[</span><span class="s2">"milo"</span><span class="p">]</span><span class="o">.</span><span class="n">var</span><span class="p">,</span>
+        <span class="n">size</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+        <span class="n">palette</span><span class="o">=</span><span class="s2">"cividis"</span><span class="p">,</span>
+        <span class="n">jitter</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+        <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">plot</span><span class="o">.</span><span class="n">get_legend</span><span class="p">()</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="c1"># ax.set_xticklabels(ax.get_xticks(), fontsize = 18)</span>
+    <span class="c1"># ax.set_yticklabels(ax.get_yticks(), fontsize = 18)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">"both"</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">"major"</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Myeloid Celltypes"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"logFC"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+
+    <span class="c1"># Drawing the side color bar</span>
+    <span class="n">normalize</span> <span class="o">=</span> <span class="n">mcolors</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span>
+        <span class="n">vmin</span><span class="o">=</span><span class="n">mdata</span><span class="p">[</span><span class="s2">"milo"</span><span class="p">]</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">"log_"</span> <span class="o">+</span> <span class="n">item</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
+        <span class="n">vmax</span><span class="o">=</span><span class="n">mdata</span><span class="p">[</span><span class="s2">"milo"</span><span class="p">]</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">"log_"</span> <span class="o">+</span> <span class="n">item</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+    <span class="p">)</span>
+    <span class="n">colormap</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">cividis</span>
+
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">mdata</span><span class="p">[</span><span class="s2">"milo"</span><span class="p">]</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">"log_"</span> <span class="o">+</span> <span class="n">item</span><span class="p">]:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">colormap</span><span class="p">(</span><span class="n">normalize</span><span class="p">(</span><span class="n">n</span><span class="p">)))</span>
+
+    <span class="n">scalarmappaple</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">ScalarMappable</span><span class="p">(</span><span class="n">norm</span><span class="o">=</span><span class="n">normalize</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">colormap</span><span class="p">)</span>
+    <span class="n">scalarmappaple</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="n">mdata</span><span class="p">[</span><span class="s2">"milo"</span><span class="p">]</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">"log_"</span> <span class="o">+</span> <span class="n">item</span><span class="p">])</span>
+    <span class="n">cbar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">scalarmappaple</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">())</span>
+    <span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">get_yticks</span><span class="p">(),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+    <span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"-log10("</span> <span class="o">+</span> <span class="n">item</span> <span class="o">+</span> <span class="s2">")"</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="c1"># fig.savefig(outbase + 'milor_myeloid_swarmplot_colored_by_log_' + item + '.pdf', dpi = 300,</span>
+    <span class="c1">#            bbox_inches = 'tight')</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/sr/x0w569jx2ts65c68fz7_4c300000gn/T/ipykernel_21995/2798054379.py:45: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
+  cbar.ax.set_yticklabels(cbar.ax.get_yticks(), fontsize=18)
+/var/folders/sr/x0w569jx2ts65c68fz7_4c300000gn/T/ipykernel_21995/2798054379.py:45: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
+  cbar.ax.set_yticklabels(cbar.ax.get_yticks(), fontsize=18)
+/var/folders/sr/x0w569jx2ts65c68fz7_4c300000gn/T/ipykernel_21995/2798054379.py:45: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
+  cbar.ax.set_yticklabels(cbar.ax.get_yticks(), fontsize=18)
+</pre></div>
+</div>
+<img alt="../_images/ed7018d49fe55e60a2c646501e31885db4384a58b82c7a30d00b7da8f098f66e.png" src="../_images/ed7018d49fe55e60a2c646501e31885db4384a58b82c7a30d00b7da8f098f66e.png" />
+<img alt="../_images/11bcce33ab23a82e61a4c9826497a784a45388bf1413b408c2730b76e13236bd.png" src="../_images/11bcce33ab23a82e61a4c9826497a784a45388bf1413b408c2730b76e13236bd.png" />
+<img alt="../_images/4ecc6f2ced6185786737c5841798c007a78ebadb473dc837999ba54b4e910048.png" src="../_images/4ecc6f2ced6185786737c5841798c007a78ebadb473dc837999ba54b4e910048.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "scverse-workshop"
+        },
+        kernelOptions: {
+            name: "scverse-workshop",
+            path: "./day_2"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'scverse-workshop'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="nb2_differential_cellular_abundance.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Introduction</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="spatialdata/README.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Spatial Analysis Tutorials</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Introduction</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#load-packages">Load packages</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#load-example-data">Load example data</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alternate-visual">Alternate visual</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#milor">MiloR</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-and-setup-pertpy">Import and setup pertpy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-fold-change-on-umap-tsne">Visualize fold change on UMAP/tSNE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-results-as-a-beeswarm-plot">Visualize results as a beeswarm plot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alternate-beeswarm-visual">Alternate beeswarm visual</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By scverse community & outreach team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright scverse.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

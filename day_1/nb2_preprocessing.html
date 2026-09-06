@@ -1,0 +1,1801 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Dimensionality reduction, clustering and annotation &#8212; scverse x GSCN Workshop</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'day_1/nb2_preprocessing';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="/202609_workshop_GSCN/day_1/nb2_preprocessing.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Downstream: DGEA and GSEA" href="nb3_downstream_analysis.html" />
+    <link rel="prev" title="QC and Normalisation" href="nb1_qc_normalization.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../README.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/scverse_logo.png" class="logo__image only-light" alt="scverse x GSCN Workshop - Home"/>
+    <img src="../_static/scverse_logo.png" class="logo__image only-dark pst-js-only" alt="scverse x GSCN Workshop - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../README.html">
+                    scverse x GSCN workshop
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Notebooks</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="README.html">Day 1</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="nb1_qc_normalization.html">QC and Normalisation</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Dimensionality reduction, clustering and annotation</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="nb3_downstream_analysis.html">3. Downstream Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nb4_batch_correction.html">Batch Correction</a></li>
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="nb5_trajectory_inference.html">Introduction</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="nb6_cell_rank.html">6. Fate Probabilities with CellRank</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../day_2/README.html">Day 2</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../day_2/nb1_ligand_recepter_interactions.html">1. Ligand-Receptor Interactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../day_2/nb2_differential_cellular_abundance.html">Introduction</a></li>
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../day_2/nb2_differential_cellular_abundance_pertpy_implementation.html">Introduction</a></li>
+
+
+
+<li class="toctree-l2 has-children"><a class="reference internal" href="../day_2/spatialdata/README.html">Spatial Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../day_2/spatialdata/beginner/nb1_spatialdata_objects.html">1. SpatialData Objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../day_2/spatialdata/beginner/nb2_static_plotting.html">2. Static Plotting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../day_2/spatialdata/beginner/nb3_region_annotation.html">3. Region Annotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../day_2/spatialdata/beginner/nb4_simple_analysis_using_scverse_tools.html">4. Simple Analysis using scverse Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../day_2/spatialdata/advanced/transformations.html">5. Transformations (advanced)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../day_2/spatialdata/advanced/tutorial_niche_calculation.html">6. Niche Calculation (advanced)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../day_2/spatial_domain_and_niche.html">3. Spatial Domains and Niches</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/scverse/202609_workshop_GSCN" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/day_1/nb2_preprocessing.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Dimensionality reduction, clustering and annotation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Dimensionality reduction, clustering and annotation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#library-imports">Library imports</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data">Load data</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#highly-variable-genes">Highly Variable Genes</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#dimensionality-reduction-pca">Dimensionality reduction: PCA</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#note-genes-loadings-connection">Note: Genes-Loadings connection</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#nearest-neighbor-graph">Nearest neighbor graph</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#data-visualization">Data Visualization</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#umap">UMAP</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-examples">Visualization examples</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#color-by-metadata">Color by metadata</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#color-by-gene-expression">Color by gene expression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alternate-code-more-manual">Alternate code (more manual)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering">Clustering</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#leiden-clustering">Leiden clustering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#investigate-mito-content-library-size-number-of-genes-expressed-in-each-cluster">Investigate % mito content, library size, number of genes expressed in each cluster</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#highlight-clusters-of-interest">Highlight clusters of interest</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remove-the-clusters">Remove the clusters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#re-do-pre-processing">Re-do pre-processing</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#marker-genes-and-cluster-annotation">Marker genes and cluster annotation</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wilcoxon-test">Wilcoxon test</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-approaches">Other approaches:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explore-data-using-prior-knowledge">Explore data using prior knowledge</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#save-results-for-future">Save results for future</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="dimensionality-reduction-clustering-and-annotation">
+<h1>Dimensionality reduction, clustering and annotation<a class="headerlink" href="#dimensionality-reduction-clustering-and-annotation" title="Link to this heading">#</a></h1>
+<p>In this notebook, we will cover the topics of:</p>
+<ul class="simple">
+<li><p>Dimensionality reduction</p></li>
+<li><p>Clustering</p></li>
+<li><p>Annotation</p></li>
+</ul>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="library-imports">
+<h1>Library imports<a class="headerlink" href="#library-imports" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="c1"># single cell library</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scanpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sc</span>
+
+<span class="c1"># data loading</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">lamindb</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ln</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="load-data">
+<h1>Load data<a class="headerlink" href="#load-data" title="Link to this heading">#</a></h1>
+<p>We read the data that has already been pre-processed, i.e., QC and normalized</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ln</span><span class="o">.</span><span class="n">Artifact</span><span class="o">.</span><span class="n">df</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the artifact</span>
+<span class="n">artifact</span> <span class="o">=</span> <span class="n">ln</span><span class="o">.</span><span class="n">Artifact</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"7YRPApRIFl4LOsaj0000"</span><span class="p">)</span>
+
+<span class="c1"># Load the AnnData object into memory</span>
+<span class="n">adata</span> <span class="o">=</span> <span class="n">artifact</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">obs_cols_to_keep</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'sample'</span><span class="p">,</span> <span class="s1">'condition'</span><span class="p">,</span> <span class="s1">'area'</span><span class="p">,</span> <span class="s1">'age'</span><span class="p">,</span> <span class="s1">'donor'</span><span class="p">,</span> 
+    <span class="s1">'sequencing batch'</span><span class="p">,</span> <span class="s1">'sequencing id'</span><span class="p">,</span> <span class="s1">'sex'</span><span class="p">,</span> 
+    <span class="s1">'APOE genotype'</span><span class="p">,</span> <span class="s1">'brain area number'</span><span class="p">,</span> <span class="s1">'running number'</span><span class="p">,</span> 
+    <span class="s1">'donor_v2'</span><span class="p">,</span> <span class="s1">'donor_v2_area'</span><span class="p">,</span> <span class="s1">'tech_sample'</span>
+<span class="p">]</span>
+
+<span class="n">var_cols_to_keep</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'ensemble_id'</span><span class="p">,</span> <span class="s1">'Accession'</span><span class="p">,</span> <span class="s1">'Chromosome'</span><span class="p">,</span> <span class="s1">'End'</span><span class="p">,</span> <span class="s1">'Start'</span><span class="p">,</span> <span class="s1">'Strand'</span><span class="p">]</span>
+
+<span class="c1"># Delete unwanted obs columns</span>
+<span class="n">obs_cols_to_delete</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">obs_cols_to_keep</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">obs_cols_to_delete</span><span class="p">:</span>
+    <span class="k">del</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">col</span><span class="p">]</span>
+
+<span class="c1"># Delete unwanted var columns</span>
+<span class="n">var_cols_to_delete</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">var_cols_to_keep</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">var_cols_to_delete</span><span class="p">):</span>
+    <span class="k">del</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="n">var</span><span class="p">]</span>
+
+<span class="c1"># Delete unwanted layers</span>
+<span class="n">layers_cols_to_delete</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">layers</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'raw'</span><span class="p">]]</span>
+<span class="k">for</span> <span class="n">layers</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">layers_cols_to_delete</span><span class="p">):</span>
+    <span class="k">del</span> <span class="n">adata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">layers</span><span class="p">]</span>
+
+<span class="c1"># Delete all other slots</span>
+<span class="k">del</span> <span class="n">adata</span><span class="o">.</span><span class="n">uns</span>
+<span class="k">del</span> <span class="n">adata</span><span class="o">.</span><span class="n">obsm</span>
+<span class="k">del</span> <span class="n">adata</span><span class="o">.</span><span class="n">varm</span>
+<span class="k">del</span> <span class="n">adata</span><span class="o">.</span><span class="n">obsp</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="highly-variable-genes">
+<h1>Highly Variable Genes<a class="headerlink" href="#highly-variable-genes" title="Link to this heading">#</a></h1>
+<p>We extract highly variable genes (HVGs) to further reduce the dimensionality of the dataset and include only the most informative genes. Genes that vary substantially across the dataset are informative of the underlying biological variation in the data. As we only want to capture biological variation in these genes, we select highly variable genes after normalization and batch correction. HVGs are used for clustering, trajectory inference, and dimensionality reduction/visualization, while the full data set is used for computing marker genes, differential testing, cell cycle scoring, and visualizing expression values on the data.</p>
+<p>Typically between 1000 and 5000 genes are selected. Here, we extract the top 4000 most variable genes for further processing. If particular genes of importance are known, one could assess how many highly variable genes are necessary to include all, or the majority, of these.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">highly_variable_genes</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s2">"raw"</span><span class="p">,</span> <span class="n">n_top_genes</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span> <span class="n">flavor</span><span class="o">=</span><span class="s2">"seurat"</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span>
+    <span class="p">[</span><span class="s2">"highly_variable"</span><span class="p">,</span> <span class="s2">"highly_variable_rank"</span><span class="p">,</span> <span class="s2">"means"</span><span class="p">,</span> <span class="s2">"variances"</span><span class="p">,</span> <span class="s2">"variances_norm"</span><span class="p">]</span>
+<span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">highly_variable_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The plots show how the data was normalized to select highly variable genes irrespective of the mean expression of the genes. This is achieved by using the index of dispersion which divides by mean expression, and subsequently binning the data by mean expression and selecting the most variable genes within each bin.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="dimensionality-reduction-pca">
+<h1>Dimensionality reduction: PCA<a class="headerlink" href="#dimensionality-reduction-pca" title="Link to this heading">#</a></h1>
+<p>scRNA-seq attempts to measure the mRNA transcripts of all the genes (~20,000) at single-cell level resolution resulting in a high-dimensional data. The cells represent the samples while the genes represent the features or dimensions of the data. These features/dimensions define the phenotype of each single cell. A cellular phenotype vector points to the location of a cell in a high-dimensional space whose each axis is represented by each of the measured features (genes).</p>
+<p>Meanwhile, we know that the genes and their products inside cells form modules, a result of genes being co-regulated. The modular and co-regulatory structure of gene interaction means that a typical scRNA-seq data displays correlation structure among groups of genes. Thus, we are capturing redundant information by measuring all genes from a single cell. Put differently, there are only a few key variables (possibly latent) that are driving the underlying biological process. One consequence of this realization is that the cellular phenotype space is really a low-dimensional object embedded onto a high-dimensional space, i.e. the biological system really has few free variables but is projected onto a space of thousands of features. We call the low-dimensional object the data manifold. It refers to the true structure of the data irrespective of how it is embedded; and understanding the manifold holds the key to uncovering the underlying biology. The notion of dimensionality reduction is thus to extract those few meaningful dimensions that are reflective of the true underlying biological process.</p>
+<p>Futhermore, performing dimensionality reduction on the data reduces the number of dimensions, so it has an added advantage of speeding-up computation (especially when dealing with millions of cells).</p>
+<p>PCA (Principal Component Analysis) is one of the most popular dimensionality reduction algorithms. In short, PCA takes in a high-dimensional data as input and outputs a transformed data with the same number of samples (cells) but with reduced number of dimensions such that the recovered dimensions represent directions of highest variances in the original data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_comps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">use_highly_variable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>A brief explanation of the code above:</p>
+<p>We provide adata as an input to the method. As with any other Scanpy method, since we do not specify anything else, the PCA is run on adata.X. Now, we recall that adata.X holds the log-normalized data (or the z-scored normalized data if you succesfully executed sc.pp.scale function above and did not set adata.X to be log-norm data). Remember: it is crucial that you run PCA on your normalized data (which for the sake of this example notebook is median library size normalization + log transformation).</p>
+<p>Second, we specify n_comps = 100, indicating that we are interested only in the top 100 components.</p>
+<p>Third, we specify use_highly_variable = True which ensures that PCA is computed only on the highly variable genes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To choose the optimal number of principal components, we can visualize the cumulative variance explained:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="s2">"pca"</span><span class="p">][</span><span class="s2">"variance_ratio"</span><span class="p">])),</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="s2">"pca"</span><span class="p">][</span><span class="s2">"variance_ratio"</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s2">".-"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"r"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Principal Component"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"% Variance Explained"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, the increase in variance explained is minimal after about 30 components (as indicated by the red line). So, it is reasonable to perform downstream analysis using 30 principal components.</p>
+<p>One can argue that it might be sufficient to choose 20 or 25 principal components based on our argument above. But we recommend to be slightly conservative and err on the side of choosing slightly more principal components. However, since there is no absolute way to establish the right number of components, we strongly recommend that you consider evaluating consistency of downstream results (clustering or trajectories) by altering the number of principal components slightly around the chosen value. In the above example, you can see how downstream results change if you alter the number of principal components between 20 to 50.</p>
+<p>For now, we will proceed with 30 components.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s2">"X_pca"</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s2">"X_pca"</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">30</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s2">"X_pca"</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Similarly, we want to update the loadings <code class="docutils literal notranslate"><span class="pre">adata.uns['loadings']</span></code> and <code class="docutils literal notranslate"><span class="pre">adata.varm['PCs']</span></code> to reflect only the top 30 principal components.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span><span class="o">.</span><span class="n">varm</span><span class="p">[</span><span class="s2">"PCs"</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">varm</span><span class="p">[</span><span class="s2">"PCs"</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">30</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="note-genes-loadings-connection">
+<h2>Note: Genes-Loadings connection<a class="headerlink" href="#note-genes-loadings-connection" title="Link to this heading">#</a></h2>
+<p>As we discussed above, we can use the loadings to identify the most influential genes onto each of the PCA.</p>
+<p>We will sort the gene names by their loadings for the top 30 PCA. First let’s create a pandas dataframe of PCA loadings and the corresponding highly variable genes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_loadings</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">adata</span><span class="o">.</span><span class="n">varm</span><span class="p">[</span><span class="s2">"PCs"</span><span class="p">],</span>
+    <span class="n">index</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"PC-"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">)],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_loadings</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Since we ran PCA on HVG, let’s make sure that we look at the loadings specific to HVG only. For this we will only consider genes in the HVG.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_loadings_hvg</span> <span class="o">=</span> <span class="n">df_loadings</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="p">[</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">"highly_variable"</span><span class="p">]]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_loadings_hvg</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can sort the dataframe constructed above for any particular PCA.</p>
+<p>A note on the sign of the loadings: Since both the positive and negative extreme values of each principal components are treated equally in data interpretion, it stands to reason that we want to look at the absolute value of the loadings.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">df_loadings_hvg</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">"PC-0"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="s2">"PC-0"</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Task:</strong> Which genes drive the highest variance in the data?</p>
+<p>Whether these genes are relevant/important for your study is something you will have to decide. Why might we want to study the loadings? The reason is sometimes we notice that some of the principal components are driven by the expression of mitochondrial genes or ribosomal genes. And depending on the question you are trying to answer it might be of interest to remove the effect of such genes. This way you can identify if the principal components are being influenced by these nuisance genes and if you need to adjust your set of hvg (for example remove mitochondrial genes or ribosomal genes from the list of hvg or add some new set of context specific genes) for downstream computation.</p>
+<p><strong>Task:</strong> Plot the genes that drive the highest variance in the data &amp; “mt_pct_content”, “log1p_total_counts”.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="p">[</span>   <span class="p">],</span>
+    <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">vmin</span><span class="o">=</span><span class="s2">"p1"</span><span class="p">,</span>
+    <span class="n">vmax</span><span class="o">=</span><span class="s2">"p99"</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="nearest-neighbor-graph">
+<h1>Nearest neighbor graph<a class="headerlink" href="#nearest-neighbor-graph" title="Link to this heading">#</a></h1>
+<p>As we have already mentioned, cellular phenotype space is modeled as a low-dimensional object (called the data manifold) embedded in a high-dimensional space. The expression pattern of genes define the manifold structure. So cells with similar expression profiles are close to each other on the manifold. In other words, the local neighborhood of each cell on the manifold consists of similar cells. This is an important property that must be satisified by any method to accurately capture the structure of the manifold (such as for visualization). In addition, the manifold only depends on the connectivity of the data points - defined via pairwise distances - and not on how the points are arranged in space. Therefore, quantifying cell-cell distance is important to study the manifold structure of the data.</p>
+<p>In the context of single-cell biology, the data manifold is a characterization of the available space of phenotypes for any cell in that context. Exploring the manifold is therefore equivalent to exploring the possible cellular states, and any defect/perturbation in the molecular processes should reflect as a change in the phenotype landscape. This deviation from normal expression would reflect as a change in characteristics of the data manifold, such as volume or variance or regions of occupancy, analyzing which can help us understand the cause and consequences of the changes.</p>
+<p>Understanding the manifold of a high-dimensional data is a problem that pervades several disciplines. As a result, many methods have been proposed to tackle this problem. It is easier to obtain the structure if the underlying manifold is linear - that is, the observed features can be written as a linear combination of the latent variables. Linear methods such as Principal Component Analysis (PCA), discussed above, have been successfully applied in such cases. However, in scRNA-seq data, genes often display non-linear association. The non-linearity is a result of the measured genes themselves being a non-linear combination of the latent variables driving the process, which is in turn a result of the cascades of non-linear interactions, checkpoints and feedback mechanisms a cell has in place. Thus, characterization of the manifold requires us to involve methods that take into account the non-linearity present in single-cell data.</p>
+<p>To tackle the issue of non-linearity, we aim to characterize the data manifold by first analyzing data locally around every cell, and then combining them. We assume that around each cell, the local neighborhood is roughly linear (or Euclidean), so we will apply linear methods locally and aggregate to get the total picture of the manifold. This notion of analyzing data to characterize the underlying manifold has proven beneficial in single-cell data analysis. From a mathematical point of view, graphs are the perfect tools designed for this.</p>
+<p>A graph is defined as a set <code class="docutils literal notranslate"><span class="pre">G</span> <span class="pre">=</span> <span class="pre">{V,E,W}</span></code> consisting of a set of nodes or vertices <code class="docutils literal notranslate"><span class="pre">V</span></code>, a set of edges <code class="docutils literal notranslate"><span class="pre">E</span></code> connecting all or some of the vertices and weights <code class="docutils literal notranslate"><span class="pre">W</span></code> assigned to each of the edges. In the graph representation of single-cell data, each cell is a vertex or node in the graph, two cells are connected if they are similar to each other and the weight between them is the quantification of similarity between them. The similarity between two cells can be obtained by measuring the distance between them. The choice of distance metric, however, is context dependent but due to its ease and useful properties, Euclidean distance seems to be the preferred choice in the single-cell field. The manifold is congruent to a Euclidean space locally around any given point so, it is sensible to use Euclidean distances to compute similarity in the small neighborhood. In particular, for every cell we first find the <code class="docutils literal notranslate"><span class="pre">k</span></code> nearest neighbors (typically <code class="docutils literal notranslate"><span class="pre">k</span></code> is set to &lt; 1% of the total number of cells profiled, a typical choice is <code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">=</span> <span class="pre">30</span></code>) based on Euclidean distance, which will comprise the local neighborhood. Each cell is thus connected to its <code class="docutils literal notranslate"><span class="pre">k</span></code> nearest neighbors by an edge and the constructed graph (called the <em>k-nearest neighbor graph</em>) approximates the underlying manifold. The phenotypic distance between any two cells on such graph is then defined by <em>geodesics</em> along the graph, which more accurately captures biological differences between cells.</p>
+<p>Majority of the visualization, clustering and trajectory inference tools build on top of the above constructed graph. While the thus constructed graph may need to be further adjusted to account for the inherent noise in the data it forms the backbone of most of the tools we will discuss henceforth. We use Scanpy’s inbuilt method to construct graph:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">use_rep</span><span class="o">=</span><span class="s2">"X_pca"</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">"euclidean"</span><span class="p">,</span> <span class="n">key_added</span><span class="o">=</span><span class="s2">"neighbors_30"</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>An explanation of the code above:</p>
+<ol class="arabic simple">
+<li><p>We ask for <code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">=</span> <span class="pre">30</span></code> nearest neighbors. This is a typical choice in data analysis but you can compute graphs for multiple values of <code class="docutils literal notranslate"><span class="pre">k</span></code> and study how the downstream result changes (in fact we encourage you to do this to study how your downstream biological interpretations (such as visuals, clustering etc.) alter with slight changes in <code class="docutils literal notranslate"><span class="pre">k</span></code>. For example for this case, you may want to study values of <code class="docutils literal notranslate"><span class="pre">k</span></code> between 20-40.)</p></li>
+<li><p>We set <code class="docutils literal notranslate"><span class="pre">use_rep</span> <span class="pre">=</span> <span class="pre">'X_pca'</span></code> because we want to compute the k nearest neighbor graph on the above computed PCA. PCA has been observed to be good in capturing global aspects of the data, but to study finer structures of the biological manifold, we recommend building graph on top of the PCA. Furthermore, considering only top principal components has the added advantage of removing noise from the data represented by the lower principal components.</p></li>
+<li><p>We set <code class="docutils literal notranslate"><span class="pre">metric</span> <span class="pre">=</span> <span class="pre">'euclidean'</span></code> but you are encouraged to explore other metrics such as <code class="docutils literal notranslate"><span class="pre">'cosine'</span></code> or <code class="docutils literal notranslate"><span class="pre">'correlation'</span></code>. The single-cell field still has not agreed upon the best choice of metric or comprehensively identified situations where certain metrics might be better suited than others.</p></li>
+<li><p>We set <code class="docutils literal notranslate"><span class="pre">key_added</span> <span class="pre">=</span> <span class="pre">'neighbors_30'</span></code> to store our results with the name ‘neighbors_30’. This can be a handy tool should you want to compute multiple graphs, as you can simply store multiple results with different names. For more details on this, please see Scanpy API on nearest neighbors.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span><span class="o">.</span><span class="n">obsp</span><span class="p">[</span><span class="s2">"neighbors_30_distances"</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The distances (which measure dissimilarity between cells) are represented as a sparse matrix for 11984 cells as shown above. Scanpy also converts the distances into similarities and outputs them as connectivities.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span><span class="o">.</span><span class="n">obsp</span><span class="p">[</span><span class="s2">"neighbors_30_connectivities"</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note the number of non-zero entries in the matrices are different because the connectivities is a symmetric matrix while distances is not.</p>
+<p>All major downstream analysis methods utilize thus constructed graph to visualize, cluster or infer trajectories from the data. We begin by exploring the visualization methods and will run UMAP and Force Directed Layout. As such, if you want to change the properties of the neighbor graph (e.g. for a specific visualization or clustering), you would need to re-run the neighbors command.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="data-visualization">
+<h1>Data Visualization<a class="headerlink" href="#data-visualization" title="Link to this heading">#</a></h1>
+<section id="umap">
+<h2>UMAP<a class="headerlink" href="#umap" title="Link to this heading">#</a></h2>
+<p>Uniform Manifold Approximation and Projection (UMAP) has been applied to visualize and analyze sc-RNAseq data. In summary, UMAP uses the graph we built above and tries to arrange data points on a low-dimensional space (typically in 2D) such that the cross-entropy of the high-dimensional graph weights and low-dimensional graph weights is minimized. The author of UMAP has written a beautiful exposition on how UMAP works, which can be found here: <a class="reference external" href="https://bit.ly/2qGhBkk">https://bit.ly/2qGhBkk</a>.</p>
+<p>Note: UMAP preserves high-dimensional distances on the projected space, which suggests that one can do further analysis on UMAP features. However, this should be done with care and we strongly recommend against it. Specifically because we have the tools needed to perform efficient analytic computations (such as clustering, trajectory detection etc.) in the high dimensions itself; thereby precluding the need to do computations on UMAP. For some FAQs on UMAP, please see this page: <a class="reference external" href="https://bit.ly/2NfgAxY">https://bit.ly/2NfgAxY</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">neighbors_key</span><span class="o">=</span><span class="s2">"neighbors_30"</span><span class="p">,</span> <span class="n">min_dist</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Because we saved our k-nearest neighbor results as <code class="docutils literal notranslate"><span class="pre">neighbors_30</span></code>, we need to specify it as above. We recommend setting min_dist = 0.1 because that was the original default proposed in UMAP algorithm and seems to produce more visually appealing plots. We can do this because the sole purpose of UMAP is to aid in visualization. No quantitative information should be extracted from UMAP (e.g. definite distance/proximity between cells/clusters).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s2">"X_umap"</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s2">"X_umap"</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can visualize the results:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="visualization-examples">
+<h1>Visualization examples<a class="headerlink" href="#visualization-examples" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="color-by-metadata">
+<h2>Color by metadata<a class="headerlink" href="#color-by-metadata" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">"log1p_total_counts"</span><span class="p">,</span>
+        <span class="s2">"log1p_n_genes_by_counts"</span><span class="p">,</span>
+        <span class="s2">"mt_pct_content"</span><span class="p">,</span>
+        <span class="s2">"ribo_pct_content"</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">"plasma"</span><span class="p">,</span>
+    <span class="n">use_raw</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="color-by-gene-expression">
+<h2>Color by gene expression<a class="headerlink" href="#color-by-gene-expression" title="Link to this heading">#</a></h2>
+<p>We can use the computed UMAP projections to visualize gene expression. This can help us perform some basic sanity checks (if known genes are expressed appropriately), develop hypotheses and aid in cell type annotation (which we will look at next in clustering segment).</p>
+<p>For now, since we are looking at PBMCs, we will do some sanity checks using established set of genes used to identify various PBMC cell types (list taken from: <a class="reference external" href="https://satijalab.org/seurat/archive/v3.0/pbmc3k_tutorial.html">https://satijalab.org/seurat/archive/v3.0/pbmc3k_tutorial.html</a>)</p>
+<p>[‘PTPRC’, ‘CD3E’, ‘CD8A’, ‘CD4’, ‘IL7R’, ‘MS4A1’, ‘CD19’, ‘LYZ’, ‘FCGR3A’, ‘NKG7’, ‘CST3’, ‘PPBP’]</p>
+<p>We can make these visuals using Scanpy’s inbuilt UMAP plot function. Important note: By default, Scanpy’s inbuilt function may rely on <code class="docutils literal notranslate"><span class="pre">adata.raw</span></code> to extract gene expression if you have <code class="docutils literal notranslate"><span class="pre">adata.raw</span></code> saved. So please be careful that you set <code class="docutils literal notranslate"><span class="pre">use_raw</span> <span class="pre">=</span> <span class="pre">False</span></code> if you have adata.raw set to store the original raw counts as you may rather want to visualize log-normalized counts which is stored in <code class="docutils literal notranslate"><span class="pre">adata.X</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">genes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"CD3E"</span><span class="p">,</span>
+    <span class="s2">"CD8A"</span><span class="p">,</span>
+    <span class="s2">"CD4"</span><span class="p">,</span>
+    <span class="s2">"IL7R"</span><span class="p">,</span>
+    <span class="s2">"MS4A1"</span><span class="p">,</span>
+    <span class="s2">"CD19"</span><span class="p">,</span>
+    <span class="s2">"LYZ"</span><span class="p">,</span>
+    <span class="s2">"FCGR3A"</span><span class="p">,</span>
+    <span class="s2">"NKG7"</span><span class="p">,</span>
+    <span class="s2">"CST3"</span><span class="p">,</span>
+    <span class="s2">"PPBP"</span><span class="p">,</span>
+    <span class="s2">"PTPRC"</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">genes</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"plasma"</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">use_raw</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>A note: Sometimes it helps to trim the expression levels of genes to certain percentiles to avoid visualization being biased by a few super-high or super-low values. For this we can utilizie vmin and vmax parameter during plotting as shown below. We will set vmin = 1 percentile of gene expression and vmax = 99 percentile of gene expression, which means min gene expression is going to be 1 percentile of the original expression and analogously for max expression.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">genes</span> <span class="o">=</span> <span class="p">[</span>
+    
+<span class="p">]</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">genes</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"plasma"</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">use_raw</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="s2">"p1"</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="s2">"p99"</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="alternate-code-more-manual">
+<h3>Alternate code (more manual)<a class="headerlink" href="#alternate-code-more-manual" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">genes</span> <span class="o">=</span> <span class="p">[</span>
+    
+<span class="p">]</span>
+
+<span class="n">fig_nrow</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">fig_ncol</span> <span class="o">=</span> <span class="mi">4</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span> <span class="o">*</span> <span class="n">fig_ncol</span><span class="p">,</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">fig_nrow</span><span class="p">))</span>
+<span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">gene_name</span> <span class="ow">in</span> <span class="n">genes</span><span class="p">:</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">fig_nrow</span><span class="p">,</span> <span class="n">fig_ncol</span><span class="p">,</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">col_gene</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">toarray</span><span class="p">()[:,</span> <span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">gene_name</span><span class="p">)]</span>
+    <span class="n">im1</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+        <span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s2">"X_umap"</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s2">"X_umap"</span><span class="p">][:,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="n">s</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">c</span><span class="o">=</span><span class="n">col_gene</span><span class="p">,</span>
+        <span class="n">cmap</span><span class="o">=</span><span class="s2">"plasma"</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"UMAP-1"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"UMAP-2"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"UMAP colored by "</span> <span class="o">+</span> <span class="n">gene_name</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im1</span><span class="p">)</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="c1"># To save, please uncomment the following line of code:</span>
+<span class="c1"># fig.savefig(output_directory, 'UMAP_colored_by_genes.png', dpi = 150, bbox_inches = 'tight')</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Such visualizations can help perform data analysis better. You may already be able to draw many hypotheses and make assessment of the data using such visualizations.</p>
+<p>Similarly, alternate code to trim the gene expression at 1 percentile and 99 percentile.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">genes</span> <span class="o">=</span> <span class="p">[</span>
+   
+<span class="p">]</span>
+
+<span class="n">fig_nrow</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">fig_ncol</span> <span class="o">=</span> <span class="mi">4</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span> <span class="o">*</span> <span class="n">fig_ncol</span><span class="p">,</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">fig_nrow</span><span class="p">))</span>
+<span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">gene_name</span> <span class="ow">in</span> <span class="n">genes</span><span class="p">:</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">fig_nrow</span><span class="p">,</span> <span class="n">fig_ncol</span><span class="p">,</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">col_gene</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">toarray</span><span class="p">()[:,</span> <span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">gene_name</span><span class="p">)]</span>
+    <span class="n">im1</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+        <span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s2">"X_umap"</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s2">"X_umap"</span><span class="p">][:,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="n">s</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">c</span><span class="o">=</span><span class="n">col_gene</span><span class="p">,</span>
+        <span class="n">cmap</span><span class="o">=</span><span class="s2">"plasma"</span><span class="p">,</span>
+        <span class="n">vmin</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">col_gene</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="n">vmax</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">col_gene</span><span class="p">,</span> <span class="mi">99</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"UMAP-1"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"UMAP-2"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"UMAP colored by "</span> <span class="o">+</span> <span class="n">gene_name</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im1</span><span class="p">)</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="c1"># To save, please uncomment the following line of code:</span>
+<span class="c1"># fig.savefig(output_directory, 'UMAP_colored_by_genes.png', dpi = 150, bbox_inches = 'tight')</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can also visualize established gene signatures (from published papers or bulk signatures) onto the computed UMAP. For example, you may be familiar with Hallmark or Reactome or GO genesets. You can load any of your favorite pathway and visualize the expression using the following code as a guideline. For illustration, we have provided you with an example geneset called geneset.txt and we will use that to visualize the expression (taken from: <a class="reference external" href="https://www.gsea-msigdb.org/gsea/msigdb/human/geneset/HALLMARK_G2M_CHECKPOINT.html">https://www.gsea-msigdb.org/gsea/msigdb/human/geneset/HALLMARK_G2M_CHECKPOINT.html</a>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># load the file</span>
+<span class="n">geneset</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_path</span> <span class="o">+</span> <span class="s2">"HALLMARK_G2M_CHECKPOINT.v2023.2.Hs.grp"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">geneset</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">genes</span> <span class="o">=</span> <span class="n">geneset</span><span class="p">[</span><span class="s2">"HALLMARK_G2M_CHECKPOINT"</span><span class="p">]</span>
+<span class="n">genes</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">genes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute a gene signature score using Scanpy's inbuilt function</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">score_genes</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span> <span class="n">genes</span><span class="p">,</span> <span class="n">score_name</span><span class="o">=</span><span class="s2">"G2_M_checkpoint"</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">use_raw</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"G2_M_checkpoint"</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"plasma"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"G2_M_checkpoint"</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"plasma"</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="s2">"p1"</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="s2">"p99"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="clustering">
+<h1>Clustering<a class="headerlink" href="#clustering" title="Link to this heading">#</a></h1>
+<p>One of the primary applications of scRNA-seq has been in the identification of novel and rare cell types. In contrast to bulk measurements, which obscure the cell-cell heterogeneity, single-cell level analysis offers an unprecedented precision to classify cells into different types.</p>
+<p>To think about it computationally: The data presents us with a bunch of objects (individual cells) that have a certain set of features (genes), and we would like to classify the objects into distinct groups or categories each consisting of similar cells. In our case, these distinct groups or categories can be biologically interpreted as cell types. Therefore, in essence the problem of identifying cell types (novel, rare or known) boils down to a problem of clustering.</p>
+<p>Performing Modularity optimization by Leiden community detection on the k-nearest-neighbour graph of cells has become an established practice in scRNA-seq analysis. Thus, this is the method of choice in this tutorial as well.</p>
+<p>Here, we perform clustering at two resolutions. Investigating several resolutions allows us to select a clustering that appears to capture the main clusters in the visualization and can provide a good baseline for further subclustering of the data to identify more specific substructure.</p>
+<p>Clustering is performed on the highly variable gene data, dimensionality reduced by PCA, and embedded into a KNN graph.</p>
+<p>Compute a <code class="docutils literal notranslate"><span class="pre">leiden</span></code> clustering with two different resolutions (<code class="docutils literal notranslate"><span class="pre">0.5</span></code> and <code class="docutils literal notranslate"><span class="pre">1.5</span></code>). Compare the clusterings in a table and visualize the clustering in an embedding.</p>
+<section id="leiden-clustering">
+<h2>Leiden clustering<a class="headerlink" href="#leiden-clustering" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">leiden</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">neighbors_key</span><span class="o">=</span><span class="s2">"neighbors_30"</span><span class="p">,</span>
+    <span class="n">key_added</span><span class="o">=</span><span class="s2">"leiden_r1.5"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">leiden</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">neighbors_key</span><span class="o">=</span><span class="s2">"neighbors_30"</span><span class="p">,</span>
+    <span class="n">key_added</span><span class="o">=</span><span class="s2">"leiden_r0.5"</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"leiden_r0.5"</span><span class="p">],</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"leiden_r1.5"</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualize the clustering</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s2">"leiden_r1.5"</span><span class="p">,</span> <span class="s2">"leiden_r0.5"</span><span class="p">],</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="investigate-mito-content-library-size-number-of-genes-expressed-in-each-cluster">
+<h2>Investigate % mito content, library size, number of genes expressed in each cluster<a class="headerlink" href="#investigate-mito-content-library-size-number-of-genes-expressed-in-each-cluster" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_temp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">"leiden"</span><span class="p">:</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"leiden_r1.5"</span><span class="p">],</span>
+        <span class="s2">"%-Mito"</span><span class="p">:</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"mt_pct_content"</span><span class="p">],</span>
+        <span class="s2">"library_size"</span><span class="p">:</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"log1p_total_counts"</span><span class="p">],</span>
+        <span class="s2">"n_genes_per_cell"</span><span class="p">:</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"log1p_n_genes_by_counts"</span><span class="p">],</span>
+    <span class="p">},</span>
+    <span class="n">index</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_temp</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span> <span class="o">*</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">"leiden"</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="s2">"%-Mito"</span><span class="p">,</span>
+    <span class="n">hue</span><span class="o">=</span><span class="s2">"leiden"</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">df_temp</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+    <span class="n">palette</span><span class="o">=</span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">palettes</span><span class="o">.</span><span class="n">zeileis_28</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="s2">"on"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">"leiden"</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="s2">"library_size"</span><span class="p">,</span>
+    <span class="n">hue</span><span class="o">=</span><span class="s2">"leiden"</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">df_temp</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+    <span class="n">palette</span><span class="o">=</span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">palettes</span><span class="o">.</span><span class="n">zeileis_28</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="s2">"on"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">"leiden"</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="s2">"n_genes_per_cell"</span><span class="p">,</span>
+    <span class="n">hue</span><span class="o">=</span><span class="s2">"leiden"</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">df_temp</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+    <span class="n">palette</span><span class="o">=</span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">palettes</span><span class="o">.</span><span class="n">zeileis_28</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="s2">"on"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">"lower left"</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="highlight-clusters-of-interest">
+<h3>Highlight clusters of interest<a class="headerlink" href="#highlight-clusters-of-interest" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clusters_interest</span> <span class="o">=</span> <span class="p">[</span><span class="s2">""</span><span class="p">]</span>  <span class="c1"># explore</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"red"</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s2">"X_umap"</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s2">"X_umap"</span><span class="p">][:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"gray"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">counter</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">clusters_interest</span><span class="p">):</span>
+    <span class="n">cells_in_cluster</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"leiden_r1.5"</span><span class="p">]</span> <span class="o">==</span> <span class="n">item</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+        <span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s2">"X_umap"</span><span class="p">][</span><span class="n">cells_in_cluster</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s2">"X_umap"</span><span class="p">][</span><span class="n">cells_in_cluster</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">counter</span><span class="p">],</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">"Cluster-"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">),</span>
+    <span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">markerscale</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">"off"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="remove-the-clusters">
+<h3>Remove the clusters<a class="headerlink" href="#remove-the-clusters" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata_clean</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"leiden_r1.5"</span><span class="p">],</span> <span class="n">clusters_interest</span><span class="p">),</span> <span class="p">:]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata_clean</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="re-do-pre-processing">
+<h1>Re-do pre-processing<a class="headerlink" href="#re-do-pre-processing" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># HVG</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">highly_variable_genes</span><span class="p">(</span>
+    <span class="n">adata_clean</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s2">"raw_data"</span><span class="p">,</span> <span class="n">n_top_genes</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span> <span class="n">flavor</span><span class="o">=</span><span class="s2">"seurat_v3"</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># PCA</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">adata_clean</span><span class="p">,</span> <span class="n">n_comps</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">use_highly_variable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Nearest Neighbors</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">adata_clean</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">use_rep</span><span class="o">=</span><span class="s2">"X_pca"</span><span class="p">,</span> <span class="n">key_added</span><span class="o">=</span><span class="s2">"neighbors_30"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># UMAP</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata_clean</span><span class="p">,</span> <span class="n">neighbors_key</span><span class="o">=</span><span class="s2">"neighbors_30"</span><span class="p">,</span> <span class="n">min_dist</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clustering</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">leiden</span><span class="p">(</span><span class="n">adata_clean</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">neighbors_key</span><span class="o">=</span><span class="s2">"neighbors_30"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata_clean</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata_clean</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"leiden"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="marker-genes-and-cluster-annotation">
+<h1>Marker genes and cluster annotation<a class="headerlink" href="#marker-genes-and-cluster-annotation" title="Link to this heading">#</a></h1>
+<p>To annotate the clusters we obtained, we find genes that are up-regulated in the cluster compared to all other clusters (marker genes). This differential expression test is performed by a <em>Welch t-test with overestimated variance</em> to be conservative. This is the default in <code class="docutils literal notranslate"><span class="pre">scanpy</span></code>. The test is automatically performed on the <code class="docutils literal notranslate"><span class="pre">.raw</span></code> data set, which is uncorrected and contains all genes. All genes are taken into account, as any gene may be an informative marker.</p>
+<p>Annotation can be performed in an manual fashion or automated.</p>
+<ul class="simple">
+<li><p>Manual annotation: based on the expression of marker genes, consultation with experts</p></li>
+<li><p>Automated annotation: the development of large-scale atlases of different tissues allows to map the datasets to references. They are based on different principles, sometimes requiring pre-defined sets of markers, other times trained on pre-existing full scRNA-seq datasets.See also several reviews <a class="reference internal" href="#10.1016/j.csbj.2021.01.015"><span class="xref myst">Pasquini et al., 2021</span></a>, <a class="reference external" href="https://doi.org/10.1186/s13059-019-1795-z">Abdelaal et al., 2019</a> for a more elaborate discussion of automated annotation methods.</p></li>
+</ul>
+<p>The resulting annotations can be of varying quality. It is therefore important to regard these methods as a starting point rather than an end-point of the annotation process.</p>
+<p>Compute the differential expression profile for each cluster with <code class="docutils literal notranslate"><span class="pre">rank_genes_groups</span></code> and visualize the results.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata_clean</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">adata_clean</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate marker genes</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">rank_genes_groups</span><span class="p">(</span><span class="n">adata_clean</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s2">"leiden"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot marker genes</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">rank_genes_groups</span><span class="p">(</span><span class="n">adata_clean</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here, we observe potentially characteristic gene expression patterns.</p>
+<p>Furthermore, the score itself is not interpretable in terms of specificity and significance in the case of clustering, because the clusters were previously defined as a group of cells being different from the rest. Therefore, we compare a group that is a priori different to the rest and the resulting scores (or p-values) are inflated. Furthermore, the smaller a cluster is, the smaller is the observed score, unless a gene is very specific to the cluster. Typically, we may find marker genes in the gene lists of the <code class="docutils literal notranslate"><span class="pre">rank_genes_groups</span></code> test, but not all marker genes have a high expression level.</p>
+<section id="wilcoxon-test">
+<h2>Wilcoxon test<a class="headerlink" href="#wilcoxon-test" title="Link to this heading">#</a></h2>
+<p>Seurat has a FindMarkers function (<a class="reference external" href="https://satijalab.org/seurat/reference/findmarkers">https://satijalab.org/seurat/reference/findmarkers</a>) to compute differentially expressed genes, and by default it performs wilcoxon test for a gene in two different groups (typically on z-scored/scaled data). We will use the rank_genes_groups function in Scanpy to do the same.</p>
+<p>On log normalized data</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">rank_genes_groups</span><span class="p">(</span>
+    <span class="n">adata_clean</span><span class="p">,</span>
+    <span class="n">groupby</span><span class="o">=</span><span class="s2">"leiden"</span><span class="p">,</span>
+    <span class="n">groups</span><span class="o">=</span><span class="s2">"all"</span><span class="p">,</span>
+    <span class="n">reference</span><span class="o">=</span><span class="s2">"rest"</span><span class="p">,</span>
+    <span class="n">key_added</span><span class="o">=</span><span class="s2">"on_norm_log"</span><span class="p">,</span>
+    <span class="n">method</span><span class="o">=</span><span class="s2">"wilcoxon"</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Example output for Cluster 0:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_wt</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">get</span><span class="o">.</span><span class="n">rank_genes_groups_df</span><span class="p">(</span><span class="n">adata_clean</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="s2">"on_norm_log"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_wt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Get the results for each cluster and save:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">cluster</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">adata_clean</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"leiden"</span><span class="p">]):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">get</span><span class="o">.</span><span class="n">rank_genes_groups_df</span><span class="p">(</span><span class="n">adata_clean</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">cluster</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="s2">"on_norm_log"</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"path/to/save/wilcoxon_cluster_"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"_vs_rest.csv"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="other-approaches">
+<h2>Other approaches:<a class="headerlink" href="#other-approaches" title="Link to this heading">#</a></h2>
+<p>If you wish to test other DEA approaches, please consider the following suggestings:</p>
+<ol class="arabic simple">
+<li><p>pseudobulk based pyDESeq2 analysis</p></li>
+<li><p>Memento: <a class="reference external" href="https://www.biorxiv.org/content/10.1101/2022.11.09.515836v1">https://www.biorxiv.org/content/10.1101/2022.11.09.515836v1</a>, <a class="github reference external" href="https://github.com/yelabucsf/scrna-parameter-estimation">yelabucsf/scrna-parameter-estimation</a></p></li>
+</ol>
+</section>
+<section id="explore-data-using-prior-knowledge">
+<h2>Explore data using prior knowledge<a class="headerlink" href="#explore-data-using-prior-knowledge" title="Link to this heading">#</a></h2>
+<p>When it comes to cluster annotation, we usually have to tap into prior knowledge of the cell type. Depending on the data set, this may involve extensive literature search.</p>
+<p>In the case of PBMCs, we may refer to several studies and single-cell RNA-sequencing data analysis tutorials to extract marker gene sets.</p>
+<p>The following list is extracted from the Seurat tutorial on PBMCs.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Marker Gene</p></th>
+<th class="head"><p>Cell Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>IL7R</p></td>
+<td><p>CD4 T cells</p></td>
+</tr>
+<tr class="row-odd"><td><p>CD14, LYZ</p></td>
+<td><p>CD14+ Monocytes</p></td>
+</tr>
+<tr class="row-even"><td><p>MS4A1</p></td>
+<td><p>B cells</p></td>
+</tr>
+<tr class="row-odd"><td><p>CD8A</p></td>
+<td><p>CD8 T cells</p></td>
+</tr>
+<tr class="row-even"><td><p>FCGR3A, MS4A7</p></td>
+<td><p>FCGR3A+ Monocytes</p></td>
+</tr>
+<tr class="row-odd"><td><p>GNLY, NKG7</p></td>
+<td><p>NK cells</p></td>
+</tr>
+<tr class="row-even"><td><p>FCER1A, CST3</p></td>
+<td><p>Dendritic Cells</p></td>
+</tr>
+<tr class="row-odd"><td><p>PPBP</p></td>
+<td><p>Megakaryocytes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">marker_genes</span> <span class="o">=</span> <span class="p">[</span>
+
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Tasks:</strong> Annotate the clusters.
+Check briefly, if all marker genes are present in the dataset and visualise the marker genes in a UMAP (or another visualisation of your choice).
+You can use auxiliary plots like <code class="docutils literal notranslate"><span class="pre">matrixplot</span></code>, <code class="docutils literal notranslate"><span class="pre">dotplot</span></code>, <code class="docutils literal notranslate"><span class="pre">heatmap</span></code> or <code class="docutils literal notranslate"><span class="pre">violin</span></code> plots or coloring an embedding (e.g. UMAP) by the marker genes.</p>
+<p>Let us check if the marker genes are expressed in our dataset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">in1d</span><span class="p">(</span><span class="n">marker_genes</span><span class="p">,</span> <span class="n">adata_clean</span><span class="o">.</span><span class="n">var_names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plots</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">dotplot</span><span class="p">(</span><span class="n">adata</span><span class="o">=</span><span class="p">,</span> 
+              <span class="n">var_names</span> <span class="o">=</span><span class="p">,</span>
+              <span class="n">groupby</span><span class="o">=</span><span class="p">,</span> 
+              <span class="n">use_raw</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">adata</span><span class="o">=</span><span class="p">,</span> 
+              <span class="n">var_names</span><span class="o">=</span><span class="p">,</span> 
+              <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+              <span class="n">groupby</span><span class="o">=</span><span class="p">,</span> 
+              <span class="n">use_raw</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">matrixplot</span><span class="p">(</span><span class="n">adata</span><span class="o">=</span><span class="p">,</span> 
+                 <span class="n">var_names</span><span class="o">=</span><span class="p">,</span>
+                 <span class="n">groupby</span><span class="o">=</span><span class="p">,</span> 
+                 <span class="n">use_raw</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">stacked_violin</span><span class="p">(</span><span class="n">adata</span> <span class="o">=</span> <span class="p">,</span>
+                     <span class="n">var_names</span> <span class="o">=</span> <span class="p">,</span> 
+                     <span class="n">groupby</span><span class="o">=</span><span class="p">,</span> 
+                     <span class="n">use_raw</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Annotate clusters and create a new covariate.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Cluster ID</p></th>
+<th class="head"><p>Marker Gene</p></th>
+<th class="head"><p>Cell Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p></p></td>
+<td><p>IL7R</p></td>
+<td><p>CD4 T cells</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>CD14, LYZ</p></td>
+<td><p>CD14+ Monocytes</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>MS4A1</p></td>
+<td><p>B cells</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>CD8A</p></td>
+<td><p>CD8 T cells</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>FCGR3A, MS4A7</p></td>
+<td><p>FCGR3A+ Monocytes</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>GNLY, NKG7</p></td>
+<td><p>NK cells</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>FCER1A, CST3</p></td>
+<td><p>Dendritic Cells</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>PPBP</p></td>
+<td><p>Megakaryocytes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> data frame functionality to rename your clusters and visualize your annotation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata_clean</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"annotated"</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata_clean</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"louvain_r1.5"</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">add_categories</span><span class="p">(</span>
+    <span class="p">[</span>
+
+    <span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">adata_clean</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"annotated"</span><span class="p">][</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">in1d</span><span class="p">(</span><span class="n">adata_clean</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"annotated"</span><span class="p">],</span> <span class="p">[])</span>  <span class="c1"># add cluster name here (as string)</span>
+<span class="p">]</span> <span class="o">=</span> <span class="s2">"CD4 T cells"</span>
+<span class="n">adata_clean</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"annotated"</span><span class="p">][</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">in1d</span><span class="p">(</span><span class="n">adata_clean</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"annotated"</span><span class="p">],</span> <span class="p">[])</span>
+<span class="p">]</span> <span class="o">=</span> <span class="s2">"CD14+ Monocytes"</span>
+<span class="n">adata_clean</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"annotated"</span><span class="p">][</span><span class="n">np</span><span class="o">.</span><span class="n">in1d</span><span class="p">(</span><span class="n">adata_clean</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"annotated"</span><span class="p">],</span> <span class="p">[])]</span> <span class="o">=</span> <span class="s2">"B cells"</span>
+<span class="n">adata_clean</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"annotated"</span><span class="p">][</span><span class="n">np</span><span class="o">.</span><span class="n">in1d</span><span class="p">(</span><span class="n">adata_clean</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"annotated"</span><span class="p">],</span> <span class="p">[])]</span> <span class="o">=</span> <span class="s2">"CD8 T cells"</span>
+<span class="n">adata_clean</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"annotated"</span><span class="p">][</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">in1d</span><span class="p">(</span><span class="n">adata_clean</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"annotated"</span><span class="p">],</span> <span class="p">[])</span>
+<span class="p">]</span> <span class="o">=</span> <span class="s2">"FCGR3A+ Monocytes"</span>
+<span class="n">adata_clean</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"annotated"</span><span class="p">][</span><span class="n">np</span><span class="o">.</span><span class="n">in1d</span><span class="p">(</span><span class="n">adata_clean</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"annotated"</span><span class="p">],</span> <span class="p">[])]</span> <span class="o">=</span> <span class="s2">"NK cells"</span>
+<span class="n">adata_clean</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"annotated"</span><span class="p">][</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">in1d</span><span class="p">(</span><span class="n">adata_clean</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"annotated"</span><span class="p">],</span> <span class="p">[])</span>
+<span class="p">]</span> <span class="o">=</span> <span class="s2">"Dendritic cells"</span>
+<span class="n">adata_clean</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"annotated"</span><span class="p">][</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">in1d</span><span class="p">(</span><span class="n">adata_clean</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"annotated"</span><span class="p">],</span> <span class="p">[])</span>
+<span class="p">]</span> <span class="o">=</span> <span class="s2">"Megakaryocytes"</span>
+
+<span class="c1"># remove unused categories from annotation</span>
+<span class="n">adata_clean</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"annotated"</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"annotated"</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">remove_unused_categories</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># check how many cells per cell type annotated</span>
+<span class="n">adata_clean</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">"annotated"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Task:</strong> Visualise your annotation on a UMAP as well as in a <code class="docutils literal notranslate"><span class="pre">matrixplot</span></code>, <code class="docutils literal notranslate"><span class="pre">dotplot</span></code>, <code class="docutils literal notranslate"><span class="pre">heatmap</span></code> or <code class="docutils literal notranslate"><span class="pre">violin</span></code> plots.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span> <span class="o">=</span> <span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'annotated'</span><span class="p">,</span> <span class="n">legend_loc</span><span class="o">=</span><span class="s1">'on data'</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span> <span class="o">=</span> <span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'annotated'</span><span class="p">,</span>  <span class="n">title</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">dotplot</span><span class="p">(</span><span class="n">adata</span><span class="o">=</span><span class="p">,</span> 
+              <span class="n">var_names</span> <span class="o">=</span><span class="p">,</span>
+              <span class="n">groupby</span><span class="o">=</span><span class="p">,</span> 
+              <span class="n">use_raw</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">adata</span><span class="o">=</span><span class="p">,</span> 
+              <span class="n">var_names</span><span class="o">=</span><span class="p">,</span> 
+              <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+              <span class="n">groupby</span><span class="o">=</span><span class="p">,</span> 
+              <span class="n">use_raw</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">matrixplot</span><span class="p">(</span><span class="n">adata</span> <span class="o">=</span> <span class="p">,</span> 
+                 <span class="n">var_names</span> <span class="o">=</span> <span class="p">,</span> 
+                 <span class="n">groupby</span><span class="o">=</span> <span class="p">,</span> 
+                 <span class="n">use_raw</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">stacked_violin</span><span class="p">(</span><span class="n">adata</span><span class="o">=</span>   <span class="p">,</span> 
+                     <span class="n">var_names</span><span class="o">=</span>   <span class="p">,</span> 
+                     <span class="n">groupby</span><span class="o">=</span>    <span class="p">,</span> 
+                     <span class="n">use_raw</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="save-results-for-future">
+<h1>Save results for future<a class="headerlink" href="#save-results-for-future" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata_clean</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata_clean</span> <span class="o">=</span> <span class="n">adata_clean</span><span class="o">.</span><span class="n">write_h5ad</span><span class="p">(</span><span class="n">data_path</span> <span class="o">+</span> <span class="s2">"processed/annotated_data.h5ad"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "scverse-workshop"
+        },
+        kernelOptions: {
+            name: "scverse-workshop",
+            path: "./day_1"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'scverse-workshop'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="nb1_qc_normalization.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">QC and Normalisation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="nb3_downstream_analysis.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Downstream: DGEA and GSEA</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Dimensionality reduction, clustering and annotation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#library-imports">Library imports</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data">Load data</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#highly-variable-genes">Highly Variable Genes</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#dimensionality-reduction-pca">Dimensionality reduction: PCA</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#note-genes-loadings-connection">Note: Genes-Loadings connection</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#nearest-neighbor-graph">Nearest neighbor graph</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#data-visualization">Data Visualization</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#umap">UMAP</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-examples">Visualization examples</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#color-by-metadata">Color by metadata</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#color-by-gene-expression">Color by gene expression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alternate-code-more-manual">Alternate code (more manual)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering">Clustering</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#leiden-clustering">Leiden clustering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#investigate-mito-content-library-size-number-of-genes-expressed-in-each-cluster">Investigate % mito content, library size, number of genes expressed in each cluster</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#highlight-clusters-of-interest">Highlight clusters of interest</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remove-the-clusters">Remove the clusters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#re-do-pre-processing">Re-do pre-processing</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#marker-genes-and-cluster-annotation">Marker genes and cluster annotation</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wilcoxon-test">Wilcoxon test</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-approaches">Other approaches:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explore-data-using-prior-knowledge">Explore data using prior knowledge</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#save-results-for-future">Save results for future</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By scverse community & outreach team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright scverse.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

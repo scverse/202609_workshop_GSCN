@@ -1,0 +1,1144 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Niche reconstruction and spatial domain detection &#8212; scverse x GSCN Workshop</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'day_2/spatial_domain_and_niche';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="/202609_workshop_GSCN/day_2/spatial_domain_and_niche.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Example notebook demonstrating how to use the sq.gr.calculate_niche() method" href="spatialdata/advanced/tutorial_niche_calculation.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../README.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/scverse_logo.png" class="logo__image only-light" alt="scverse x GSCN Workshop - Home"/>
+    <img src="../_static/scverse_logo.png" class="logo__image only-dark pst-js-only" alt="scverse x GSCN Workshop - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../README.html">
+                    scverse x GSCN workshop
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Notebooks</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../day_1/README.html">Day 1</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../day_1/nb1_qc_normalization.html">QC and Normalisation</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../day_1/nb2_preprocessing.html">Dimensionality reduction, clustering and annotation</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../day_1/nb3_downstream_analysis.html">3. Downstream Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../day_1/nb4_batch_correction.html">Batch Correction</a></li>
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../day_1/nb5_trajectory_inference.html">Introduction</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../day_1/nb6_cell_rank.html">6. Fate Probabilities with CellRank</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="README.html">Day 2</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="nb1_ligand_recepter_interactions.html">1. Ligand-Receptor Interactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nb2_differential_cellular_abundance.html">Introduction</a></li>
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="nb2_differential_cellular_abundance_pertpy_implementation.html">Introduction</a></li>
+
+
+
+<li class="toctree-l2 has-children"><a class="reference internal" href="spatialdata/README.html">Spatial Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="spatialdata/beginner/nb1_spatialdata_objects.html">1. SpatialData Objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spatialdata/beginner/nb2_static_plotting.html">2. Static Plotting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spatialdata/beginner/nb3_region_annotation.html">3. Region Annotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spatialdata/beginner/nb4_simple_analysis_using_scverse_tools.html">4. Simple Analysis using scverse Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spatialdata/advanced/transformations.html">5. Transformations (advanced)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spatialdata/advanced/tutorial_niche_calculation.html">6. Niche Calculation (advanced)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">3. Spatial Domains and Niches</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/scverse/202609_workshop_GSCN" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/day_2/spatial_domain_and_niche.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Niche reconstruction and spatial domain detection</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset">Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cell-neighborhood-detection-via-graph-construction">1. Cell neighborhood detection via graph construction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-domain-detection-with-cellcharter">2. Spatial Domain detection with CellCharter</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dimensionality-reduction">2.1 Dimensionality reduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#neighborhood-aggregation">2.2 Neighborhood aggregation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering">2.3 Clustering</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#downstream-analyses">2.4 Downstream analyses</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#shape-characterization">Shape characterization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="niche-reconstruction-and-spatial-domain-detection">
+<h1>Niche reconstruction and spatial domain detection<a class="headerlink" href="#niche-reconstruction-and-spatial-domain-detection" title="Link to this heading">#</a></h1>
+<p>In this notebook we will cover:</p>
+<ol class="arabic simple">
+<li><p>Graph construction and analysis of spatial transcriptomics data using Squidpy</p></li>
+<li><p>CellCharter</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Data analysis and ML imports</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># single-cell imports</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">squidpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sq</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scanpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sc</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="dataset">
+<h2>Dataset<a class="headerlink" href="#dataset" title="Link to this heading">#</a></h2>
+<p>We will use the Xenium AD dataset from the previous notebooks here.</p>
+<p>As a reminder the dataset consists of 6 coronal mouse brain slices from 2 different conditions (wildtype - ctrl vs TgCRND8 - AD) across 3 timepoints. We have annotated cell types that are available in  <code class="docutils literal notranslate"><span class="pre">adata.obs['cell_types']</span></code>. Please note that these annotation are not perfect. For example, there are quite some cells that could not be assigned to a cell type (NaN or “unkown”). We used leiden clustering and marker genes reported in <a class="reference external" href="https://pages.10xgenomics.com/rs/446-PBO-704/images/10x_LIT000210_App-Note_Xenium-In-Situ_Letter_Digital.pdf">this</a> document for the annotation (check corresponding jupyter notebook).</p>
+<p>In this practical we aim to understand the differences of the mouse brain between the two conditions and across the timepoints using niches and spatial domains.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">PATH</span> <span class="o">=</span> <span class="s2">"/Users/francesca.drummer/Documents/1_Projects/GSCN workshop/"</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># load adata</span>
+<span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read_h5ad</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">'xenium_mouse_ad_annotated_rotated_domain.h5ad'</span><span class="p">))</span>
+<span class="n">adata</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Creating a DataFrame from 'split', 'fov', and 'condition'</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[[</span><span class="s1">'condition'</span><span class="p">,</span> <span class="s1">'time'</span><span class="p">,</span> <span class="s1">'batch_key'</span><span class="p">]]</span>
+<span class="n">value_counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">value_counts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">'cell_types'</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="cell-neighborhood-detection-via-graph-construction">
+<h2>1. Cell neighborhood detection via graph construction<a class="headerlink" href="#cell-neighborhood-detection-via-graph-construction" title="Link to this heading">#</a></h2>
+<p>Spatial transcriptomics data can be represented as graphs with cells as nodes and edges as relations. Depending on the technology (imaging-based or sequencing-based) different assumptions can be made for the graph structure.
+Here we will explore graph construction and cell neighborhood analysis using the squidpy <code class="docutils literal notranslate"><span class="pre">sq.gr.spatial_neighbors</span></code> module on imaging-based data.</p>
+<p><em>Information for graph reconstruciton for sequencing-based data can be found <a class="reference external" href="https://squidpy.readthedocs.io/en/stable/notebooks/examples/graph/compute_spatial_neighbors.html">here</a>.</em></p>
+<p>For image-based technologies we construct a graph with <code class="docutils literal notranslate"><span class="pre">coord_type=generic</span></code>, meaning that the nodes / cells will preserve their spatial location and will not be re-arranged in a spatial grid. For generic graph approaches we can choose to set a fixed radius <code class="docutils literal notranslate"><span class="pre">radius</span></code> or number of neighbors to connect to (<code class="docutils literal notranslate"><span class="pre">n_neighs</span></code>).</p>
+<p>Below we try both graph construction methods and give them a different <code class="docutils literal notranslate"><span class="pre">key</span></code> to add to the <code class="docutils literal notranslate"><span class="pre">adata</span></code> object.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="s1">'cell_types_colors'</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">:</span>
+    <span class="k">del</span> <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="s1">'cell_types_colors'</span><span class="p">]</span>
+    
+<span class="n">sq</span><span class="o">.</span><span class="n">gr</span><span class="o">.</span><span class="n">spatial_neighbors</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_neighs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">coord_type</span><span class="o">=</span><span class="s2">"generic"</span><span class="p">,</span> <span class="n">key_added</span> <span class="o">=</span> <span class="s1">'neighs_based_spatial'</span><span class="p">)</span>
+<span class="n">sq</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">spatial_scatter</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span>
+    <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">library_key</span> <span class="o">=</span> <span class="s1">'sample'</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s2">"cell_types"</span><span class="p">],</span>
+    <span class="n">connectivity_key</span><span class="o">=</span><span class="s2">"neighs_based_spatial_connectivities"</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">'sample'</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span><span class="p">,</span>
+    <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sq</span><span class="o">.</span><span class="n">gr</span><span class="o">.</span><span class="n">spatial_neighbors</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">coord_type</span><span class="o">=</span><span class="s2">"generic"</span><span class="p">,</span> <span class="n">key_added</span> <span class="o">=</span> <span class="s1">'radius_based_spatial'</span><span class="p">)</span>
+<span class="n">sq</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">spatial_scatter</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span>
+    <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">library_key</span> <span class="o">=</span> <span class="s1">'sample'</span><span class="p">,</span> 
+    <span class="n">color</span><span class="o">=</span><span class="s2">"cell_types"</span><span class="p">,</span>
+    <span class="n">connectivity_key</span><span class="o">=</span><span class="s2">"radius_based_spatial_connectivities"</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">'sample'</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span><span class="p">,</span>
+    <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>First differences across the graphs can be observed by visual inspection, e.i. the cells that are further away from the clear brain structures are connected in the clostest neighbor approach but unconnected in the radius-based approach. Some other differences are harder to observe like dependencies in the more dense connected regions. For this Squidpy provides a number of statistics to better the differences between the connectivities of cells.</p>
+<p>Using the cell type information we can formulate some hypothesis from the data.</p>
+<p>To perform downstream analysis you require a graph structure or radius that connects the cells of interest. For example, if you are interested in the communication between Microglia and Oligodendrocytes you need to set a radius such that the cell typer connections exists.</p>
+<p><span style="color: red;"><strong>Task 1:</strong> Compute the <a class="reference external" href="https://squidpy.readthedocs.io/en/stable/notebooks/examples/graph/compute_interaction_matrix.html">interaction matrix</a> to understand differences between neighborhood and radius based graphs. Find an appropriate number of neighbors or radius that include sufficient connections between your cell types of interest.</span></p>
+<p>Example questions to answer could be: What are the average number of connections per cell type? Which cell types tend to cluster together?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sq</span><span class="o">.</span><span class="n">gr</span><span class="o">.</span><span class="n">interaction_matrix</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">cluster_key</span><span class="o">=</span><span class="s2">"cell_types"</span><span class="p">,</span> <span class="n">connectivity_key</span><span class="o">=</span><span class="s2">"neighs_based_spatial"</span><span class="p">)</span>
+<span class="n">sq</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">interaction_matrix</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">cluster_key</span><span class="o">=</span><span class="s2">"cell_types"</span><span class="p">,</span> <span class="n">connectivity_key</span><span class="o">=</span><span class="s2">"neighs_based_spatial"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#TODO: Interaction matrix for radius based graph</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><span style="color: red;"><strong>Task 2:</strong> Try out some analysis from Squidpy to identify distinctions between the graphs e.i. using the <a class="reference external" href="https://squidpy.readthedocs.io/en/stable/notebooks/examples/graph/compute_centrality_scores.html">centrality score</a> and <a class="reference external" href="https://squidpy.readthedocs.io/en/stable/notebooks/examples/graph/compute_nhood_enrichment.html">neighborhood enrichment</a>. </span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sq</span><span class="o">.</span><span class="n">gr</span><span class="o">.</span><span class="n">centrality_scores</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">cluster_key</span> <span class="o">=</span> <span class="s2">"cell_types"</span><span class="p">,</span> <span class="n">connectivity_key</span> <span class="o">=</span> <span class="s2">"neighs_based_spatial"</span><span class="p">)</span>
+<span class="n">sq</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">centrality_scores</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">cluster_key</span> <span class="o">=</span> <span class="s2">"cell_types"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sq</span><span class="o">.</span><span class="n">gr</span><span class="o">.</span><span class="n">nhood_enrichment</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">cluster_key</span><span class="o">=</span><span class="s2">"cell_types"</span><span class="p">,</span> <span class="n">library_key</span> <span class="o">=</span> <span class="s1">'condition'</span><span class="p">,</span> <span class="n">connectivity_key</span> <span class="o">=</span> <span class="s2">"radius_based_spatial"</span><span class="p">)</span>
+<span class="n">sq</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">nhood_enrichment</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span> <span class="n">cluster_key</span><span class="o">=</span><span class="s2">"cell_types"</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">"average"</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="spatial-domain-detection-with-cellcharter">
+<h2>2. Spatial Domain detection with CellCharter<a class="headerlink" href="#spatial-domain-detection-with-cellcharter" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">scvi</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scanpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sc</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">squidpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sq</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cellcharter</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cc</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'pytorch_lightning.utilities.rank_zero'</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scvi</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">seed</span> <span class="o">=</span> <span class="mi">12345</span>
+<span class="n">scvi</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">num_threads</span> <span class="o">=</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>There may be cells with very low counts. We will filter them out.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">filter_cells</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">min_counts</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="dimensionality-reduction">
+<h3>2.1 Dimensionality reduction<a class="headerlink" href="#dimensionality-reduction" title="Link to this heading">#</a></h3>
+<p>First, we need to run the dimensionality reduction. We will use <a class="reference external" href="https://docs.scvi-tools.org/en/latest/api/reference/scvi.model.SCVI.html">scVI</a> for this.</p>
+<p>Make sure that <code class="docutils literal notranslate"><span class="pre">adata.X</span></code> contains count data, as it is required by scVI. <br>
+In some tutorials you will see that the count data is stored in an AnnData layer called <code class="docutils literal notranslate"><span class="pre">counts</span></code>. Here we will use the <code class="docutils literal notranslate"><span class="pre">X</span></code> layer.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scvi</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">SCVI</span><span class="o">.</span><span class="n">setup_anndata</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">LOAD_MODEL</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We set the parameters of the neural network. Here we use 1 layer and an embedding size of 10.<br>
+These are very common parameters, but you can play with them to see how they affect the results.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">LOAD_MODEL</span><span class="p">:</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">scvi</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">SCVI</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">'scvi_model'</span><span class="p">),</span> <span class="n">adata</span><span class="o">=</span><span class="n">adata</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">scvi</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">SCVI</span><span class="p">(</span>
+        <span class="n">adata</span><span class="p">,</span>
+        <span class="n">n_layers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">n_latent</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">use_layer_norm</span><span class="o">=</span><span class="s2">"both"</span><span class="p">,</span>
+        <span class="n">use_batch_norm</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">early_stopping</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">enable_progress_bar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">max_epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To make sure that the training has converged, we can plot the training history.<br>
+Here we is important to focus on the (validation) reconstruction loss. This shows how well the model is able to reconstruct the original data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="sa">f</span><span class="s2">"reconstruction_loss_train"</span><span class="p">],</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">"train"</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">"darkgreen"</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.25</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="sa">f</span><span class="s2">"reconstruction_loss_validation"</span><span class="p">],</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">"validation"</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">"firebrick"</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.25</span>
+    <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"reconstruction_loss"</span><span class="p">)</span>  
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We extract the latent representation of the data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s1">'X_scVI'</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_latent_representation</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="neighborhood-aggregation">
+<h3>2.2 Neighborhood aggregation<a class="headerlink" href="#neighborhood-aggregation" title="Link to this heading">#</a></h3>
+<p>Until now, all the analyses have been done ignoring the spatial information. <br>
+Now we will use the spatial information to perform the clustering.</p>
+<p>First, we need to create a network where cells are connected if they are close to each other using the Delaunay triangulation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sq</span><span class="o">.</span><span class="n">gr</span><span class="o">.</span><span class="n">spatial_neighbors</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">library_key</span><span class="o">=</span><span class="s1">'sample'</span><span class="p">,</span> <span class="n">coord_type</span><span class="o">=</span><span class="s1">'generic'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sq</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">spatial_scatter</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span> 
+    <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
+    <span class="n">library_key</span><span class="o">=</span><span class="s1">'sample'</span><span class="p">,</span>
+    <span class="n">library_id</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">'sample'</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">"sample"</span><span class="p">,</span> 
+    <span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+    <span class="n">connectivity_key</span><span class="o">=</span><span class="s2">"spatial_connectivities"</span><span class="p">,</span>
+    <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As you can see, the Delaunay triangulation generates very long edges for a few cells. <br>
+The most appropriate approach would be to estimate the most biologically relevant distance between cells and use it to remove the edges longer than that distance.</p>
+<p>A quick alternative solution is that, since those long edges are sort of outlines, the measure the 99th percentile of the edge lengths and remove the edges longer than that distance. <br>
+This process will lead to some isolated cells, but that’s not a problem.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sq</span><span class="o">.</span><span class="n">gr</span><span class="o">.</span><span class="n">spatial_neighbors</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">library_key</span><span class="o">=</span><span class="s1">'sample'</span><span class="p">,</span> <span class="n">coord_type</span><span class="o">=</span><span class="s1">'generic'</span><span class="p">,</span> <span class="n">percentile</span><span class="o">=</span><span class="mi">99</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sq</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">spatial_scatter</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span> 
+    <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
+    <span class="n">library_key</span><span class="o">=</span><span class="s1">'sample'</span><span class="p">,</span>
+    <span class="n">library_id</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">'sample'</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">"sample"</span><span class="p">,</span> 
+    <span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+    <span class="n">connectivity_key</span><span class="o">=</span><span class="s2">"spatial_connectivities"</span><span class="p">,</span>
+    <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We construct the neighborhood aggregated representation by combining every cell’s features with the ones of first 3 layers of neighbors.<br>
+We will use the scVI latent representation as features and the new features will be stored in <code class="docutils literal notranslate"><span class="pre">adata.obsm['X_cellcharter']</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cc</span><span class="o">.</span><span class="n">gr</span><span class="o">.</span><span class="n">aggregate_neighbors</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_layers</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">use_rep</span><span class="o">=</span><span class="s1">'X_scVI'</span><span class="p">,</span> <span class="n">out_key</span><span class="o">=</span><span class="s1">'X_cellcharter_temp'</span><span class="p">,</span> <span class="n">sample_key</span><span class="o">=</span><span class="s1">'sample'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><span style="color: red;"><strong>Task 3:</strong> Given that <code class="docutils literal notranslate"><span class="pre">X_scVI</span></code> contains 10 features, how many features does <code class="docutils literal notranslate"><span class="pre">X_cellcharter</span></code> contain?<br>
+Guess the answer and then write the code to check it.
+</span></p>
+</section>
+<section id="clustering">
+<h3>2.3 Clustering<a class="headerlink" href="#clustering" title="Link to this heading">#</a></h3>
+<p>Finally, let’s cluster the cells and find their spatial domains.<br>
+We will use 18 clusters, we will see later why this is a good choice.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gmm</span> <span class="o">=</span> <span class="n">cc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">Cluster</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">12345</span><span class="p">)</span>
+<span class="n">gmm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">use_rep</span><span class="o">=</span><span class="s1">'X_cellcharter_temp'</span><span class="p">)</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">'spatial_domain_temp'</span><span class="p">]</span> <span class="o">=</span> <span class="n">gmm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">use_rep</span><span class="o">=</span><span class="s1">'X_cellcharter_temp'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can now plot domains and cell types back to back</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="s1">'spatial_domain_temp_colors'</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">:</span>
+    <span class="k">del</span> <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="s1">'spatial_domain_temp_colors'</span><span class="p">]</span>
+
+<span class="n">sq</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">spatial_scatter</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span> 
+    <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
+    <span class="n">library_key</span><span class="o">=</span><span class="s1">'sample'</span><span class="p">,</span> 
+    <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s2">"spatial_domain_temp"</span><span class="p">,</span> <span class="s2">"cell_types"</span><span class="p">],</span> 
+    <span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+    <span class="n">title</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">'sample'</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="downstream-analyses">
+<h3>2.4 Downstream analyses<a class="headerlink" href="#downstream-analyses" title="Link to this heading">#</a></h3>
+<p>The last section was to show how CellCharter can be used to obtain spatial domains.</p>
+<p>However, to have an easier discussion and interpretation of the results, we want everyone to have the same results.</p>
+<p>Therefore, we will use the spatial domains computed in advance using the <code class="docutils literal notranslate"><span class="pre">ClusterAutoK</span></code> model that also runs the stability analysis to find the optimal number of clusters.
+The model has been computed using 3 layers of neighbors (it took 25 minutes on a GPU).</p>
+<p>We have to:</p>
+<ol class="arabic simple">
+<li><p>load the features from the pretrained scvi model to generate the same features used by fitted <code class="docutils literal notranslate"><span class="pre">ClusterAutoK</span></code></p></li>
+<li><p>aggregate the neighborhood features using the same number of layers as used by <code class="docutils literal notranslate"><span class="pre">ClusterAutoK</span></code> (3 layers of neighbors)</p></li>
+<li><p>load the <code class="docutils literal notranslate"><span class="pre">ClusterAutoK</span></code> model</p></li>
+<li><p>plot the stability curve</p></li>
+<li><p>look for the peak(s) to identify the optimal number of clusters.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">scvi</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">SCVI</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">'scvi_model'</span><span class="p">),</span> <span class="n">adata</span><span class="o">=</span><span class="n">adata</span><span class="p">)</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s1">'X_scVI'</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_latent_representation</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">cc</span><span class="o">.</span><span class="n">gr</span><span class="o">.</span><span class="n">aggregate_neighbors</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_layers</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">use_rep</span><span class="o">=</span><span class="s1">'X_scVI'</span><span class="p">,</span> <span class="n">out_key</span><span class="o">=</span><span class="s1">'X_cellcharter'</span><span class="p">,</span> <span class="n">sample_key</span><span class="o">=</span><span class="s1">'sample'</span><span class="p">)</span>
+
+<span class="n">autok</span> <span class="o">=</span> <span class="n">cc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">ClusterAutoK</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">'autok_l3'</span><span class="p">))</span>
+<span class="n">cc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">autok_stability</span><span class="p">(</span><span class="n">autok</span><span class="p">)</span>
+
+<span class="c1"># If it takes too long also in this case, you can load the domain labels from the data folder</span>
+<span class="c1"># adata.obs['spatial_domain_18'] = pd.read_csv(Path(PATH, 'spatial_domains_cellcharter.csv'), index_col=0)['spatial_domain_18']</span>
+<span class="c1"># adata.obs['spatial_domain_18'] = adata.obs['spatial_domain_18'].astype('category')</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We don’t see a clear single peak, but we can see that the highest stability is for 18 clusters.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">'spatial_domain_18'</span><span class="p">]</span> <span class="o">=</span> <span class="n">autok</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">use_rep</span><span class="o">=</span><span class="s1">'X_cellcharter'</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="s1">'spatial_domain_18_colors'</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">:</span>
+    <span class="k">del</span> <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="s1">'spatial_domain_18_colors'</span><span class="p">]</span>
+
+<span class="n">sq</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">spatial_scatter</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span> 
+    <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
+    <span class="n">library_key</span><span class="o">=</span><span class="s1">'sample'</span><span class="p">,</span> 
+    <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s2">"spatial_domain_18"</span><span class="p">,</span> <span class="s2">"cell_types"</span><span class="p">],</span> 
+    <span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+    <span class="n">title</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">'sample'</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now that we have the spatial domains, we can look at the cell type enrichment in each domain.</p>
+<p>This function measures the likelihood of a cell type being found in a domain compared to random chance.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cc</span><span class="o">.</span><span class="n">gr</span><span class="o">.</span><span class="n">enrichment</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span>
+    <span class="n">group_key</span><span class="o">=</span><span class="s1">'spatial_domain_18'</span><span class="p">,</span>
+    <span class="n">label_key</span><span class="o">=</span><span class="s1">'cell_types'</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">cc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">enrichment</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span>
+    <span class="n">group_key</span><span class="o">=</span><span class="s1">'spatial_domain_18'</span><span class="p">,</span>
+    <span class="n">label_key</span><span class="o">=</span><span class="s1">'cell_types'</span><span class="p">,</span>
+    <span class="n">dot_scale</span><span class="o">=</span><span class="mi">8</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><span style="color: red;"><strong>Task 4:</strong>
+The <a class="reference external" href="https://atlas.brain-map.org/atlas?atlas=1&amp;amp;plate=100960076#atlas=1&amp;amp;plate=100960520&amp;amp;resolution=6.98&amp;amp;x=5512.001546223959&amp;amp;y=3967.997233072917&amp;amp;zoom=-2">Allen Brain Atlas</a> provides images and annotation of mouse brain samples at multiple depths.<br><br>
+Choose one of the six samples, go to the atlas and try to find the image that better matches the regions shown by CellCharter.</span></p>
+<p><span style="color: red;">1. Which of the 132 images is the closest one?</span><br>
+<span style="color: red;">2. After identifying the closest image, try to match the domains obtained with the annotated regions in the atlas.</span><br>
+<span style="color: red;">3. Do you find anatomical differences between the two conditions? are there differences in spatial domain compositions? Are there unique domains in one of the two conditions (Alzheimer vs wildtype)?</span><br>
+<span style="color: red;">      - Focus, in particular on comparing samples from mice of the same age.</span><br>
+<span style="color: red;">      - If you find difference between the two samples, what do you think is the cause?</span><br></p>
+<p><span style="color: red;"><strong>Task 5:</strong> Now, save the spatial domains corresponding to 9 and 23 clusters into the <code class="docutils literal notranslate"><span class="pre">adata.obs</span></code> column <code class="docutils literal notranslate"><span class="pre">spatial_domain_9</span></code> and <code class="docutils literal notranslate"><span class="pre">spatial_domain_23</span></code>.</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sq</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">spatial_scatter</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span> 
+    <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
+    <span class="n">library_key</span><span class="o">=</span><span class="s1">'sample'</span><span class="p">,</span> 
+    <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s2">"spatial_domain_9"</span><span class="p">,</span> <span class="s2">"spatial_domain_18"</span><span class="p">,</span> <span class="s2">"spatial_domain_23"</span><span class="p">],</span> 
+    <span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+    <span class="n">title</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">'sample'</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+    <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The three levels of clustering form a sort of hierarchical structure.<br>
+9-cluster domains tend to separate into subdomains in the 18 clusters, and so on.</p>
+<p><span style="color: red;"><strong>Task 6:</strong> Go back to the Allen Brain Atlas and look if some of the hierarchical structure is reflected in the atlas.</span></p>
+<section id="shape-characterization">
+<h4>Shape characterization<a class="headerlink" href="#shape-characterization" title="Link to this heading">#</a></h4>
+<p>Now, we are going to look at the shapes of the domains we obtained.</p>
+<p>We first find the local components of the domains.
+This is done by first finding the connected components of the spatial graph.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cc</span><span class="o">.</span><span class="n">gr</span><span class="o">.</span><span class="n">connected_components</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">cluster_key</span><span class="o">=</span><span class="s1">'spatial_domain_18'</span><span class="p">,</span> <span class="n">min_cells</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hackfix: squidpy's spatial_scatter has some issues with categorical data with NaNs.</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">'component_tmp'</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">'component'</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'str'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="s1">'component_tmp_colors'</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">:</span>
+    <span class="k">del</span> <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="s1">'component_tmp_colors'</span><span class="p">]</span>
+
+<span class="n">sq</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">spatial_scatter</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">[(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">'sample'</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">'TgCRND8_17_9'</span><span class="p">,</span> <span class="s1">'TgCRND8_2_5'</span><span class="p">]))],</span> 
+    <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
+    <span class="n">library_key</span><span class="o">=</span><span class="s1">'sample'</span><span class="p">,</span> 
+    <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s2">"component_tmp"</span><span class="p">,</span> <span class="s2">"spatial_domain_18"</span><span class="p">],</span> 
+    <span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+    <span class="n">title</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([</span><span class="s1">'TgCRND8_17_9'</span><span class="p">,</span> <span class="s1">'TgCRND8_2_5'</span><span class="p">],</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Then draw a boundary around every component</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">boundaries</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">alpha_start</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">boundaries</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">sample</span><span class="o">=</span><span class="s1">'wildtype_5_7'</span><span class="p">,</span> <span class="n">show_cells</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And finally, by computing some shape metrics that we will use to compare the domains.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">curl</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+<span class="n">cc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">linearity</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s look at the shape metrics of one of the cortex layers, domain 8.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">shape_metrics</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">cluster_key</span><span class="o">=</span><span class="s1">'spatial_domain_18'</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">cluster_id</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">'curl'</span><span class="p">,</span> <span class="s1">'linearity'</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><span style="color: red;"><strong>Task 7:</strong> Look at the spatial domain 0.</span><br>
+<span style="color: red;">      - Is it going to have lower, same or higher linearity than domain 8?</span><br>
+<span style="color: red;">      - What about curl?</span></p>
+<p><span style="color: red;">After you have answered, plot the shape metrics for domain 0 and check if it matches your expectations.</span></p>
+<p>Tip: you can pass multiple cluster ids to <code class="docutils literal notranslate"><span class="pre">plot_shape_metrics</span></code> in the form of a list to plot multiple domains at once.</p>
+<p><span style="color: red;"><strong>Task 8:</strong> Look at spatial domain 12.</span><br>
+<span style="color: red;">      - What do you expect to see in terms of curl and linearity?</span><br>
+<span style="color: red;">      - What about elongation?</span></p>
+<p><span style="color: red;">After answering, compute the elongation and compare the shape metrics for domains 8 and 12.</span></p>
+<p>You can check <a class="reference external" href="https://cellcharter.readthedocs.io/en/latest/tools.html">CellCharter’s documentation</a> for the elongation metric.</p>
+</section>
+</section>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<p>[1] Varrone, M., Tavernari, D., Santamaria-Martínez, A., Walsh, L. A. &amp; Ciriello, G. CellCharter reveals spatial cell niches associated with tissue remodeling and cell plasticity. Nat Genet 56, 74–84 (2024).</p>
+<p>[2] Singhal, V. et al. BANKSY unifies cell typing and tissue domain segmentation for scalable spatial omics data analysis. Nat Genet 56, 431–441 (2024).</p>
+<p>[3] <a class="github reference external" href="https://github.com/NBISweden/workshop-spatial/blob/main/labs/07b_spatial_domains.ipynb:">NBISweden/workshop-spatial</a> Last access: 14.01.2025</p>
+<p>[4] <a class="reference external" href="https://github.com/elixir-europe-training/ELIXIR-SCO-spatial-omics/blob/main/day_3/practical_4/workdir/p4_niche_domain.ipynb">ELIXIR 2025 Spatial transcriptomics course</a>. Last access: 9.10.2025</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "scverse-workshop"
+        },
+        kernelOptions: {
+            name: "scverse-workshop",
+            path: "./day_2"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'scverse-workshop'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="spatialdata/advanced/tutorial_niche_calculation.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Example notebook demonstrating how to use the <code class="docutils literal notranslate"><span class="pre">sq.gr.calculate_niche()</span></code> method</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset">Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cell-neighborhood-detection-via-graph-construction">1. Cell neighborhood detection via graph construction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-domain-detection-with-cellcharter">2. Spatial Domain detection with CellCharter</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dimensionality-reduction">2.1 Dimensionality reduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#neighborhood-aggregation">2.2 Neighborhood aggregation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering">2.3 Clustering</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#downstream-analyses">2.4 Downstream analyses</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#shape-characterization">Shape characterization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By scverse community & outreach team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright scverse.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
