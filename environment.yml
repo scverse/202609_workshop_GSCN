@@ -42,10 +42,8 @@ dependencies:
 
       # day 2 morning
       - liana
-      - pertpy
+      - pertpy   # only Milo is used here; Sccoda would additionally need pertpy[jax]
       - lamindb
-      - filelock            # pertpy imports it but does not declare it
-      - "statsmodels<0.15"  # pertpy 1.0.3 needs statsmodels.sandbox.stats.multicomp
 
       # day 2 afternoon - spatial
       - spatialdata
