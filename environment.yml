@@ -14,6 +14,11 @@ channels:
 dependencies:
   - python=3.12
   - pip
+  # scanorama and scrublet both require annoy, which publishes only one wheel on
+  # PyPI (cp310, macOS arm64). On Python 3.12 pip therefore compiles it from
+  # source, which fails on any machine without a C++ toolchain. Installing the
+  # conda-forge build first gives pip a prebuilt annoy it treats as satisfied.
+  - python-annoy
   - pip:
       # notebook interface
       - jupyterlab
