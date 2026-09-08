@@ -1,0 +1,126 @@
+[workspace]
+authors = ["anon <tim.treis@helmholtz-munich.de>"]
+# bioconda carries the Bioconductor builds miloR needs (day 2, nb2).
+channels = ["conda-forge", "bioconda"]
+name = "202609_workshop_GSCN"
+platforms = ["osx-arm64"]
+version = "0.1.0"
+
+# R packages that are not on conda go here, NOT into the env's own R library:
+# .pixi/envs is rebuilt from the lock on every `pixi install`, .pixi/rlibs is not.
+[activation.env]
+R_LIBS_USER = "$PIXI_PROJECT_ROOT/.pixi/rlibs"
+
+[tasks]
+# The supported entry point. Notebooks have to run in this env, so launch
+# jupyter from inside it rather than registering a kernel with the system one.
+lab = { cmd = "jupyter lab", depends-on = ["kernel", "install-milo"] }
+# --sys-prefix, so the kernelspec lands in the env and disappears with it. The
+# name matches environment.yml and what the notebooks record, so the conda and
+# pixi routes are interchangeable. A user-level kernelspec of the same name
+# still shadows this one - `jupyter kernelspec list` shows which won.
+kernel = { cmd = "test -f \"$CONDA_PREFIX/share/jupyter/kernels/scverse-workshop/kernel.json\" || python -m ipykernel install --sys-prefix --name scverse-workshop --display-name scverse-workshop" }
+# miloR has no osx-arm64 conda build (bioconda's newest, 1.10.0, wants
+# bioconductor-biocneighbors 1.20, and only 2.4.0 exists for arm64). Every
+# dependency IS on bioconda though, so only miloR itself compiles here - a
+# couple of minutes, once. BiocManager resolves the Bioconductor release that
+# matches this env's R. Leave `dependencies` at its default - Suggests pulls
+# in multi-gigabyte example-data packages nothing here uses.
+install-milo = { cmd = "mkdir -p \"$R_LIBS_USER\" && test -d \"$R_LIBS_USER/miloR\" || R -q --no-save -e 'install.packages(\"miloR\", repos = BiocManager::repositories(), Ncpus = 4)'" }
+
+# Everything every notebook imports, plus the implicit backends scanpy reaches
+# for (leidenalg for sc.tl.leiden, scikit-misc for flavor="seurat_v3").
+# Deliberately unpinned unless a pin has a reason written next to it.
+[dependencies]
+python = "3.12.*"
+ipykernel = "*"
+jupyterlab = "*"
+ipywidgets = "*"
+scanpy = "*"
+# cellrank 2.3.2 imports H5Group from anndata._io.specs.methods, which
+# anndata 0.13.3 removed. Unpin once cellrank releases a fix.
+anndata = "<0.13.3"
+# liana 1.10 (and much of the ecosystem) still requires pandas<3; pandas 3 is
+# what the solver picks otherwise, and liana 1.8 - the newest build that allows
+# it - passes a dtype= kwarg that anndata removed.
+pandas = "<3"
+numpy = "*"
+scipy = "*"
+matplotlib = "*"
+seaborn = "*"
+scikit-learn = "*"
+leidenalg = "*"
+igraph = "*"
+scikit-misc = "*"
+geopandas = "*"
+shapely = "*"
+session-info2 = "*"
+# scanorama and scrublet both need annoy, which publishes only a cp310 wheel on
+# PyPI. The conda-forge build keeps uv from compiling it from source.
+python-annoy = "*"
+# day 1
+decoupler-py = "*"
+cellrank = "*"
+# day 2
+pertpy = "*"
+rpy2 = "*"
+scvi-tools = "*"
+squidpy = "*"
+spatialdata = "*"
+spatialdata-io = "*"
+spatialdata-plot = "*"
+# day 2, nb2_differential_cellular_abundance runs Milo through rpy2. The R
+# side: what the notebook's own %%R cells load, plus miloR's full dependency
+# tree so `pixi run install-milo` only has to compile miloR itself.
+r-ggplot2 = "*"
+r-ggbeeswarm = "*"
+r-scales = "*"
+r-igraph = "*"
+# edgeR needs locfit; building it from CRAN fails because conda R's Makeconf
+# defines no CC17. The conda-forge binary sidesteps that.
+r-locfit = "*"
+r-biocmanager = "*"
+bioconductor-edger = "*"
+bioconductor-limma = "*"
+bioconductor-singlecellexperiment = "*"
+bioconductor-summarizedexperiment = "*"
+bioconductor-biocgenerics = "*"
+bioconductor-biocneighbors = "*"
+bioconductor-biocparallel = "*"
+bioconductor-biocsingular = "*"
+bioconductor-s4vectors = "*"
+r-cowplot = "*"
+r-dplyr = "*"
+r-ggraph = "*"
+r-ggrepel = "*"
+r-ggrastr = "*"
+r-gtools = "*"
+r-matrix = "*"
+r-matrixstats = "*"
+r-numderiv = "*"
+r-patchwork = "*"
+r-pheatmap = "*"
+r-rcolorbrewer = "*"
+r-rcpp = "*"
+r-rcpparmadillo = "*"
+r-rcppeigen = "*"
+r-rcppml = "*"
+r-stringr = "*"
+r-tibble = "*"
+r-tidyr = "*"
+
+# Not packaged on conda-forge.
+[pypi-dependencies]
+scrublet = "*"
+pydeseq2 = "*"
+pybiomart = "*"
+adjusttext = "*"
+scanorama = "*"
+scib-metrics = "*"
+palantir = "*"
+liana = ">=1.10"
+cellcharter = "*"
+anndata2ri = "*"
+# scanpy's harmony_integrate transposes harmony_out.Z_corr, which is only
+# correct for harmonypy 0.0.x; 2.x already returns cells-by-PCs.
+harmonypy = "==0.0.10"

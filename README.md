@@ -27,6 +27,20 @@ jupyter lab
 and make sure the kernel shown in the top right of each notebook is
 **scverse-workshop**.
 
+### Or, with pixi
+
+`pixi.toml` / `pixi.lock` pin the same environment exactly, which is what the
+notebooks were last run against. It needs no conda:
+
+```
+pixi run lab
+```
+
+That installs the environment if needed, registers the `scverse-workshop`
+kernel into it, builds miloR on first run, and starts JupyterLab. If you already
+have a *user-level* kernel of that name from an older environment it will shadow
+this one - check with `pixi run jupyter kernelspec list`.
+
 ## Data
 
 Day 2 needs three files, downloaded before the workshop and unzipped into

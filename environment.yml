@@ -63,6 +63,9 @@ dependencies:
       # day 2 morning
       - liana
       - pertpy   # only Milo is used here; Sccoda would additionally need pertpy[jax]
+      # No R here, so nb2_differential_cellular_abundance.ipynb (rpy2 -> miloR)
+      # does not run under this environment; use pixi, or its pertpy variant.
+      # miloR has no osx-arm64 conda build at all - see pixi.toml.
 
       # day 2 afternoon - spatial
       - spatialdata

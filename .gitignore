@@ -27,8 +27,19 @@ notebooks/day_1/data/*
 notebooks/day_2/spatialdata/data/*
 !notebooks/day_2/spatialdata/data/README.md
 
+# day-2 morning data (presenters' own) and notebook outputs
+notebooks/day_2/data/
+notebooks/day_2/outputs/
+
 # artefacts written by running the notebooks
 notebooks/**/datasets/
 notebooks/**/*.h5ad
 notebooks/**/*.zarr/
 notebooks/**/.pybiomart.sqlite
+# pixi environments
+.pixi/*
+!.pixi/config.toml
+
+# squidpy / pertpy download caches (created relative to the notebook cwd)
+/data/
+notebooks/day_2/spatialdata/advanced/data/
